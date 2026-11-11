@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="128" viewBox="0 0 1024 128">
+  <rect width="1024" height="128" fill="#0B0A1F"/>
+  <path d="M0 6h1024M0 122h1024" stroke="#5B21F0" stroke-width="4"/>
+  <text x="512" y="80" fill="#A78BFA" font-family="monospace" font-size="52" font-weight="700" text-anchor="middle">Shehroz Coder</text>
+</svg>

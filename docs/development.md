@@ -7,8 +7,9 @@ npm ci
 npm run dev
 ```
 
-The application renders the MS navbar and interactive background above an empty
-homepage shell. Portfolio sections require separate approval. See
+The application renders the preserved MS navbar/background and the Phase 05 Hero.
+Original badge artwork, CV and contact data remain pending; see
+[Components](components.md) for the exact configuration steps. See
 [Design system](design-system.md) for token usage and accessibility guidance.
 No environment variables or backend services are required.
 
@@ -26,7 +27,10 @@ verification, not production hosting. No client-side routing is configured yet.
 
 - `src/main.tsx`: React entry point.
 - `src/app/`: application composition and future providers.
-- `src/components/`: PillNav and GlowCursor.
+- `src/components/`: preserved PillNav/GlowCursor and the supplied Hero components.
+- `src/content/portfolio.ts`: editable content, links and asset paths.
+- `src/hooks/useHeroMotion.ts`: enhancement/lifecycle policy.
+- `public/images/`: strap SVG and the future original badge images.
 - `src/styles/`: global CSS, fonts, design tokens, and Tailwind import.
 - `public/icons/`: MS logo, favicons, and web app manifest.
 - `docs/`: development documentation.
@@ -40,3 +44,8 @@ suite yet; foundation validation consists of type checking, a production build,
 and development/production browser smoke checks.
 
 For the complete documentation map, see [Documentation](README.md).
+
+The Three.js lazy chunk currently exceeds Vite's 500KB warning threshold; this
+is a reported build warning, not a failed build. See [Architecture](architecture.md)
+for measured chunk sizes and [Changelog](changelog.md) for actual browser coverage.
+Do not enable nonexistent image/CV paths merely to suppress placeholders.

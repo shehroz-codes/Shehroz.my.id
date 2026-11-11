@@ -18,8 +18,8 @@ Only the transform is animated, without frame-by-frame React updates.
 ## PillNav
 
 The supplied spring engine, dot behavior, fill hover and WAAPI intro/mobile-menu
-animations are retained. The logo's spin duration and number of revolutions are
-the only changes to its animation implementation in this revision. Keyboard
+animations are retained. PillNav and the four-turn logo implementation are unchanged
+in Phase 05. Keyboard
 focus remains visible without requiring animation. CSS media rules disable
 transitions for reduced motion; the engine applies states without spring travel.
 
@@ -34,5 +34,41 @@ Reduced motion disables the canvas entirely, including preference changes during
 a session. Unsupported WebGL2/float framebuffers, shader/allocation errors and
 context loss use the static ambient gradient. Context loss stays on the fallback
 until reload. GPU objects, listeners, observers and frame requests are released
-on teardown. No automatic quality enhancement or heavy animation dependency is
-introduced. Physical GPU performance still needs device testing.
+on teardown. GlowCursor itself introduces no new dependencies in this phase. Hero-specific
+engines and costs are documented in [Architecture](architecture.md). Physical GPU
+performance still needs device testing.
+
+## Hero motion policy
+
+`src/hooks/useHeroMotion.ts` observes the Hero and document visibility, window
+focus, reduced motion, and fine-pointer capability. It disables heavy enhancement
+for coarse pointers and reported concurrency ≤2. Hidden/out-of-view/blurred Hero
+engines tear down instead of running behind the page. Rotating text remains a
+lightweight visible animation on touch; reduced motion shows a static first role.
+
+WarpText retains its supplied shaders, lens/ripple logic and rasterizer. The
+Hero adds left alignment, a 30 FPS cap, DPR 1.5 and static semantic text when
+WebGL is unavailable or disabled. OGL resources/listeners/observers are cleaned up.
+
+RotatingText retains the supplied Motion presets, grapheme/word splitting,
+AnimatePresence and highlight-width animation. Hero uses word splitting with
+short stagger and a 3-second interval. It pauses by unmounting the lazy animation
+when inactive and uses a stable static first role; timers and width controls are
+cleaned up. Screen readers receive a single stable role description.
+
+Magnet retains the supplied shared-pointer arbitration and spring solver. Hero
+limits reach to 32px and offset to 7px, with strength 5. Disabled enhancement
+removes its registry listeners; keyboard access never depends on attraction.
+
+Lanyard retains the supplied strap geometry, physics, materials and flip engine.
+The Hero requests low-power rendering, DPR 1.5, at most 30 FPS and zero breeze so
+it can become idle. It is not loaded until real front/back paths exist. Reduced
+motion/touch use static images, and context/asset errors fall back. No second
+GlowCursor or global duplicate background loop is introduced.
+
+PulseHeart preserves the supplied swell/glyph/number roll animation, with an
+added one-way local-like guard. Keyboard/reduced-motion activation updates the
+state without the pointer animation. Live preference changes settle and cancel
+a running pulse. SocialSpotlight retains its supplied beam/border effects at a
+compact size; its border pauses outside the active Hero and stops for reduced
+motion. There are no flashing effects or automatic sound.

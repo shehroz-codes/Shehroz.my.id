@@ -1,6 +1,48 @@
 # Changelog
 
-## Unreleased — centered navbar and supplied MS branding
+## Unreleased — Phase 05 Hero (original badge files pending)
+
+The navbar-branding PR was verified merged before branching from latest `main`.
+The user selected the second supplied component list after a scope clarification:
+WarpText, RotatingText, Magnet, Lanyard, PulseHeart and SocialSpotlight.
+
+- Added a responsive Hero and typed centralized personal content; kept PillNav,
+  logo rotation, GlowCursor, global styles/tokens, icons and Pages config unchanged.
+- Converted the six supplied sources to TypeScript, retaining their engines.
+  Added visibility/focus/coarse-pointer/reduced-motion/constrained-device gates,
+  static fallbacks, resource cleanup, frame/DPR caps and lazy loading.
+- Added compact social controls, one local like per load, truthful unavailable CV
+  and contact behavior, and generated text-only “Shehroz Coder” strap artwork.
+- Badge front/back paths remain null because the inline chat images were not
+  exposed as downloadable files and local Downloads paths are unavailable.
+  No replacement face was generated. Final badge artwork integration is blocked.
+- Added five source-required runtime packages and `@types/three`; measured bundle
+  sizes and the Three.js chunk warning are documented in Architecture.
+
+### Verification and remaining review
+
+- `npm ci`, type checking and production build pass. No pre-existing automated
+  test suite is configured; browser checks used temporary external Playwright.
+- Chromium reduced-motion checks pass at 320/375/390/768/1024/1366/1440/1920px:
+  responsive Hero, no horizontal overflow, working destinations, centered navbar,
+  unavailable CV explanation, contact action, local-like guard and asset paths.
+- Normal-motion StrictMode checks pass: actual WarpText shader draws, all four
+  rotating roles, Magnet movement, PulseHeart animation and live reduced-motion
+  cleanup, without runtime/console errors. Role-fit checks at 320/1440px confirm
+  all four roles fit one line with no vertical shift in the following paragraph.
+- The original Lanyard renderer mounted, loaded diagnostic logo textures and
+  tore down successfully. Those diagnostic textures were browser-only; they are
+  not shipped as replacements. Real portrait/front/back clarity remains untested.
+- Original navbar logo/background source and deployment configuration remain
+  unchanged. Their regression checks and the current external asset limitation
+  must remain visible in review; do not describe this as completed badge delivery.
+
+Not verified: real badge files, a real CV/contact endpoint, shared live reactions,
+physical GPU/mobile hardware, Safari/Firefox, screen readers or live deployment.
+Review the Hero typography/spacing, optional data behavior, reaction semantics,
+performance cost and real badge textures before merge. No other section is added.
+
+## Earlier — centered navbar and supplied MS branding
 
 - Branched from the latest `main`; existing feature branches were retained.
 - Removed the temporary preview file, its homepage specimens, sample controls,
