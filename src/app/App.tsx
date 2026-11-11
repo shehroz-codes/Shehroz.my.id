@@ -1,12 +1,10 @@
-import { useState } from "react";
 import GlowCursor from "../components/GlowCursor/GlowCursor";
 import PillNav from "../components/PillNav/PillNav";
 import type { PillNavItem } from "../components/PillNav/PillNav";
-import { DesignSystemPreview } from "../design-system/DesignSystemPreview";
 import "./App.css";
 
 const navigation: PillNavItem[] = [
-  { label: "Home", href: "#home", ariaLabel: "Home — design-system preview" },
+  { label: "Home", href: "#home", ariaLabel: "Home" },
   ...["About", "Skills", "Projects", "Contact"].map((label) => ({
     label,
     disabled: true,
@@ -15,10 +13,6 @@ const navigation: PillNavItem[] = [
 ];
 
 export function App() {
-  const [notice, setNotice] = useState(
-    "Home opens the existing preview. Other sections are not implemented yet.",
-  );
-
   return (
     <div className="app-shell">
       <GlowCursor
@@ -34,6 +28,18 @@ export function App() {
         <header className="site-header">
           <div className="site-navigation">
             <PillNav
+              logo={
+                <img
+                  src={`${import.meta.env.BASE_URL}icons/web-app-manifest-192x192.png`}
+                  alt=""
+                  width={192}
+                  height={192}
+                  decoding="async"
+                  draggable={false}
+                />
+              }
+              logoAlt="MS — Home"
+              logoHref="#home"
               items={navigation}
               activeHref="#home"
               theme="dark"
@@ -50,11 +56,8 @@ export function App() {
               highlightColor="var(--gradient-brand)"
               highlightTextColor="var(--color-text)"
               barColor="color-mix(in srgb, var(--color-surface) 80%, transparent)"
-              onItemClick={(item) => {
-                if (item.disabled)
-                  setNotice(`${item.label} is not implemented yet.`);
-              }}
               style={{
+                "--pn-mark": "36px",
                 "--pn-strong": "var(--color-text)",
                 "--pn-text": "var(--color-muted)",
                 "--pn-ring": "var(--color-accent)",
@@ -66,12 +69,12 @@ export function App() {
             />
           </div>
         </header>
-        <p className="navigation-notice" role="status">
-          {notice}
-        </p>
-        <div id="home" className="home-destination" tabIndex={-1}>
-          <DesignSystemPreview />
-        </div>
+        <main
+          id="home"
+          className="home-destination"
+          aria-label="Home"
+          tabIndex={-1}
+        />
       </div>
     </div>
   );

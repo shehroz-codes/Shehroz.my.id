@@ -1,6 +1,7 @@
 .app-shell {
   position: relative;
   isolation: isolate;
+  min-height: 100svh;
 }
 
 .glow-cursor.app-background {
@@ -19,31 +20,33 @@
 }
 
 .site-header {
-  position: sticky;
-  top: 0;
+  position: fixed;
+  inset-inline: 0;
+  top: max(1rem, env(safe-area-inset-top));
   z-index: 20;
-  padding: 1rem var(--spacing-page);
+  padding-inline: var(--spacing-page);
+  pointer-events: none;
 }
 
 .site-navigation {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   max-width: var(--container-preview);
   margin-inline: auto;
 }
 
-.site-navigation .pill-nav[data-collapsed] {
-  justify-content: flex-end;
+.site-navigation .pill-nav {
+  pointer-events: auto;
 }
 
-.navigation-notice {
-  max-width: var(--container-preview);
-  margin: 0 auto;
-  padding-inline: var(--spacing-page);
-  font-size: var(--text-label);
-  color: var(--color-muted);
+.site-navigation .pill-nav__mark,
+.site-navigation .pill-nav__mark img {
+  aspect-ratio: 1;
+  border-radius: 50%;
 }
 
 .home-destination {
+  min-height: 100svh;
+  padding-top: calc(6rem + env(safe-area-inset-top));
   scroll-margin-top: 6rem;
 }

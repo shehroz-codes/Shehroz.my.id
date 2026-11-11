@@ -853,14 +853,15 @@ const PillNav = ({
 
   const spin = (event: ReactPointerEvent) => {
     const mark = markRef.current;
-    if (!mark || event.pointerType === "touch" || mark.getAnimations().length)
+    if (!mark || event.pointerType !== "mouse" || mark.getAnimations().length)
       return;
     if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
     mark.animate(
-      [{ transform: "rotate(0deg)" }, { transform: "rotate(360deg)" }],
+      [{ transform: "rotate(0deg)" }, { transform: "rotate(1440deg)" }],
       {
-        duration: 900,
-        easing: "cubic-bezier(0.65, 0, 0.25, 1)",
+        duration: 2000,
+        easing: "cubic-bezier(0.65, 0, 0.35, 1)",
+        iterations: 1,
       },
     );
   };

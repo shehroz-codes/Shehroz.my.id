@@ -1,44 +1,44 @@
-# Design system foundation
+# Design system
 
-The root application temporarily renders `src/design-system/DesignSystemPreview.tsx`.
-It is a specimen of tokens and controls, not a portfolio page. Remove its import
-from `src/app/App.tsx` when an approved component replaces the preview.
+The temporary preview has been removed from the homepage. All underlying tokens,
+fonts and reusable CSS recipes remain available for approved future components.
 
-## Editing tokens
+## Tokens
 
 `src/styles/tokens.css` is the source of truth. Tailwind v4's `@theme` exposes
 semantic utilities such as `bg-background`, `bg-surface`, `text-text`,
 `text-muted`, `text-accent`, `font-heading`, `font-sans`, `font-mono`,
 `rounded-control`, `rounded-panel`, `text-display`, and `text-title`.
 
-Spacing uses a 0.25rem base unit (`gap-4` = 1rem). `px-page` and `py-section`
-provide fluid page spacing; headings scale with clamp. The preview uses one
-column on small screens and expands its typography and palette grids as space
-allows. All controls have a minimum 44px height.
+| Role | Value |
+| --- | --- |
+| Background | `#050310` |
+| Surface | `#0B0A1F` |
+| Primary violet | `#5B21F0` |
+| Secondary indigo | `#4F46E5` |
+| Main text | `#F8FAFC` |
+| Muted text | `#A7A3BA` |
+| Accent | `#A78BFA` |
 
-CSS custom properties in the same token file define decorative borders, focus
-outlines, interaction timing, and ambient/brand gradients. `index.css` applies
-base styles and the minimal `.ds-panel` / `.ds-button` / `.ds-button-primary`
-recipes. There is no theme switcher; the root uses `color-scheme: dark`.
+Spacing uses a 0.25rem unit (`gap-4` = 1rem). `px-page` and `py-section` provide
+fluid spacing; display/title sizes use clamp. Radii, focus outlines, decorative
+borders, interaction timing and ambient/brand gradients live in the same file.
+`src/styles/index.css` applies base styles and retains `.ds-panel`, `.ds-button`
+and `.ds-button-primary` for future use. The root uses `color-scheme: dark`.
 
 ## Fonts
 
-`fonts.css` self-hosts Latin variable WOFF2 assets from the three Fontsource
-packages (Space Grotesk, Inter, JetBrains Mono). Only normal styles are loaded,
-with `font-display: swap` and system fallbacks. No external font service is
-needed at runtime. Additional scripts or italics can be added when required;
-package licenses are retained in node_modules.
+`src/styles/fonts.css` self-hosts Latin variable WOFF2 assets: Space Grotesk for
+headings, Inter for body text, and JetBrains Mono for code. Normal styles use
+`font-display: swap` and system fallbacks. No external font service is needed.
+Additional scripts and italic files can be added when required; Fontsource
+licenses remain in the installed packages.
 
-## Accessibility and motion
+## Accessibility
 
-Use text or muted text on background/surface; use primary text on the brand
-button gradient. Primary and secondary colors are fills, not small text colors
-on dark surfaces. Swatch names sit outside the swatch to preserve contrast.
-The subtle panel border is decorative; enabled buttons use an accent border.
-All keyboard-focusable elements receive an offset 3px accent outline. Disabled
-controls are native disabled buttons. Demo clicks announce a status message.
-
-The only motion is a short border/shadow transition. The reduced-motion media
-query sets its centralized duration to zero. There are no entrance animations,
-transforms, or automatic motion. New motion must use the duration token and
-honor the same preference.
+Use main/muted text on background or surface, and main text on the brand gradient.
+Violet/indigo are fills rather than small-text colors on dark surfaces. Global
+keyboard focus uses a 3px accent outline; PillNav retains its local visible 2px
+accent rings. The 44px logo/toggle controls have reserved dimensions. Unavailable
+nav items remain explicitly `aria-disabled`, not fake anchors. Reduced motion and
+component-specific performance policies are described in [Animations](animations.md).
