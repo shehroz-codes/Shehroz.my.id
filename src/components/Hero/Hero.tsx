@@ -5,7 +5,6 @@ import WarpText from "../WarpText/WarpText";
 import Magnet from "../Magnet/Magnet";
 import PulseHeart from "../PulseHeart/PulseHeart";
 import SocialSpotlight from "../SocialSpotlight/SocialSpotlight";
-import { HeroBadge } from "./HeroBadge";
 import "./Hero.css";
 
 const RotatingText = lazy(() => import("../RotatingText/RotatingText"));
@@ -26,18 +25,16 @@ export function Hero() {
         </p>
         <p className="hero-greeting">Hi, I'm {portfolio.name}.</p>
         <h1 id="hero-title" className="hero-title">
-          <span className="sr-only">
-            Hi, I'm {portfolio.name} — {portfolio.identity}
-          </span>
+          <span className="sr-only">{portfolio.displayName}</span>
           <span aria-hidden="true">
             <WarpText
-              text={portfolio.displayName.replace(" ", "\n")}
+              text={portfolio.displayName}
               textAlign="left"
               enabled={enhanced}
               color="currentColor"
               fontFamily="var(--font-heading)"
               fontWeight={700}
-              fontSize="clamp(4.5rem, 6.8vw, 7rem)"
+              fontSize="clamp(2rem, 5vw, 4rem)"
               lineHeight={0.95}
               idleDrift={0.08}
               chromatic={0.15}
@@ -73,7 +70,7 @@ export function Hero() {
         <p className="hero-introduction">{portfolio.introduction}</p>
         <div className="hero-actions">
           <Magnet
-            disabled={!enhanced || !portfolio.cvPath}
+            disabled={!enhanced}
             padding={32}
             magnetStrength={5}
             maxOffset={7}
@@ -173,20 +170,18 @@ export function Hero() {
           <SocialSpotlight links={portfolio.socials} />
           <div className="hero-reaction">
             <PulseHeart
-              once
-              count={0}
+              disabled
+              showCount={false}
               size={26}
               likedColor="var(--color-accent)"
               idleColor="var(--color-muted)"
               pillColor="var(--color-surface)"
               textColor="var(--color-text)"
-              label="Appreciate this page (local reaction)"
+              label="Likes unavailable — shared backend is not configured"
             />
-            <span>This visit only</span>
           </div>
         </div>
       </div>
-      <HeroBadge enhanced={enhanced} />
     </section>
   );
 }

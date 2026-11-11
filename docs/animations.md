@@ -60,15 +60,13 @@ Magnet retains the supplied shared-pointer arbitration and spring solver. Hero
 limits reach to 32px and offset to 7px, with strength 5. Disabled enhancement
 removes its registry listeners; keyboard access never depends on attraction.
 
-Lanyard retains the supplied strap geometry, physics, materials and flip engine.
-The Hero requests low-power rendering, DPR 1.5, at most 30 FPS and zero breeze so
-it can become idle. It is not loaded until real front/back paths exist. Reduced
-motion/touch use static images, and context/asset errors fall back. No second
-GlowCursor or global duplicate background loop is introduced.
+PulseHeart's existing glyph/number-roll implementation is unchanged. Hero no
+longer uses the local-demo behavior: the control is disabled with no count until
+the separately planned shared backend exists. No counter behavior is represented
+as persistent. SocialSpotlight retains its supplied beam, brand glows and animated
+border at a compact size; the border pauses outside the active Hero and stops
+for reduced motion.
 
-PulseHeart preserves the supplied swell/glyph/number roll animation, with an
-added one-way local-like guard. Keyboard/reduced-motion activation updates the
-state without the pointer animation. Live preference changes settle and cancel
-a running pulse. SocialSpotlight retains its supplied beam/border effects at a
-compact size; its border pauses outside the active Hero and stops for reduced
-motion. There are no flashing effects or automatic sound.
+The final heading passes **Shehroz Coder** without a newline. Responsive font and
+stage sizing keep it on one line in canvas and static fallback. WarpText's
+original shaders, lens, pointer and click-ripple behavior are unchanged.

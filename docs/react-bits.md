@@ -20,3 +20,11 @@ Package attribution/licenses remain available with installed dependencies.
 See [Components](components.md) for integration and pending artwork,
 [Animations](animations.md) for behavior, [Architecture](architecture.md) for
 package/build costs, and [Changelog](changelog.md) for actual verification.
+
+## Final Hero corrections
+
+The new supplied WarpText/Magnet blocks and SocialSpotlight TSX match the prior
+reference. Their existing strict TypeScript implementations remain the design
+source. Final corrections remove Lanyard and the card wrapper/assets entirely,
+keep the heading on one line and restore compact proportional social tiles.
+PulseHeart's source remains unchanged; Firebase integration is explicitly deferred.

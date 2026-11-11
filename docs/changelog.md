@@ -1,6 +1,36 @@
 # Changelog
 
-## Unreleased — Phase 05 Hero (original badge files pending)
+## Unreleased — final Hero corrections
+
+- Continue on `feature/phase-05-premium-hero`; bring the already-merged Phase 05
+  main commit into the feature branch without rewriting history or modifying main.
+- Remove Lanyard, HeroBadge, the placeholder/flip/card CSS, strap asset and badge
+  config; remove `three`/`@types/three`. Keep the right-hand Hero area empty.
+- Display exactly **Shehroz Coder** on one line with responsive WarpText sizing
+  and an accessible no-wrap fallback. Retain the original shaders and interactions.
+- Apply the supplied Magnet engine to both CTAs while preserving unavailable
+  destination messages and existing styling.
+- Retain the supplied SocialSpotlight icons, beam/border/glows/focus and compact
+  tiles with proportional rounded corners. Only genuine configured URLs render.
+- Remove the local reaction label/count. PulseHeart source stays unchanged;
+  use disabled/no-count presentation while shared likes are unavailable.
+- The user explicitly deferred Firebase project creation and global-counter work.
+  No persistence, initial total, database credentials or backend is fabricated.
+
+Validation: `npm ci`, `npm run typecheck`, `npm run build` and whitespace checks
+passed. Chromium at 320/375/390/768/1024/1366/1440/1920px confirmed one-line static
+text, no clipping/overflow, absent card, unavailable CTA states, empty count,
+keyboard/mobile navigation and reduced motion. Normal-motion tests verified the
+single-row WarpText raster/shader, both Magnet movements and the configured
+social link's beam/border/glow/hover/focus. Global-like concurrency/refresh tests
+are deferred because Firebase is intentionally not configured. Physical devices,
+Safari/Firefox and live deployment were not tested.
+
+PR #6 is recorded as merged in main. New feature-branch commits cannot become
+new changes in that merged PR. API access/read failures are reported separately.
+
+
+## Earlier — Phase 05 Hero (original badge files pending)
 
 The navbar-branding PR was verified merged before branching from latest `main`.
 The user selected the second supplied component list after a scope clarification:
