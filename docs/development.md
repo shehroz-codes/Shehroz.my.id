@@ -7,8 +7,9 @@ npm ci
 npm run dev
 ```
 
-The initial application intentionally renders an empty main landmark. Portfolio
-content, visual design, and individual components require separate approval.
+The application currently renders a temporary design-system preview. Portfolio
+content and individual components require separate approval. See
+[Design system](design-system.md) for token usage and accessibility guidance.
 No environment variables or backend services are required.
 
 ## Commands
