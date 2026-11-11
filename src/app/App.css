@@ -1,0 +1,49 @@
+.app-shell {
+  position: relative;
+  isolation: isolate;
+}
+
+.glow-cursor.app-background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: var(--gradient-ambient);
+}
+
+.app-content {
+  position: relative;
+  z-index: 1;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  padding: 1rem var(--spacing-page);
+}
+
+.site-navigation {
+  display: flex;
+  justify-content: flex-end;
+  max-width: var(--container-preview);
+  margin-inline: auto;
+}
+
+.site-navigation .pill-nav[data-collapsed] {
+  justify-content: flex-end;
+}
+
+.navigation-notice {
+  max-width: var(--container-preview);
+  margin: 0 auto;
+  padding-inline: var(--spacing-page);
+  font-size: var(--text-label);
+  color: var(--color-muted);
+}
+
+.home-destination {
+  scroll-margin-top: 6rem;
+}
