@@ -9,7 +9,8 @@
   and the logo presentation without changes in Phase 05.
 - `src/components/Hero/` composes the introduction, single-line WarpText heading,
   roles, CTAs and social/reaction controls. `HeroLanyard.tsx` lazy-loads the
-  supplied typed card in the right-hand grid area (below the text on mobile).
+  supplied typed card using a right-column framing slot and a viewport-wide
+  desktop stage (below the text on mobile).
 - `src/components/{WarpText,RotatingText,Magnet,PulseHeart,SocialSpotlight}/`
   contains the existing supplied Hero implementations converted to strict TypeScript.
 - `src/content/portfolio.ts` centralizes editable identity, roles, paths and links.
@@ -34,11 +35,25 @@ Only Hero is a new portfolio section; other nav destinations remain unavailable.
 GlowCursor remains at layer 0 with pointer-transparent canvas, content at layer 1
 and the fixed header at layer 20. The complete logo/nav group stays centered.
 Hero's scoped CSS creates two columns above 850px and a single column below.
+On desktop `.hero-lanyard-renderer` is absolutely framed by `.app-content` at
+its document-top origin. It spans the viewport with no negative margin and no
+extra layout height. The right-column slot controls the resting card size and
+horizontal anchor. The physical strap begins just beyond the camera's top edge;
+its simulated length derives from the higher resting card position. The scene
+scrolls away with the Hero rather than remaining fixed over future sections.
+Hero copy is at local layer 1 above the stage at 0; the header stays at 20.
+The expanded canvas is pointer-transparent. Window listeners raycast the actual
+card, ignore copy/header/interactive controls, and capture only a card grab. Its pin target is bounded to the physical strap
+and grip reach to avoid indefinitely stretching the original spring engine.
+Cleanup restores the cursor and removes listeners. On mobile the canvas returns
+to the inline slot and original local pointer/touch handling.
 
 RotatingText/Motion remains a lazy chunk, requested when its existing animation
 is active. Three.js/Lanyard is a separate lazy chunk requested near its stage,
-except in reduced-motion sessions. Loading/unsupported/reduced-motion states show
-the actual badge artwork; there is no sample card or decorative panel. The original
+except in reduced-motion sessions. Normal loading is transparent, including the
+Suspense and texture-readiness phases, so there is no flat PNG flash. Unsupported
+WebGL2 and reduced motion show the exact static artwork. No sample card or
+decorative panel is introduced. The original
 WarpText shaders/ripple/hover and Magnet solver are retained; the heading receives
 one string without a newline, plus scoped responsive sizing for static fallback.
 

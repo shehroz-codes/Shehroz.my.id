@@ -5,40 +5,21 @@
   grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
   gap: clamp(2rem, 5vw, 6rem);
   max-width: var(--container-preview);
-  min-height: calc(100svh - 7rem);
+  min-height: min(44rem, calc(100svh - 5.5rem));
   margin-inline: auto;
-  padding: 2.5rem var(--spacing-page) 4rem;
+  padding: 1rem var(--spacing-page) 2.5rem;
 }
 .hero-copy {
+  position: relative;
+  z-index: 1;
   min-width: 0;
 }
-.hero-eyebrow {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  font: 500 0.65rem/1.5 var(--font-mono);
-  color: var(--color-accent);
-  letter-spacing: 0.12em;
-}
-.hero-eyebrow > span {
-  flex: none;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--color-accent);
-  box-shadow: 0 0 12px color-mix(in srgb, var(--color-primary) 33%, transparent);
-}
-.hero-greeting {
-  margin-top: 1.7rem;
-  font-size: clamp(1rem, 1.7vw, 1.25rem);
-  color: var(--color-muted);
-}
 .hero-title {
-  margin: 0.5rem 0 0.75rem;
+  margin: 0 0 0.4rem;
   color: var(--color-text);
 }
 .hero-title .warp-text {
-  height: clamp(5rem, 9vw, 8rem);
+  height: clamp(4rem, 7vw, 6.5rem);
   min-height: 0;
 }
 .hero-title .warp-text__fallback {
@@ -71,16 +52,19 @@
 }
 .hero-introduction {
   max-width: 33rem;
-  margin-top: 1.5rem;
+  margin-top: 1rem;
   color: var(--color-muted);
   font-size: clamp(0.95rem, 1.2vw, 1.0625rem);
   line-height: 1.8;
+  text-shadow:
+    0 1px 2px var(--color-background),
+    0 0 8px var(--color-background);
 }
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
-  margin-top: 1.8rem;
+  margin-top: 1.25rem;
 }
 .hero-cta {
   display: inline-flex;
@@ -110,13 +94,13 @@
   cursor: not-allowed;
 }
 .hero-action-status {
-  min-height: 3rem;
   margin-top: 0.65rem;
   max-width: 32rem;
   color: var(--color-muted);
   font-size: 0.75rem;
 }
 .hero-social-row {
+  margin-top: 1.25rem;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -156,10 +140,6 @@
   }
 }
 @media (max-width: 420px) {
-  .hero-eyebrow {
-    font-size: 0.55rem;
-    letter-spacing: 0.08em;
-  }
   .hero-roles {
     font-size: 0.8rem;
     gap: 0.4rem;
@@ -171,9 +151,6 @@
   }
   .hero-social-row {
     gap: 0.5rem;
-  }
-  .hero-greeting {
-    margin-top: 1.25rem;
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -197,15 +174,15 @@
 
 /* Phase 06: a reserved, unframed stage; the approved left column is unchanged. */
 .hero-lanyard-stage {
-  position: relative;
   min-width: 0;
   width: 100%;
   height: clamp(30rem, 42vw, 38rem);
+  pointer-events: none;
 }
 .hero-lanyard-static {
   position: relative;
   width: 100%;
-  height: 100%;
+  height: calc(100% - 3.5rem);
 }
 .hero-lanyard-static img {
   display: block;
@@ -216,7 +193,7 @@
 .hero-lanyard-static button {
   position: absolute;
   right: 0.5rem;
-  bottom: 0.5rem;
+  top: calc(100% + 0.5rem);
   min-height: 44px;
   padding: 0.5rem 0.875rem;
   border: 1px solid var(--border-subtle);
@@ -228,6 +205,64 @@
 }
 @media (max-width: 850px) {
   .hero-lanyard-stage {
-    height: clamp(29rem, 125vw, 38rem);
+    height: calc(clamp(29rem, 125vw, 38rem) + 3.5rem);
   }
+}
+
+/* Desktop stage is framed by app-content at document top, behind Hero copy.
+   The grid slot still reserves its original right-column space. */
+.hero-lanyard-renderer {
+  position: absolute;
+  inset: 0 0 auto;
+  height: max(42rem, 100svh);
+  z-index: 0;
+  pointer-events: none;
+}
+.hero-lanyard-renderer .lanyard-flip {
+  right: max(
+    var(--spacing-page),
+    calc((100vw - var(--container-preview)) / 2 + var(--spacing-page))
+  );
+  bottom: auto;
+  top: calc(max(160px, 22svh) + clamp(30rem, 42vw, 38rem) * 0.67 + 2rem);
+  pointer-events: auto;
+}
+@media (max-width: 850px) {
+  .hero-lanyard-stage {
+    position: relative;
+    pointer-events: auto;
+  }
+  .hero-lanyard-renderer {
+    position: relative;
+    inset: auto;
+    height: 100%;
+    pointer-events: auto;
+  }
+  .hero-lanyard-renderer .lanyard {
+    height: calc(100% - 3.5rem);
+    overflow: visible;
+  }
+  .hero-lanyard-renderer .lanyard-flip {
+    right: 0.5rem;
+    bottom: auto;
+    top: calc(100% + 0.5rem);
+  }
+}
+.hero-lanyard-static button {
+  pointer-events: auto;
+}
+.hero-lanyard-renderer:has(.lanyard[data-mode="fallback"]) {
+  position: relative;
+  inset: auto;
+  height: 100%;
+  pointer-events: auto;
+}
+.hero-lanyard-renderer:has(.lanyard[data-mode="fallback"]) .lanyard {
+  height: calc(100% - 3.5rem);
+  overflow: visible;
+}
+.hero-lanyard-renderer:has(.lanyard[data-mode="fallback"]) .lanyard-flip {
+  right: 0.5rem;
+  bottom: auto;
+  top: calc(100% + 0.5rem);
 }

@@ -1,6 +1,6 @@
 // Phase 06: adapted from the newly supplied complete TypeScript source.
 import { useEffect, useRef, useState } from "react";
-import type { CSSProperties } from "react";
+import type { CSSProperties, RefObject } from "react";
 import * as THREE from "three";
 
 import "./Lanyard.css";
@@ -49,6 +49,9 @@ export interface LanyardProps {
   intro?: boolean;
   className?: string;
   style?: CSSProperties;
+  /** Expand desktop framing and hit-test global pointer events without a blocking canvas. */
+  viewport?: boolean;
+  frameRef?: RefObject<HTMLElement | null>;
   frontAlt?: string;
   backAlt?: string;
 }
@@ -1076,6 +1079,8 @@ const Lanyard = ({
   breeze = 0.5,
   interactive = true,
   intro = true,
+  viewport = false,
+  frameRef,
   className = "",
   style,
 }: LanyardProps) => {
@@ -1331,7 +1336,14 @@ const Lanyard = ({
     const frameView = () => {
       const s = settingsRef.current!;
       const aspect = view.width / view.height;
-      let viewHeight = layout.height / clamp(s.size, 0.15, 0.9);
+      const frame = viewport
+        ? frameRef?.current?.getBoundingClientRect()
+        : undefined;
+      const bounds = container.getBoundingClientRect();
+      const frameHeight = frame?.height || view.height;
+      let viewHeight =
+        (layout.height * view.height) /
+        (frameHeight * clamp(s.size, 0.15, 0.9));
       const minimumWidth = layout.width / 0.72;
       if (viewHeight * aspect < minimumWidth)
         viewHeight = minimumWidth / aspect;
@@ -1357,11 +1369,18 @@ const Lanyard = ({
         .set(0.5, 4.5, 8)
         .normalize()
         .transformDirection(camera.matrixWorldInverse);
-      const anchorX = ((ANCHORS[s.anchor] ?? 0.5) - 0.5) * viewWidth;
-      const anchorY = viewHeight / 2 - 0.12;
-      const cardTop =
-        viewHeight / 2 -
-        viewHeight * mix(0.12, 0.42, clamp(s.strapLength, 0, 1));
+      const anchorX = frame
+        ? ((frame.left + frame.width / 2 - bounds.left - view.width / 2) *
+            viewHeight) /
+          view.height
+        : ((ANCHORS[s.anchor] ?? 0.5) - 0.5) * viewWidth;
+      // A real, longer simulated strap starts just beyond the viewport edge.
+      const anchorY = viewHeight / 2 + (viewport ? 0.02 : -0.12);
+      const cardTop = frame
+        ? viewHeight / 2 -
+          (Math.max(160, view.height * 0.22) * viewHeight) / view.height
+        : viewHeight / 2 -
+          viewHeight * mix(0.12, 0.42, clamp(s.strapLength, 0, 1));
       const hangTop = cardTop + (layout.hangY - layout.height / 2);
       sim.anchor.set(anchorX, anchorY, 0);
       configureSimulation(sim, layout, anchorY - hangTop);
@@ -1677,7 +1696,14 @@ const Lanyard = ({
       return hits[0] || null;
     };
 
+    const previousCursor = document.body.style.cursor;
+    const blocksCard = (target: EventTarget | null) =>
+      target instanceof Element &&
+      !!target.closest(
+        ".hero-copy, .site-header, button, a, input, textarea, select, [contenteditable]",
+      );
     const setCursor = (value: string) => {
+      if (viewport) document.body.style.cursor = value || previousCursor;
       if (canvas.style.cursor !== value) canvas.style.cursor = value;
     };
 
@@ -1704,7 +1730,12 @@ const Lanyard = ({
     };
 
     const onPointerDown = (event: PointerEvent) => {
-      if (!settingsRef.current!.interactive || event.button > 0) return;
+      if (
+        !settingsRef.current!.interactive ||
+        event.button > 0 ||
+        (viewport && blocksCard(event.target))
+      )
+        return;
       toPointer(event);
       const hit = pickCard();
       if (!hit) return;
@@ -1733,6 +1764,10 @@ const Lanyard = ({
 
     const onPointerMove = (event: PointerEvent) => {
       if (!settingsRef.current!.interactive) return;
+      if (viewport && !sim.grab && blocksCard(event.target)) {
+        setCursor("");
+        return;
+      }
       toPointer(event);
       if (sim.grab) {
         lastInteraction = performance.now();
@@ -1742,6 +1777,16 @@ const Lanyard = ({
         )
           press = null;
         raycaster.ray.at(sim.grab.reach, sim.grab.target);
+        if (viewport) {
+          // Bound the pin target to the strap's reach rather than stretching it
+          // indefinitely when dragging across the expanded stage. The original
+          // solver still handles the spring, grip, swing and release.
+          const reach =
+            sim.rest * JOINTS * 1.15 + sim.grab.local.distanceTo(sim.body.hang);
+          const offset = scratch.a.subVectors(sim.grab.target, sim.anchor);
+          if (offset.length() > reach)
+            sim.grab.target.copy(sim.anchor).add(offset.setLength(reach));
+        }
         start();
         return;
       }
@@ -1769,15 +1814,29 @@ const Lanyard = ({
     const onTouchStart = (event: TouchEvent) => {
       if (!settingsRef.current!.interactive || event.touches.length !== 1)
         return;
+      if (viewport && blocksCard(event.target)) return;
       toPointer(event.touches[0]);
       if (pickCard()) event.preventDefault();
     };
 
-    canvas.addEventListener("pointerdown", onPointerDown);
-    canvas.addEventListener("pointermove", onPointerMove);
-    canvas.addEventListener("pointerup", onPointerUp);
-    canvas.addEventListener("pointercancel", onPointerUp);
-    canvas.addEventListener("lostpointercapture", onPointerUp);
+    const pointerTarget = viewport ? window : canvas;
+    pointerTarget.addEventListener(
+      "pointerdown",
+      onPointerDown as EventListener,
+    );
+    pointerTarget.addEventListener(
+      "pointermove",
+      onPointerMove as EventListener,
+    );
+    pointerTarget.addEventListener("pointerup", onPointerUp as EventListener);
+    pointerTarget.addEventListener(
+      "pointercancel",
+      onPointerUp as EventListener,
+    );
+    pointerTarget.addEventListener(
+      "lostpointercapture",
+      onPointerUp as EventListener,
+    );
     canvas.addEventListener("touchstart", onTouchStart, { passive: false });
 
     const resize = () => {
@@ -1791,6 +1850,7 @@ const Lanyard = ({
 
     const resizeObserver = new ResizeObserver(resize);
     resizeObserver.observe(container);
+    if (frameRef?.current) resizeObserver.observe(frameRef.current);
     const intersectionObserver = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
       if (visible) start();
@@ -1843,12 +1903,28 @@ const Lanyard = ({
       window.removeEventListener("blur", onBlur);
       window.removeEventListener("focus", onFocus);
       canvas.removeEventListener("webglcontextlost", onContextLost);
-      canvas.removeEventListener("pointerdown", onPointerDown);
-      canvas.removeEventListener("pointermove", onPointerMove);
-      canvas.removeEventListener("pointerup", onPointerUp);
-      canvas.removeEventListener("pointercancel", onPointerUp);
-      canvas.removeEventListener("lostpointercapture", onPointerUp);
+      pointerTarget.removeEventListener(
+        "pointerdown",
+        onPointerDown as EventListener,
+      );
+      pointerTarget.removeEventListener(
+        "pointermove",
+        onPointerMove as EventListener,
+      );
+      pointerTarget.removeEventListener(
+        "pointerup",
+        onPointerUp as EventListener,
+      );
+      pointerTarget.removeEventListener(
+        "pointercancel",
+        onPointerUp as EventListener,
+      );
+      pointerTarget.removeEventListener(
+        "lostpointercapture",
+        onPointerUp as EventListener,
+      );
       canvas.removeEventListener("touchstart", onTouchStart);
+      if (viewport) document.body.style.cursor = previousCursor;
       [bodyMesh, frontMesh, backMesh, ring, clampMesh, eyelet, band].forEach(
         (mesh) => mesh.geometry?.dispose(),
       );
@@ -1868,7 +1944,7 @@ const Lanyard = ({
       renderer.forceContextLoss();
       if (canvas.parentNode) canvas.parentNode.removeChild(canvas);
     };
-  }, [reduce, failed, frontImage, backImage]);
+  }, [reduce, failed, frontImage, backImage, viewport, frameRef]);
 
   const staticMode = reduce || failed || !ready;
   const shownImage = side === "back" ? backImage : frontImage;
@@ -1885,7 +1961,7 @@ const Lanyard = ({
         reduce ? "reduced" : failed ? "fallback" : ready ? "webgl" : "loading"
       }
     >
-      {staticMode && shownImage && (
+      {(reduce || failed) && shownImage && (
         <img
           className="lanyard-static"
           src={shownImage}
@@ -1895,6 +1971,7 @@ const Lanyard = ({
         />
       )}
       <button
+        hidden={!ready && !reduce && !failed}
         className="lanyard-flip"
         type="button"
         disabled={!ready && !reduce && !failed}

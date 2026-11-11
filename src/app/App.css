@@ -47,6 +47,10 @@
 
 .home-destination {
   min-height: 100svh;
-  padding-top: calc(6rem + env(safe-area-inset-top));
+  padding-top: calc(5.5rem + env(safe-area-inset-top));
   scroll-margin-top: 6rem;
+}
+
+.site-navigation .pill-nav__burger {
+  width: 18px;
 }

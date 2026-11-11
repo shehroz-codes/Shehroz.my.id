@@ -39,7 +39,7 @@ licenses remain in the installed packages.
 Use main/muted text on background or surface, and main text on the brand gradient.
 Violet/indigo are fills rather than small-text colors on dark surfaces. Global
 keyboard focus uses a 3px accent outline; PillNav retains its local visible 2px
-accent rings. The 44px logo/toggle controls have reserved dimensions. Unavailable
+accent rings. The 50px logo/toggle controls have reserved dimensions. Unavailable
 nav items remain explicitly `aria-disabled`, not fake anchors. Reduced motion and
 component-specific performance policies are described in [Animations](animations.md).
 
@@ -57,4 +57,7 @@ The Lanyard stage adds no panel, decorative border or new global tokens. Its
 keyboard/static flip controls use the existing surface, text, border, radius and
 focus tokens with a minimum 44px target. The original badge artwork supplies its
 own colors and typography and is never recolored to match CSS tokens. Desktop
-keeps the approved two-column Hero; at 850px and below the badge follows the copy.
+keeps the two-column layout slot while the expanded scene can swing behind copy;
+at 850px and below the badge follows the copy. The requested eyebrow/greeting
+are removed and heading/role/body/action spacing is tighter. H1 font settings,
+remaining content, theme and global tokens are retained.

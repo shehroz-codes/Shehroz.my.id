@@ -4,8 +4,8 @@
 
 `src/components/Hero/Hero.tsx` is the single new section inside `main#home`.
 `Hero.css` scopes typography, the 850px grid breakpoint, CTA sizing and the
-reserved role area. Phase 06 fills the right-hand desktop grid area with the supplied original Lanyard. Existing navbar/background sources and global styles
-are unchanged. Personal content lives in `src/content/portfolio.ts`.
+reserved role area. Phase 06 fills the right-hand desktop grid area with the supplied original Lanyard. PillNav sizing is configured through CSS variables in `App.tsx`; its engine,
+GlowCursor and global tokens are unchanged. Personal content lives in `src/content/portfolio.ts`.
 
 The existing Hero components remain unchanged:
 
@@ -17,7 +17,7 @@ The existing Hero components remain unchanged:
 | PulseHeart | Unchanged visual component; shared likes deferred | `src/components/PulseHeart/` |
 | SocialSpotlight | Compact links for configured social profiles only | `src/components/SocialSpotlight/` |
 
-The Hero greeting identifies Muhammad Shehroz. The visible and accessible h1
+The eyebrow and greeting were removed by the visual refinement request. The visible and accessible h1
 contains exactly **Shehroz Coder** on one line at all tested widths. Animated content
 is hidden from screen readers; a stable role list describes the professional
 identity without repetitive announcements. CTA/like/social controls retain focus
@@ -56,7 +56,7 @@ drag/release and click/touch flip are retained. No model, Fiber, Rapier, extra
 animation package or stock card artwork is used.
 
 Configuration: portrait, contain, glossy, dark card `#080616`, radius 0.3,
-size 0.6, centered anchor, strap length 0.5/color `#111111`/width 0.65,
+size 0.67 (11.7% larger), centered framing slot, strap length 0.5/color `#111111`/width 0.65,
 silver metal, gravity 1, damping/elasticity/breeze 0.5, intro and interaction on.
 The portrait face geometry is 3:4 to match the original 1086×1448 PNGs. Native-size
 face canvases avoid stretching or adding letterboxing. The physical slot is
@@ -79,7 +79,15 @@ The native **Flip card** button supports keyboard activation and uses the same
 physics flip as card clicking. Its accessible name identifies the destination
 side; status text identifies the current side. Reduced-motion and unsupported
 WebGL2/context-loss states show the exact static artwork and still permit an
-instant front/back switch. Loading controls are disabled until ready. No
+instant front/back switch. Normal loading has no static image; the flip control
+is hidden/disabled until the first real frame. Desktop viewport framing derives
+a longer simulated strap from the top-edge anchor and higher card position.
+Mobile and static layouts reserve a separate control row so the flip button
+does not cover artwork. Desktop dragging caps the requested pin reach to the
+strap length (with 15% elastic allowance) plus the local grip-to-hardware offset;
+the original solver still performs all physical movement and release.
+`viewport`/`frameRef` are optional app integration props; standalone usage keeps
+the original local framing. No
 performance numbers for physical devices are claimed; see [Animations](animations.md).
 
 ## Original supplied designs
@@ -98,7 +106,9 @@ existing minimal root/pseudo-element preamble completes those declarations.
 ## Existing components and branding
 
 PillNav's dark/split/glass/pill/fill/dot/md settings, bounce 0.3, stretch 0.5,
-automatic collapse and intro are unchanged. Home and the MS logo link to `#home`;
+automatic collapse and intro are unchanged. App-level sizing increases logo
+36→40px, bar 44→50px, text 14→16px, horizontal item padding 16→18px and gap
+8→9px. Existing automatic width measurement still controls mobile collapse. Home and the MS logo link to `#home`;
 About/Skills/Projects/Contact stay explicitly unavailable controls. Keyboard,
 Escape/outside dismissal and inert closing panels are retained. The original
 four-turn logo behavior is described in [Animations](animations.md).
