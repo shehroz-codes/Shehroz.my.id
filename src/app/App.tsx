@@ -2,6 +2,7 @@ import GlowCursor from "../components/GlowCursor/GlowCursor";
 import PillNav from "../components/PillNav/PillNav";
 import type { PillNavItem } from "../components/PillNav/PillNav";
 import "./App.css";
+import { Hero } from "../components/Hero/Hero";
 
 const navigation: PillNavItem[] = [
   { label: "Home", href: "#home", ariaLabel: "Home" },
@@ -74,7 +75,9 @@ export function App() {
           className="home-destination"
           aria-label="Home"
           tabIndex={-1}
-        />
+        >
+          <Hero />
+        </main>
       </div>
     </div>
   );

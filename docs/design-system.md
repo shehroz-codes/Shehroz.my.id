@@ -42,3 +42,11 @@ keyboard focus uses a 3px accent outline; PillNav retains its local visible 2px
 accent rings. The 44px logo/toggle controls have reserved dimensions. Unavailable
 nav items remain explicitly `aria-disabled`, not fake anchors. Reduced motion and
 component-specific performance policies are described in [Animations](animations.md).
+
+## Hero application
+
+Hero consumes existing fonts, palette, radii and focus tokens without modifying
+the global styles. Its scoped CSS uses fluid display type, restrained highlighted
+roles, 48px CTAs and 44px social targets. The two-column layout collapses at 850px;
+320px screens keep a single readable column. Warm social-brand colors are local
+to the supplied SocialSpotlight component, not new global palette tokens.

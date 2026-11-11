@@ -1,7 +1,8 @@
 # Project documentation
 
-The homepage is a minimal shell containing the supplied MS logo, React Bits
-PillNav, and GlowCursor. No portfolio sections have been implemented.
+The homepage contains the preserved MS navbar/GlowCursor and the Phase 05 Hero.
+The original badge textures still require file transfer; the stage clearly marks
+that limitation. No other portfolio sections are implemented.
 
 | Guide | Contents |
 | --- | --- |
@@ -13,5 +14,5 @@ PillNav, and GlowCursor. No portfolio sections have been implemented.
 | [Changelog](changelog.md) | Implementation history and validation |
 | [React Bits provenance](react-bits.md) | Supplied source and adaptation boundaries |
 
-Changes are reviewed through feature branches and pull requests. Hero and all
+Changes are reviewed through feature branches and pull requests. Hero changes require review; all
 other portfolio sections remain outside the current scope.
