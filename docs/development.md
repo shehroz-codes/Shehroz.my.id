@@ -7,8 +7,8 @@ npm ci
 npm run dev
 ```
 
-The application currently renders a temporary design-system preview. Portfolio
-content and individual components require separate approval. See
+The application renders the MS navbar and interactive background above an empty
+homepage shell. Portfolio sections require separate approval. See
 [Design system](design-system.md) for token usage and accessibility guidance.
 No environment variables or backend services are required.
 
@@ -26,7 +26,9 @@ verification, not production hosting. No client-side routing is configured yet.
 
 - `src/main.tsx`: React entry point.
 - `src/app/`: application composition and future providers.
-- `src/styles/`: global CSS and Tailwind import.
+- `src/components/`: PillNav and GlowCursor.
+- `src/styles/`: global CSS, fonts, design tokens, and Tailwind import.
+- `public/icons/`: MS logo, favicons, and web app manifest.
 - `docs/`: development documentation.
 
 Add feature folders and shared components when they are needed, rather than
@@ -36,3 +38,5 @@ configuration; no PostCSS or legacy Tailwind configuration is required.
 The lockfile is committed for reproducible installs. There is no automated test
 suite yet; foundation validation consists of type checking, a production build,
 and development/production browser smoke checks.
+
+For the complete documentation map, see [Documentation](README.md).
