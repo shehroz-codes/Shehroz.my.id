@@ -1,6 +1,37 @@
 # Changelog
 
-## Unreleased — final Hero corrections
+## Unreleased — Phase 06 original Lanyard
+
+- Branch `feature/phase-06-original-lanyard` starts from main `e3487f7`, whose
+  merge history records Hero corrections PR #7. Main and unrelated work are untouched.
+- Integrate the fresh supplied TypeScript Lanyard, not the deleted sample version.
+  Add exact original front/back PNGs, preserving their bytes and blank QR area.
+- Match portrait geometry/UV proportions and physical slot to the approved artwork.
+  Retain original dark strap, silver hardware, glossy shaders, intro, physics,
+  mouse/touch drag, swing and click/tap flip. Add keyboard flip and static art.
+- Lazy-load Three.js; add reduced-motion, visibility/focus/offscreen pauses,
+  DPR/frame-rate limits, context-loss fallback and resource cleanup.
+- Preserve Hero copy/engines, PillNav/MS animation, GlowCursor, tokens, favicon,
+  Pages configuration and deferred Firebase status. Update architecture/component/
+  animation/provenance documentation with asset hashes and performance limits.
+
+Validation: `npm ci`, `npm run typecheck`, `npm run build`, and `git diff --check`
+passed. ZIP/public/dist PNG bytes and both supplied shader blocks match exactly.
+Chromium production-preview checks passed at 320/375/390/768/1024/1440/1920px
+without horizontal overflow, with real card rendering at desktop/tablet/mobile
+widths. Keyboard, card click/tap, mouse/touch drag, mobile scrolling, menu Escape,
+blur/offscreen draw-call pauses, reduced-motion/static flip, runtime motion
+preference changes, unsupported WebGL2 and actual GL context loss were checked.
+Both PNGs and favicon load with HTTP 200 under `/Shehroz.my.id/`. Desktop/mobile
+front/back screenshots were captured. Normal sessions have no console/uncaught
+errors; deliberately disabling WebGL emits the existing WarpText diagnostic.
+
+Limits: Vite's lazy Lanyard chunk advisory remains (~594KB/~152KB gzip).
+Unmodified original PNGs total 4.22MB. Tests use Chromium software WebGL and touch
+emulation; physical GPU performance, Safari/Firefox and live Pages deployment
+are not established. No merge or production deployment is authorized.
+
+## Earlier — final Hero corrections
 
 - Continue on `feature/phase-05-premium-hero`; bring the already-merged Phase 05
   main commit into the feature branch without rewriting history or modifying main.

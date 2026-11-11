@@ -1,7 +1,7 @@
 # Project documentation
 
 The homepage contains the preserved MS navbar/GlowCursor and the Phase 05 Hero.
-The former card is removed and the right-hand Hero area is empty. Shared likes
+Phase 06 adds the supplied original 3D Lanyard with exact front/back badge PNGs. Shared likes
 are deferred until a backend is configured. No other portfolio sections are implemented.
 
 | Guide | Contents |

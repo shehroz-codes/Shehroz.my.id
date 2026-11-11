@@ -6,6 +6,7 @@ import Magnet from "../Magnet/Magnet";
 import PulseHeart from "../PulseHeart/PulseHeart";
 import SocialSpotlight from "../SocialSpotlight/SocialSpotlight";
 import "./Hero.css";
+import { HeroLanyard } from "./HeroLanyard";
 
 const RotatingText = lazy(() => import("../RotatingText/RotatingText"));
 
@@ -182,6 +183,7 @@ export function Hero() {
           </div>
         </div>
       </div>
+      <HeroLanyard />
     </section>
   );
 }

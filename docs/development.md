@@ -44,6 +44,8 @@ and development/production browser smoke checks.
 
 For the complete documentation map, see [Documentation](README.md).
 
-The card and Three.js dependency were removed by the final Hero corrections.
-There is no card chunk or related build-size warning. Shared likes setup is a
+Phase 06 adds the supplied Lanyard engine with lazy `three` and development-only
+`@types/three`. Its >500KB chunk advisory and original-image payload are recorded
+in Architecture. `public/images/lanyard/` holds the exact badge originals.
+Shared likes setup is a
 separate pending task; do not use a local counter as a global total.
