@@ -70,3 +70,26 @@ for reduced motion.
 The final heading passes **Shehroz Coder** without a newline. Responsive font and
 stage sizing keep it on one line in canvas and static fallback. WarpText's
 original shaders, lens, pointer and click-ripple behavior are unchanged.
+
+## Phase 06 Lanyard
+
+The newly supplied TypeScript engine retains its foil shader strings, procedural
+strap/card/metal geometry, Verlet/spring integration, drag/release, breeze, intro
+and flip equations. App changes align the face/slot to the supplied original
+artwork and add lifecycle, accessible flip and performance safeguards.
+
+The lazy wrapper avoids loading Three.js for reduced motion. Lanyard also
+observes runtime preference changes and disposes its scene when disabled. Hidden,
+blurred or offscreen stages cancel their render loop and resume on return.
+WebGL2 absence, image failure and context loss select static original art. Cleanup
+releases observers, listeners, animation frames, geometries, materials, textures,
+environment and GL context.
+
+Fine-pointer devices reporting >4 logical processors use a DPR cap of 2 and
+60 FPS active /30 FPS after four idle seconds. Coarse/constrained devices use
+DPR 1.5 and 30/15 FPS. The source breeze continues while visible at the lower
+idle rate; it is not replaced with a different idle animation. The solver retains
+its small integration substeps. Touch outside the card retains page scrolling;
+card hit testing gates capture/drag and the supplied touch handling. The keyboard
+button provides equivalent side selection without dragging. Physical device GPU
+performance and Safari/Firefox remain unmeasured.

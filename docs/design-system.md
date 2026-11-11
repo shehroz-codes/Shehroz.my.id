@@ -50,3 +50,11 @@ the global styles. Its scoped CSS uses fluid display type, restrained highlighte
 roles, 48px CTAs and 44px social targets. The two-column layout collapses at 850px;
 320px screens keep a single readable column. Warm social-brand colors are local
 to the supplied SocialSpotlight component, not new global palette tokens.
+
+## Phase 06 badge presentation
+
+The Lanyard stage adds no panel, decorative border or new global tokens. Its
+keyboard/static flip controls use the existing surface, text, border, radius and
+focus tokens with a minimum 44px target. The original badge artwork supplies its
+own colors and typography and is never recolored to match CSS tokens. Desktop
+keeps the approved two-column Hero; at 850px and below the badge follows the copy.
