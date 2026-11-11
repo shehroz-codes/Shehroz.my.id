@@ -1,0 +1,52 @@
+/* Tailwind v4 theme: edit the palette and scales here, not in components. */
+@theme {
+  --color-background: #050310;
+  --color-surface: #0B0A1F;
+  --color-primary: #5B21F0;
+  --color-secondary: #4F46E5;
+  --color-text: #F8FAFC;
+  --color-muted: #A7A3BA;
+  --color-accent: #A78BFA;
+
+  --font-heading: 'Space Grotesk Variable', sans-serif;
+  --font-sans: 'Inter Variable', sans-serif;
+  --font-mono: 'JetBrains Mono Variable', monospace;
+
+  /* A four-pixel spacing unit powers p-4, gap-6, etc. */
+  --spacing: 0.25rem;
+  --spacing-page: clamp(1rem, 4vw, 3rem);
+  --spacing-section: clamp(2rem, 5vw, 4rem);
+  --container-preview: 72rem;
+
+  --text-display: clamp(2rem, 5vw, 3.5rem);
+  --text-display--line-height: 1.1;
+  --text-display--letter-spacing: -0.04em;
+  --text-title: clamp(1.5rem, 3vw, 2rem);
+  --text-title--line-height: 1.2;
+  --text-title--letter-spacing: -0.025em;
+  --text-body: 1rem;
+  --text-body--line-height: 1.7;
+  --text-label: 0.875rem;
+  --text-label--line-height: 1.5;
+
+  --radius-control: 0.75rem;
+  --radius-panel: 1.25rem;
+  --ease-gentle: cubic-bezier(0.2, 0, 0, 1);
+}
+
+:root {
+  color-scheme: dark;
+  --border-subtle: color-mix(in srgb, var(--color-accent) 22%, transparent);
+  --focus-color: var(--color-accent);
+  --focus-width: 3px;
+  --focus-offset: 4px;
+  --duration-interaction: 160ms;
+  --gradient-ambient: radial-gradient(ellipse at top right, color-mix(in srgb, var(--color-primary) 12%, transparent), transparent 65%);
+  --gradient-brand: linear-gradient(120deg, var(--color-primary), var(--color-secondary));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-interaction: 0ms;
+  }
+}

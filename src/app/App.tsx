@@ -1,3 +1,5 @@
+import { DesignSystemPreview } from '../design-system/DesignSystemPreview'
+
 export function App() {
-  return <main aria-label="Application" />
+  return <DesignSystemPreview />
 }

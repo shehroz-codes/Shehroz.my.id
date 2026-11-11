@@ -1,1 +1,80 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+@import './tokens.css';
+@import './fonts.css';
+
+@layer base {
+  body {
+    min-width: 320px;
+    background: var(--color-background);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    text-wrap: balance;
+  }
+
+  code, pre, kbd {
+    font-family: var(--font-mono);
+  }
+
+  :focus-visible {
+    outline: var(--focus-width) solid var(--focus-color);
+    outline-offset: var(--focus-offset);
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-background);
+  }
+}
+
+@layer components {
+  .ds-panel {
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-panel);
+    background: var(--color-surface);
+    padding: clamp(1.25rem, 3vw, 2rem);
+    min-width: 0;
+  }
+
+  .ds-button {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    gap: calc(var(--spacing) * 2);
+    border: 1px solid var(--color-accent);
+    border-radius: var(--radius-control);
+    padding: calc(var(--spacing) * 2.5) calc(var(--spacing) * 5);
+    background: var(--color-surface);
+    color: var(--color-text);
+    font-weight: 600;
+    line-height: 1.5;
+    cursor: pointer;
+    transition: border-color var(--duration-interaction) var(--ease-gentle),
+      box-shadow var(--duration-interaction) var(--ease-gentle);
+  }
+
+  .ds-button-primary {
+    background: var(--gradient-brand);
+  }
+
+  .ds-button:disabled {
+    cursor: not-allowed;
+    border-color: var(--border-subtle);
+    color: var(--color-muted);
+  }
+
+  @media (hover: hover) {
+    .ds-button:hover:not(:disabled) {
+      border-color: var(--color-text);
+      box-shadow: 0 0 0 1px var(--color-accent);
+    }
+  }
+}
