@@ -1,6 +1,48 @@
 # Changelog
 
-## Unreleased — Phase 06 original Lanyard
+## Unreleased — Hero and Lanyard visual refinement
+
+- Start `feature/phase-06-hero-refinement` from main `eac4aaf`, whose history
+  records original Lanyard PR #8 merged. No history rewriting or main edits.
+- Review the complete 40-second supplied reference sequence using timeline frames
+  before editing; capture baseline desktop/mobile views. Adopt only its top-edge
+  strap, higher resting position, broad swing and entrance behavior.
+- Increase PillNav prominence through app configuration: 50px bar, 40px MS mark,
+  16px label text, 18px horizontal item padding and 18px mobile burger. Preserve
+  the PillNav engine and original four-turn MS logo animation.
+- Remove only the requested eyebrow/greeting. Tighten Hero/title/body/action gaps,
+  hide the empty status row and retain the original one-line WarpText, rotating
+  roles, introduction, Magnet actions, social controls and PulseHeart state.
+- Increase card scale 0.6→0.67. Expand desktop rendering to the viewport top with
+  a physical anchor/longer simulated strap; retain the right-column framing slot.
+  Allow drag/swing behind Hero copy with pointer-transparent canvas and raycast
+  interaction that skips text/header/control targets. Bound extreme pin targets
+  to strap/grip reach with a 15% elastic allowance. Mobile stays inline.
+- Eliminate normal-loading static artwork from Suspense/readiness states while
+  retaining original-art reduced-motion/unsupported/context-loss fallbacks.
+  Reserve a control row on mobile/static layouts so flip never covers artwork.
+- Preserve original PNG bytes, native texture resolution, UV/slot geometry, gloss,
+  solver/intro equations, theme, other engines, dependencies and Pages config.
+
+Validation: `npm ci`, `npm run typecheck`, `npm run build`, whitespace checks and
+original-image hashes passed. Production-preview Chromium tests covered
+1366×768, 1440×900, 1920×1080 and 768/320/375/390px layouts, no overflow,
+centered navbar, top-edge stage, delayed-assets transparent load, original intro,
+wide drag/release behind text, actual CTA clickability, keyboard/direct card flip,
+mobile tap/drag/scroll, menu Escape, blur/resume and original-art reduced-motion/
+unsupported-WebGL fallbacks. Normal sessions had no console/uncaught errors;
+forced unsupported WebGL retains the existing WarpText diagnostic. Before/after,
+resting/dragged and front/back screenshots plus a 36.8-second browser recording
+were captured for review. Supplemental checks verified offscreen draw-call pause/
+resume, a simulated document-hidden event, actual WebGL context-loss cleanup,
+runtime reduced motion and the final 18px burger at 320px.
+
+Limitations: browser tests use software WebGL and emulated touch; physical-device
+GPU smoothness and Safari/Firefox are not verified. The lazy Three.js chunk size
+advisory remains (~595KB, ~153KB gzip). Original PNG payload remains 4.22MB.
+No merge or production deployment is authorized.
+
+## Earlier — Phase 06 original Lanyard
 
 - Branch `feature/phase-06-original-lanyard` starts from main `e3487f7`, whose
   merge history records Hero corrections PR #7. Main and unrelated work are untouched.

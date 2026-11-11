@@ -78,7 +78,10 @@ strap/card/metal geometry, Verlet/spring integration, drag/release, breeze, intr
 and flip equations. App changes align the face/slot to the supplied original
 artwork and add lifecycle, accessible flip and performance safeguards.
 
-The lazy wrapper avoids loading Three.js for reduced motion. Lanyard also
+The lazy wrapper avoids loading Three.js for reduced motion. Suspense renders
+nothing in normal sessions; the canvas stays hidden until both original textures
+are painted and a real frame is ready. The original horizontal hanging/drop
+intro then appears directly, without first showing a static card. Lanyard also
 observes runtime preference changes and disposes its scene when disabled. Hidden,
 blurred or offscreen stages cancel their render loop and resume on return.
 WebGL2 absence, image failure and context loss select static original art. Cleanup
@@ -93,3 +96,19 @@ its small integration substeps. Touch outside the card retains page scrolling;
 card hit testing gates capture/drag and the supplied touch handling. The keyboard
 button provides equivalent side selection without dragging. Physical device GPU
 performance and Safari/Firefox remain unmeasured.
+
+### Visual refinement reference
+
+The supplied 40-second recording shows the existing portfolio first, then the
+reference site's longer top-origin strap, broad swing and offscreen-to-hanging
+entrance. The refinement adopts only that spatial behavior. Original badge art,
+Three.js shaders and integration equations remain unchanged. Desktop rendering
+now spans the viewport; the physical anchor is at its top edge, the card rests
+higher, and the retained spring/drag solver can move it through the text region
+behind readable copy. A subtle dark paragraph text shadow preserves legibility
+as the artwork passes underneath. Text/header controls retain hit priority.
+Extreme desktop pin targets are bounded to physical strap/grip reach with 15%
+elastic allowance, preventing indefinite stretch without changing the solver. Mobile remains
+an inline card with normal page scrolling, rather than sharing the expanded
+mouse-interaction area. Screenshot comparisons cover resting and dragged states;
+software-rendered recordings do not establish physical-device frame rates.

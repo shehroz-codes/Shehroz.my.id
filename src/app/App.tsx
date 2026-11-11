@@ -58,7 +58,12 @@ export function App() {
               highlightTextColor="var(--color-text)"
               barColor="color-mix(in srgb, var(--color-surface) 80%, transparent)"
               style={{
-                "--pn-mark": "36px",
+                "--pn-mark": "40px",
+                "--pn-h": "50px",
+                "--pn-inner": "42px",
+                "--pn-x": "18px",
+                "--pn-font": "16px",
+                "--pn-gap": "9px",
                 "--pn-strong": "var(--color-text)",
                 "--pn-text": "var(--color-muted)",
                 "--pn-ring": "var(--color-accent)",

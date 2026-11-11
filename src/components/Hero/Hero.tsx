@@ -21,10 +21,6 @@ export function Hero() {
       data-motion={active ? "active" : "paused"}
     >
       <div className="hero-copy">
-        <p className="hero-eyebrow">
-          <span aria-hidden="true" /> WEB DEVELOPMENT · AI INTEGRATION
-        </p>
-        <p className="hero-greeting">Hi, I'm {portfolio.name}.</p>
         <h1 id="hero-title" className="hero-title">
           <span className="sr-only">{portfolio.displayName}</span>
           <span aria-hidden="true">
@@ -164,7 +160,7 @@ export function Hero() {
             )}
           </Magnet>
         </div>
-        <p className="hero-action-status" role="status">
+        <p className="hero-action-status" role="status" hidden={!notice}>
           {notice}
         </p>
         <div className="hero-social-row">
