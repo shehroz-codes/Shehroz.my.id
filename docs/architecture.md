@@ -7,22 +7,23 @@
   inside the real `main#home` destination. No router or backend is needed.
 - `src/app/App.css` retains viewport layering, centered/fixed navbar positioning
   and the logo presentation without changes in Phase 05.
-- `src/components/Hero/` composes the introduction, roles, CTAs, social/reaction
-  controls and badge stage. `HeroBadge.tsx` owns the static/3D badge boundary.
-- `src/components/{WarpText,RotatingText,Magnet,Lanyard,PulseHeart,SocialSpotlight}/`
+- `src/components/Hero/` composes the introduction, single-line WarpText heading,
+  roles, CTAs and social/reaction controls. The right-hand grid area is empty.
+- `src/components/{WarpText,RotatingText,Magnet,PulseHeart,SocialSpotlight}/`
   contains the six supplied implementations converted to strict TypeScript.
 - `src/content/portfolio.ts` centralizes editable identity, roles, paths and links.
 - `src/hooks/useHeroMotion.ts` gates enhancement on visibility, focus, motion
   preference, pointer capability and reported hardware concurrency.
 - `src/styles/` retains tokens, self-hosted fonts and reusable CSS recipes.
-- `public/icons/` retains the MS logo, favicons and manifest. `public/images/`
-  contains the generated text-only strap SVG; original badge PNGs are pending.
+- `public/icons/` retains the MS logo, favicons and manifest. Card/strap assets
+  have been removed; no card asset directory is required.
 
 ## Scope and source selection
 
 The user explicitly selected the second supplied component list after resolving
 conflicting briefs. Phase 05 therefore uses WarpText, RotatingText, Magnet,
-Lanyard, PulseHeart and SocialSpotlight. It does not add ProfileCard or StarBorder.
+PulseHeart and SocialSpotlight. Lanyard was subsequently removed by the final
+corrections. No replacement card, ProfileCard or StarBorder is included.
 Only Hero is a new portfolio section; other nav destinations remain unavailable.
 
 ## Layering and loading
@@ -31,27 +32,29 @@ GlowCursor remains at layer 0 with pointer-transparent canvas, content at layer 
 and the fixed header at layer 20. The complete logo/nav group stays centered.
 Hero's scoped CSS creates two columns above 850px and a single column below.
 
-RotatingText/Motion is a lazy chunk, requested when animation is active. Lanyard/
-Three.js is a separate lazy chunk requested only when both badge paths exist and
-fine-pointer enhancement is appropriate. Missing badge files show an explicitly
-labelled placeholder, without loading Three.js or issuing nonexistent requests.
-Touch, reduced motion and constrained devices receive static text and badge art.
+RotatingText/Motion remains a lazy chunk, requested when its existing animation
+is active. The card component, its placeholder, strap and Three.js dependency
+have been removed. Desktop keeps the right-hand grid area empty. The original
+WarpText shaders/ripple/hover and Magnet solver are retained; the heading receives
+one string without a newline, plus scoped responsive sizing for static fallback.
 
 ## Dependencies and cost
 
-Existing React, React DOM, Fontsource, Vite, TypeScript and Tailwind remain.
-The supplied implementations add `motion` (RotatingText), `ogl` (WarpText),
-`three` (Lanyard), `react-icons` (social logos), `@hugeicons/core-free-icons`
-(PulseHeart paths), and development-only `@types/three`. No alternative animation
-engines or component installers are added.
+The remaining source-required packages are `motion`, `ogl`, `react-icons` and
+`@hugeicons/core-free-icons`, alongside the existing React/Fontsource packages.
+`three` and `@types/three` were removed because no remaining code needs them.
+Local production output is about 350KB main JS (~111KB gzip) and 164KB lazy
+RotatingText (~55.6KB gzip). The former 592KB card chunk and its build warning
+are gone. These are build sizes, not FPS or Lighthouse measurements.
 
-The baseline main JS was ~259KB (~81.5KB gzip). Phase 05 main is ~352KB (~112KB
-gzip), plus lazy Motion/RotatingText ~164KB (~55.6KB gzip) and lazy Lanyard/Three.js
-~592KB (~152KB gzip). These are local production-build measurements, not network
-or FPS benchmarks. Vite warns about the >500KB Three.js chunk; it remains visible
-and documented. That chunk is not downloaded while original badge assets are
-missing or enhancement is unsuitable. Retest performance on real hardware before
-turning on the full card for modest devices.
+## Shared likes status
+
+No Firebase project/backend is configured. The user explicitly deferred that
+integration to a separate setup task. PulseHeart's component source is unchanged;
+Hero uses its disabled/no-count state and does not claim a shared total. No SDK,
+localStorage counter, fake persistence, initial count or privileged key is added.
+Future integration requires a selected Firebase project or service, atomic server
+increments, abuse controls, and tests across refreshes and independent sessions.
 
 ## GitHub Pages
 

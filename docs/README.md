@@ -1,8 +1,8 @@
 # Project documentation
 
 The homepage contains the preserved MS navbar/GlowCursor and the Phase 05 Hero.
-The original badge textures still require file transfer; the stage clearly marks
-that limitation. No other portfolio sections are implemented.
+The former card is removed and the right-hand Hero area is empty. Shared likes
+are deferred until a backend is configured. No other portfolio sections are implemented.
 
 | Guide | Contents |
 | --- | --- |
