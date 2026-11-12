@@ -14,6 +14,12 @@
   z-index: 1;
   min-width: 0;
 }
+.hero-greeting {
+  margin: 0 0 0.5rem;
+  color: var(--color-muted);
+  font-family: var(--font-heading);
+  font-size: clamp(0.875rem, 1.3vw, 1rem);
+}
 .hero-title {
   margin: 0 0 0.4rem;
   color: var(--color-text);

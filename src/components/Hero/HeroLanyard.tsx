@@ -54,7 +54,7 @@ export function HeroLanyard() {
         onClick={() => setBack((value) => !value)}
         aria-label={`Show ${back ? "front" : "back"} of developer badge`}
       >
-        Flip card
+        <span aria-hidden="true">↻</span>
       </button>
     </div>
   );

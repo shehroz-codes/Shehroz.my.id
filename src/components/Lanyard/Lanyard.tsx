@@ -883,12 +883,14 @@ const placeHanging = (sim: Simulation, layout: CardLayout, intro: boolean) => {
   nodes[0].copy(anchor);
   for (let i = 1; i <= JOINTS; i++) {
     nodes[i].copy(nodes[i - 1]);
-    if (intro) nodes[i].x += sim.rest;
-    else nodes[i].y -= sim.rest;
+    if (intro) {
+      nodes[i].x += sim.rest * Math.SQRT1_2;
+      nodes[i].y -= sim.rest * Math.SQRT1_2;
+    } else nodes[i].y -= sim.rest;
   }
   body.quaternion.identity();
   if (intro)
-    body.quaternion.setFromAxisAngle(new THREE.Vector3(0, 0, 1), Math.PI / 2);
+    body.quaternion.setFromAxisAngle(new THREE.Vector3(0, 0, 1), Math.PI / 4);
   body.hang.set(0, layout.hangY, 0);
   const offset = scratch.a.copy(body.hang).applyQuaternion(body.quaternion);
   body.position.copy(nodes[JOINTS]).sub(offset);
@@ -1777,16 +1779,6 @@ const Lanyard = ({
         )
           press = null;
         raycaster.ray.at(sim.grab.reach, sim.grab.target);
-        if (viewport) {
-          // Bound the pin target to the strap's reach rather than stretching it
-          // indefinitely when dragging across the expanded stage. The original
-          // solver still handles the spring, grip, swing and release.
-          const reach =
-            sim.rest * JOINTS * 1.15 + sim.grab.local.distanceTo(sim.body.hang);
-          const offset = scratch.a.subVectors(sim.grab.target, sim.anchor);
-          if (offset.length() > reach)
-            sim.grab.target.copy(sim.anchor).add(offset.setLength(reach));
-        }
         start();
         return;
       }
@@ -1982,7 +1974,7 @@ const Lanyard = ({
         }}
         aria-label={`Show ${side === "front" ? "back" : "front"} of developer badge`}
       >
-        Flip card
+        <span aria-hidden="true">↻</span>
       </button>
       <span className="sr-only" role="status">
         {side === "front" ? frontAlt : backAlt}
