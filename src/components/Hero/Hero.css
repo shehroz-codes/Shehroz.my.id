@@ -115,18 +115,13 @@
   flex-wrap: wrap;
   gap: 1rem;
 }
-.hero-reaction {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
 @media (max-width: 850px) {
   .home-destination:has(> .hero) {
     padding-top: 0;
   }
   .hero {
     grid-template-columns: minmax(0, 1fr);
-    gap: 2.5rem;
+    gap: 1rem;
     max-width: 40rem;
     padding-top: 0;
     overflow-x: clip;
@@ -217,7 +212,7 @@
 }
 @media (max-width: 850px) {
   .hero-lanyard-stage {
-    height: calc(clamp(29rem, 125vw, 38rem) + 3.5rem);
+    height: clamp(29rem, 125vw, 38rem);
   }
 }
 
@@ -251,8 +246,11 @@
     height: 100%;
     pointer-events: auto;
   }
+  .hero-lanyard-static {
+    height: 100%;
+  }
   .hero-lanyard-renderer .lanyard {
-    height: calc(100% - 3.5rem);
+    height: 100%;
     overflow: visible;
   }
   .hero-lanyard-renderer .lanyard-flip {
@@ -278,4 +276,10 @@
   right: 0.5rem;
   bottom: auto;
   top: calc(100% + 0.5rem);
+}
+
+@media (max-width: 850px) {
+  .hero-lanyard-renderer:has(.lanyard[data-mode="fallback"]) .lanyard {
+    height: 100%;
+  }
 }

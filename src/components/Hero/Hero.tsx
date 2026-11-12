@@ -3,17 +3,14 @@ import { portfolio } from "../../content/portfolio";
 import { useHeroMotion } from "../../hooks/useHeroMotion";
 import WarpText from "../WarpText/WarpText";
 import Magnet from "../Magnet/Magnet";
-import PulseHeart from "../PulseHeart/PulseHeart";
 import SocialSpotlight from "../SocialSpotlight/SocialSpotlight";
 import "./Hero.css";
-import { usePortfolioLike } from "../../hooks/usePortfolioLike";
 import { HeroLanyard } from "./HeroLanyard";
 
 const RotatingText = lazy(() => import("../RotatingText/RotatingText"));
 
 export function Hero() {
   const { ref, enhanced, active } = useHeroMotion();
-  const like = usePortfolioLike();
   const [notice, setNotice] = useState("");
   const [mobile, setMobile] = useState(
     () => matchMedia("(max-width: 850px)").matches,
@@ -51,7 +48,6 @@ export function Hero() {
           </span>
         </h1>
         <div className="hero-roles" aria-label={portfolio.roles.join(", ")}>
-          <span aria-hidden="true">I’m a</span>
           <span aria-hidden="true" className="hero-roles-window">
             <Suspense
               fallback={
@@ -180,20 +176,6 @@ export function Hero() {
         </p>
         <div className="hero-social-row">
           <SocialSpotlight links={portfolio.socials} />
-          <div className="hero-reaction">
-            <PulseHeart
-              disabled={!like.ready}
-              liked={like.liked}
-              onChange={like.change}
-              showCount={false}
-              size={26}
-              likedColor="var(--color-accent)"
-              idleColor="var(--color-muted)"
-              pillColor="var(--color-surface)"
-              textColor="var(--color-text)"
-              label={like.liked ? "Unlike (saved on this device)" : "Like (saved on this device)"}
-            />
-          </div>
         </div>
       </div>
       <HeroLanyard />
