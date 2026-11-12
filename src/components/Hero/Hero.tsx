@@ -21,6 +21,7 @@ export function Hero() {
       data-motion={active ? "active" : "paused"}
     >
       <div className="hero-copy">
+        <p className="hero-greeting">Hi, I am Muhammad Shehroz</p>
         <h1 id="hero-title" className="hero-title">
           <span className="sr-only">{portfolio.displayName}</span>
           <span aria-hidden="true">
