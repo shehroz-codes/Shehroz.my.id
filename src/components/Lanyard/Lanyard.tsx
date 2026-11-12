@@ -749,6 +749,15 @@ const paintStrap = (
     ctx.fillRect(across * 0.075, y, 2, 8);
     ctx.fillRect(across * 0.925 - 2, y, 2, 8);
   }
+  ctx.save();
+  ctx.translate(across / 2, along / 2);
+  ctx.rotate(Math.PI / 2);
+  ctx.fillStyle = "#eeeeee";
+  ctx.font = "600 44px sans-serif";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText("@Shehroz Coder", 0, 0, along * 0.85);
+  ctx.restore();
   return along / across;
 };
 
@@ -1092,7 +1101,6 @@ const Lanyard = ({
   const [reduce, setReduce] = useState(
     () => window.matchMedia("(prefers-reduced-motion: reduce)").matches,
   );
-  const flipRef = useRef<(() => void) | null>(null);
   useEffect(() => {
     const query = window.matchMedia("(prefers-reduced-motion: reduce)");
     const update = () => setReduce(query.matches);
@@ -1377,7 +1385,7 @@ const Lanyard = ({
           view.height
         : ((ANCHORS[s.anchor] ?? 0.5) - 0.5) * viewWidth;
       // A real, longer simulated strap starts just beyond the viewport edge.
-      const anchorY = viewHeight / 2 + (viewport ? 0.02 : -0.12);
+      const anchorY = viewHeight / 2 + (viewport ? 0.02 : 0);
       const cardTop = frame
         ? viewHeight / 2 -
           (Math.max(160, view.height * 0.22) * viewHeight) / view.height
@@ -1726,11 +1734,6 @@ const Lanyard = ({
       body.angular.addScaledVector(up, FLIP_SPIN * direction);
     };
 
-    flipRef.current = () => {
-      flip(sim.body.position.clone());
-      start();
-    };
-
     const onPointerDown = (event: PointerEvent) => {
       if (
         !settingsRef.current!.interactive ||
@@ -1888,7 +1891,6 @@ const Lanyard = ({
       alive = false;
       cancelAnimationFrame(raf);
       applyRef.current = null;
-      flipRef.current = null;
       resizeObserver.disconnect();
       intersectionObserver.disconnect();
       document.removeEventListener("visibilitychange", onVisibility);
@@ -1962,20 +1964,6 @@ const Lanyard = ({
           height={1448}
         />
       )}
-      <button
-        hidden={!ready && !reduce && !failed}
-        className="lanyard-flip"
-        type="button"
-        disabled={!ready && !reduce && !failed}
-        onClick={() => {
-          if (staticMode)
-            setSide((value) => (value === "front" ? "back" : "front"));
-          else flipRef.current?.();
-        }}
-        aria-label={`Show ${side === "front" ? "back" : "front"} of developer badge`}
-      >
-        <span aria-hidden="true">↻</span>
-      </button>
       <span className="sr-only" role="status">
         {side === "front" ? frontAlt : backAlt}
       </span>

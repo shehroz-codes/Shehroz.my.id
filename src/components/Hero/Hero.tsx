@@ -1,4 +1,4 @@
-import { lazy, Suspense, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { portfolio } from "../../content/portfolio";
 import { useHeroMotion } from "../../hooks/useHeroMotion";
 import WarpText from "../WarpText/WarpText";
@@ -13,6 +13,15 @@ const RotatingText = lazy(() => import("../RotatingText/RotatingText"));
 export function Hero() {
   const { ref, enhanced, active } = useHeroMotion();
   const [notice, setNotice] = useState("");
+  const [mobile, setMobile] = useState(
+    () => matchMedia("(max-width: 850px)").matches,
+  );
+  useEffect(() => {
+    const query = matchMedia("(max-width: 850px)");
+    const update = () => setMobile(query.matches);
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
+  }, []);
   return (
     <section
       ref={ref}
@@ -27,7 +36,7 @@ export function Hero() {
           <span aria-hidden="true">
             <WarpText
               text={portfolio.displayName}
-              textAlign="left"
+              textAlign={mobile ? "center" : "left"}
               enabled={enhanced}
               color="currentColor"
               fontFamily="var(--font-heading)"
@@ -66,6 +75,9 @@ export function Hero() {
           </span>
         </div>
         <p className="hero-introduction">{portfolio.introduction}</p>
+        <p className="hero-introduction hero-summary">
+          Crafting interactive web experiences with clean design and creative code.
+        </p>
         <div className="hero-actions">
           <Magnet
             disabled={!enhanced}

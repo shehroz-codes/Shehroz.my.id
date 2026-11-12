@@ -72,6 +72,9 @@
   gap: 0.75rem;
   margin-top: 1.25rem;
 }
+.hero-summary {
+  margin-top: 0.5rem;
+}
 .hero-cta {
   display: inline-flex;
   justify-content: center;
@@ -138,12 +141,34 @@
   animation-play-state: paused;
 }
 @media (max-width: 850px) {
+  .home-destination:has(> .hero) {
+    padding-top: 0;
+  }
   .hero {
     grid-template-columns: minmax(0, 1fr);
     gap: 2.5rem;
     max-width: 40rem;
     padding-top: 0;
     overflow-x: clip;
+  }
+  .hero-copy {
+    text-align: center;
+  }
+  .hero-title .warp-text__fallback {
+    justify-content: center;
+    text-align: center;
+  }
+  .hero-roles,
+  .hero-actions,
+  .hero-social-row {
+    justify-content: center;
+  }
+  .hero-introduction,
+  .hero-action-status {
+    margin-inline: auto;
+  }
+  .hero-actions {
+    gap: clamp(0.5rem, 2vw, 0.75rem);
   }
 }
 @media (max-width: 420px) {
