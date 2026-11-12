@@ -2,15 +2,15 @@ import GlowCursor from "../components/GlowCursor/GlowCursor";
 import PillNav from "../components/PillNav/PillNav";
 import type { PillNavItem } from "../components/PillNav/PillNav";
 import "./App.css";
+import { PortfolioSections } from "../sections/PortfolioSections";
 import { Hero } from "../components/Hero/Hero";
 
 const navigation: PillNavItem[] = [
   { label: "Home", href: "#home", ariaLabel: "Home" },
-  ...["About", "Skills", "Projects", "Contact"].map((label) => ({
-    label,
-    disabled: true,
-    ariaLabel: `${label} — not implemented yet`,
-  })),
+  { label: "About", href: "#about", ariaLabel: "About" },
+  { label: "Skills", href: "#skills", ariaLabel: "Skills" },
+  { label: "Projects", href: "#projects", ariaLabel: "Projects" },
+  { label: "Contact", disabled: true, ariaLabel: "Contact — not implemented yet" },
 ];
 
 export function App() {
@@ -82,6 +82,7 @@ export function App() {
           tabIndex={-1}
         >
           <Hero />
+          <PortfolioSections />
         </main>
       </div>
     </div>

@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000" preserveAspectRatio="xMidYMid slice">
+  <!-- ======================================================================
+       Portrait backdrop — premium dark developer atmosphere.
+       Deep navy + violet ambient glow, faint editor chrome and code lines.
+       Everything is intentionally low opacity so the face stays dominant.
+       ====================================================================== -->
+  <defs>
+    <linearGradient id="base" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0%" stop-color="#100a2e"/>
+      <stop offset="45%" stop-color="#0a0620"/>
+      <stop offset="100%" stop-color="#080519"/>
+    </linearGradient>
+    <radialGradient id="glowViolet" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.55"/>
+      <stop offset="55%" stop-color="#7c3aed" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#4c1d95" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowIndigo" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#6366f1" stop-opacity="0.45"/>
+      <stop offset="60%" stop-color="#4338ca" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#312e81" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="halo" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#c4b5fd" stop-opacity="0.22"/>
+      <stop offset="70%" stop-color="#a78bfa" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#a78bfa" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="panelEdge" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#c4b5fd" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#6366f1" stop-opacity="0.04"/>
+    </linearGradient>
+    <linearGradient id="lineFade" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#c4b5fd" stop-opacity="0.30"/>
+      <stop offset="100%" stop-color="#c4b5fd" stop-opacity="0"/>
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#a78bfa" stroke-opacity="0.06" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <!-- Base + ambient glows -->
+  <rect width="800" height="1000" fill="url(#base)"/>
+  <rect width="800" height="1000" fill="url(#grid)"/>
+  <ellipse cx="230" cy="250" rx="430" ry="400" fill="url(#glowViolet)"/>
+  <ellipse cx="650" cy="760" rx="420" ry="380" fill="url(#glowIndigo)"/>
+  <ellipse cx="400" cy="470" rx="300" ry="330" fill="url(#halo)"/>
+
+  <!-- Soft vignette so edges fall away from the face -->
+  <rect width="800" height="1000" fill="#05030f" opacity="0.16"/>
+  <radialGradient id="vig" cx="50%" cy="42%" r="62%">
+    <stop offset="55%" stop-color="#05030f" stop-opacity="0"/>
+    <stop offset="100%" stop-color="#05030f" stop-opacity="0.55"/>
+  </radialGradient>
+  <rect width="800" height="1000" fill="url(#vig)"/>
+
+  <!-- Minimal editor window, upper left -->
+  <g opacity="0.5">
+    <rect x="34" y="54" width="300" height="150" rx="12" fill="#151029" fill-opacity="0.55"
+          stroke="url(#panelEdge)" stroke-width="1.2"/>
+    <circle cx="54" cy="74" r="4" fill="#c4b5fd" fill-opacity="0.35"/>
+    <circle cx="70" cy="74" r="4" fill="#a78bfa" fill-opacity="0.25"/>
+    <circle cx="86" cy="74" r="4" fill="#8b5cf6" fill-opacity="0.18"/>
+    <line x1="34" y1="90" x2="334" y2="90" stroke="#a78bfa" stroke-opacity="0.16" stroke-width="1"/>
+    <g fill="#c4b5fd" fill-opacity="0.20">
+      <rect x="52" y="106" width="16" height="5" rx="2.5"/>
+      <rect x="76" y="106" width="112" height="5" rx="2.5" fill-opacity="0.13"/>
+      <rect x="60" y="124" width="26" height="5" rx="2.5" fill-opacity="0.16"/>
+      <rect x="94" y="124" width="86" height="5" rx="2.5" fill-opacity="0.10"/>
+      <rect x="60" y="142" width="20" height="5" rx="2.5" fill-opacity="0.14"/>
+      <rect x="88" y="142" width="132" height="5" rx="2.5" fill-opacity="0.09"/>
+      <rect x="52" y="166" width="14" height="5" rx="2.5" fill-opacity="0.12"/>
+      <rect x="74" y="166" width="70" height="5" rx="2.5" fill-opacity="0.08"/>
+    </g>
+  </g>
+
+  <!-- Terminal line, lower left -->
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="15"
+     fill="#c4b5fd" fill-opacity="0.26">
+    <text x="44" y="856">$ npm run dev</text>
+    <text x="44" y="882" fill-opacity="0.15">› ready in 312 ms</text>
+    <line x1="44" y1="898" x2="240" y2="240" stroke="none"/>
+    <rect x="44" y="896" width="8" height="16" fill="#a78bfa" fill-opacity="0.30"/>
+  </g>
+
+  <!-- Faint closing-tag glyph, upper right -->
+  <text x="700" y="250" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace"
+        font-size="86" font-weight="700" fill="#a78bfa" fill-opacity="0.10">&lt;/&gt;</text>
+
+  <!-- Faint braces glyph, mid right -->
+  <text x="712" y="470" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace"
+        font-size="52" font-weight="700" fill="#c4b5fd" fill-opacity="0.08">{ }</text>
+
+  <!-- Code row hints, mid right -->
+  <g fill="#c4b5fd" fill-opacity="0.10">
+    <rect x="596" y="356" width="150" height="5" rx="2.5"/>
+    <rect x="620" y="374" width="104" height="5" rx="2.5" fill-opacity="0.07"/>
+    <rect x="596" y="392" width="126" height="5" rx="2.5" fill-opacity="0.08"/>
+  </g>
+
+  <!-- Accent hairlines -->
+  <line x1="0" y1="640" x2="360" y2="640" stroke="url(#lineFade)" stroke-width="1"/>
+  <g fill="#c4b5fd" fill-opacity="0.30">
+    <circle cx="352" cy="330" r="2"/>
+    <circle cx="392" cy="700" r="2" fill-opacity="0.18"/>
+    <rect x="430" y="64" width="120" height="1" fill-opacity="0.10"/>
+    <rect x="590" y="932" width="150" height="1" fill-opacity="0.12"/>
+  </g>
+</svg>

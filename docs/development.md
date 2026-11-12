@@ -7,7 +7,9 @@ npm ci
 npm run dev
 ```
 
-The application renders the preserved MS navbar/background and the Phase 05 Hero.
+The application renders the preserved MS navbar/background and Hero, followed by
+About Card, My Interests and Portfolio Showcase. See [AI handoff](AI_HANDOFF.md)
+for the imported component/data boundaries and source-content limitations.
 CV/contact data and shared likes setup remain pending; see
 [Components](components.md) for the exact configuration steps. See
 [Design system](design-system.md) for token usage and accessibility guidance.
