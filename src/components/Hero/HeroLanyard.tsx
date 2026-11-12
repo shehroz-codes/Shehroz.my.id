@@ -11,7 +11,6 @@ export function HeroLanyard() {
   const [wide, setWide] = useState(
     () => matchMedia("(min-width: 851px)").matches,
   );
-  const [back, setBack] = useState(false);
   const [reduce, setReduce] = useState(
     () => matchMedia("(prefers-reduced-motion: reduce)").matches,
   );
@@ -44,18 +43,11 @@ export function HeroLanyard() {
   const fallback = (
     <div className="hero-lanyard-static">
       <img
-        src={`${base}card-${back ? "back" : "front"}.png`}
-        alt={back ? backAlt : frontAlt}
+        src={`${base}card-front.png`}
+        alt={frontAlt}
         width={1086}
         height={1448}
       />
-      <button
-        type="button"
-        onClick={() => setBack((value) => !value)}
-        aria-label={`Show ${back ? "front" : "back"} of developer badge`}
-      >
-        <span aria-hidden="true">↻</span>
-      </button>
     </div>
   );
   return (
