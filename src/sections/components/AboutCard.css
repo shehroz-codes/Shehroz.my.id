@@ -1,0 +1,920 @@
+/* ==========================================================================
+   AboutCard: transparent glassmorphism developer card
+   Plain CSS, works alongside Tailwind v4 (no @apply / @theme needed).
+   Override any token from a parent, e.g. .my-wrapper { --ac-violet-500: #a855f7; }
+   ========================================================================== */
+
+@property --about-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.about-card {
+  /* Tokens (dark violet / indigo) */
+  --ac-violet-300: #c4b5fd;
+  --ac-violet-400: #a78bfa;
+  --ac-violet-500: #8b5cf6;
+  --ac-violet-600: #7c3aed;
+  --ac-indigo-500: #6366f1;
+  --ac-ink: #f5f3ff;
+  --ac-body: rgba(221, 214, 254, 0.82);
+  --ac-chip-bg: rgba(139, 92, 246, 0.18);
+  --ac-chip-line: rgba(167, 139, 250, 0.38);
+  --ac-pill-bg: rgba(24, 14, 62, 0.42);
+  --ac-radius: 1.75rem;
+  --ac-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ac-photo-position: center top;
+
+  /* Pointer light position (updated from TSX) */
+  --mx: 50%;
+  --my: 30%;
+
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  max-width: 68rem;
+  margin-inline: auto;
+  color: var(--ac-ink);
+  transition: transform 0.45s var(--ac-ease);
+  /* Entrance uses transform only, so backdrop-filter keeps working while it plays */
+  animation: ac-enter 0.9s var(--ac-ease) backwards;
+  animation-play-state: paused;
+}
+
+.about-card.is-visible {
+  animation-play-state: running;
+}
+
+.about-card:hover {
+  transform: translateY(-6px);
+}
+
+/* --------------------------------------------------------------------------
+   Glass surface
+   -------------------------------------------------------------------------- */
+
+.about-card__surface {
+  position: relative;
+  border-radius: var(--ac-radius);
+  /* Very low alpha: the real page background shows through */
+  background:
+    linear-gradient(135deg, rgba(139, 92, 246, 0.14) 0%, rgba(99, 102, 241, 0.05) 45%, rgba(139, 92, 246, 0.1) 100%);
+  -webkit-backdrop-filter: blur(18px) saturate(1.5);
+  backdrop-filter: blur(18px) saturate(1.5);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 0 48px rgba(139, 92, 246, 0.07),
+    0 30px 80px -36px rgba(124, 58, 237, 0.55),
+    0 0 70px -24px rgba(139, 92, 246, 0.35);
+  transition: box-shadow 0.45s ease;
+  animation: ac-float 9s ease-in-out 1.2s infinite;
+}
+
+.about-card:hover .about-card__surface {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    inset 0 0 60px rgba(139, 92, 246, 0.1),
+    0 40px 90px -34px rgba(124, 58, 237, 0.7),
+    0 0 90px -16px rgba(139, 92, 246, 0.5);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .about-card__surface {
+    background: rgba(20, 12, 50, 0.72);
+  }
+}
+
+/* Animated gradient border (masked ring) */
+.about-card__border {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  padding: 1px;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    conic-gradient(
+      from var(--about-angle),
+      transparent 0 52%,
+      rgba(196, 181, 253, 0.95) 72%,
+      rgba(99, 102, 241, 0.6) 84%,
+      transparent 100%
+    ),
+    linear-gradient(135deg, rgba(167, 139, 250, 0.38), rgba(99, 102, 241, 0.08) 45%, rgba(167, 139, 250, 0.28));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  animation: ac-spin 8s linear infinite;
+  transition: filter 0.4s ease;
+}
+
+.about-card:hover .about-card__border {
+  filter: drop-shadow(0 0 8px rgba(167, 139, 250, 0.7));
+}
+
+/* --------------------------------------------------------------------------
+   Decorative effects (clipped to the card)
+   -------------------------------------------------------------------------- */
+
+.about-card__fx {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.about-card__orb {
+  position: absolute;
+  width: 26rem;
+  height: 26rem;
+  border-radius: 50%;
+  opacity: 0.4;
+}
+
+.about-card__orb--a {
+  top: -10rem;
+  left: -8rem;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.75), transparent 68%);
+  animation: ac-drift-a 16s ease-in-out infinite alternate;
+}
+
+.about-card__orb--b {
+  right: -9rem;
+  bottom: -11rem;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.7), transparent 68%);
+  animation: ac-drift-b 19s ease-in-out infinite alternate;
+}
+
+.about-card__shine {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.about-card__shine::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  bottom: -20%;
+  left: 0;
+  width: 35%;
+  background: linear-gradient(
+    100deg,
+    transparent,
+    rgba(255, 255, 255, 0.06) 42%,
+    rgba(196, 181, 253, 0.13) 50%,
+    transparent
+  );
+  transform: translateX(-150%) skewX(-18deg);
+  animation: ac-shine 11s ease-in-out 2s infinite;
+}
+
+.about-card__spot {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(28rem circle at var(--mx) var(--my), rgba(167, 139, 250, 0.2), transparent 62%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.about-card:hover .about-card__spot {
+  opacity: 1;
+}
+
+.about-card__dots {
+  position: absolute;
+  width: 4.5rem;
+  height: 3.5rem;
+  background-image: radial-gradient(circle, rgba(167, 139, 250, 0.7) 1.5px, transparent 1.6px);
+  background-size: 14px 14px;
+  animation: ac-dots 5s ease-in-out infinite;
+}
+
+.about-card__dots--tr {
+  top: 1rem;
+  right: 1.25rem;
+}
+
+.about-card__dots--bl {
+  bottom: 1rem;
+  left: 1.25rem;
+  animation-delay: 2s;
+}
+
+.about-card__symbol {
+  position: absolute;
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-weight: 700;
+  color: var(--ac-violet-400);
+  opacity: 0.2;
+  animation: ac-bob 7s ease-in-out infinite;
+}
+
+.about-card__symbol--lg {
+  --r: 0deg;
+  top: 2rem;
+  right: 1.75rem;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+}
+
+.about-card__symbol--sm-a {
+  --r: -6deg;
+  bottom: 22%;
+  right: 1.25rem;
+  font-size: 1.35rem;
+  animation-delay: 1.5s;
+}
+
+.about-card__symbol--sm-b {
+  --r: 8deg;
+  top: 46%;
+  left: 0.9rem;
+  font-size: 1.15rem;
+  animation-delay: 3s;
+}
+
+/* --------------------------------------------------------------------------
+   Layout
+   -------------------------------------------------------------------------- */
+
+.about-card__grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(1.25rem, 2.5vw, 2.25rem);
+  align-items: center;
+  padding: clamp(1rem, 2.2vw, 1.85rem);
+}
+
+@media (min-width: 56rem) {
+  .about-card__grid {
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.35fr);
+  }
+}
+
+.about-card__content {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.75rem, 1.4vh, 1rem);
+  min-width: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Staggered reveal (starts when the card scrolls into view)
+   -------------------------------------------------------------------------- */
+
+.about-card .ac-reveal {
+  animation: ac-reveal 0.7s var(--ac-ease) backwards;
+  animation-delay: calc(var(--i, 0) * 90ms + 250ms);
+  animation-play-state: paused;
+}
+
+.about-card.is-visible .ac-reveal {
+  animation-play-state: running;
+}
+
+/* --------------------------------------------------------------------------
+   Portrait
+   -------------------------------------------------------------------------- */
+
+.about-card__media {
+  display: flex;
+  justify-content: center;
+  min-width: 0;
+}
+
+.about-card__portrait {
+  position: relative;
+  width: 100%;
+  max-width: 26rem;
+  margin: 0;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  background:
+    linear-gradient(160deg, rgba(139, 92, 246, 0.55), rgba(79, 70, 229, 0.25) 55%, rgba(30, 20, 80, 0.35));
+  box-shadow:
+    0 0 0 1px rgba(167, 139, 250, 0.38),
+    0 0 40px -8px rgba(139, 92, 246, 0.5),
+    inset 0 0 36px rgba(139, 92, 246, 0.28);
+  transition: box-shadow 0.5s ease;
+}
+
+.about-card__portrait:hover {
+  box-shadow:
+    0 0 0 1px rgba(196, 181, 253, 0.6),
+    0 0 60px -6px rgba(139, 92, 246, 0.8),
+    inset 0 0 40px rgba(139, 92, 246, 0.35);
+}
+
+.about-card__portrait::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(to top, rgba(10, 6, 30, 0.6), transparent 38%),
+    linear-gradient(120deg, rgba(139, 92, 246, 0.18), transparent 50%);
+}
+
+.about-card__photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--ac-photo-position);
+  user-select: none;
+  transition: transform 0.8s var(--ac-ease);
+}
+
+.about-card__portrait:hover .about-card__photo {
+  transform: scale(1.05);
+}
+
+.about-card__badge,
+.about-card__status {
+  position: absolute;
+  z-index: 2;
+  background: var(--ac-pill-bg);
+  border: 1px solid rgba(167, 139, 250, 0.4);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.about-card__badge {
+  top: 0.9rem;
+  left: 0.9rem;
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.9rem;
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  font-weight: 700;
+  color: var(--ac-violet-300);
+}
+
+.about-card__status {
+  bottom: 0.9rem;
+  left: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 0.95rem;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  color: var(--ac-ink);
+}
+
+.about-card__status-dot {
+  position: relative;
+  width: 0.65rem;
+  height: 0.65rem;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.8);
+}
+
+.about-card__status-dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: inherit;
+  animation: ac-ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* Wrapper used when a custom profile card (e.g. React Bits ProfileCard) is passed in */
+.about-card__slot {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-width: 0;
+}
+
+.about-card__slot::before {
+  content: '';
+  position: absolute;
+  inset: 8% 4%;
+  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.45), transparent 70%);
+}
+
+/* --------------------------------------------------------------------------
+   Text
+   -------------------------------------------------------------------------- */
+
+.about-card__eyebrow-row,
+.about-card__tech-head {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.about-card__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ac-violet-300);
+  background: rgba(139, 92, 246, 0.14);
+  border: 1px solid var(--ac-chip-line);
+}
+
+.about-card__dash {
+  width: 1.4rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.7;
+}
+
+.about-card__rule {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(167, 139, 250, 0.5), transparent);
+}
+
+.about-card__name {
+  margin: 0;
+  font-size: clamp(1.85rem, 3.6vw, 2.85rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: var(--ac-ink);
+  text-wrap: balance;
+}
+
+.about-card__accent {
+  background-image: linear-gradient(90deg, #c4b5fd, #8b5cf6, #6366f1, #c4b5fd);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: ac-gradient 7s linear infinite;
+}
+
+.about-card__role {
+  margin: -0.25rem 0 0;
+  font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+  font-weight: 500;
+  color: #ddd6fe;
+}
+
+.about-card__specialty {
+  margin: -0.45rem 0 0;
+  font-size: clamp(0.85rem, 1.2vw, 0.95rem);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  color: var(--ac-violet-300);
+}
+
+.about-card__bio {
+  max-width: 60ch;
+  margin: 0;
+  font-size: clamp(0.875rem, 1.15vw, 0.975rem);
+  line-height: 1.55;
+  color: var(--ac-body);
+}
+
+/* --------------------------------------------------------------------------
+   Detail lists
+   -------------------------------------------------------------------------- */
+
+.about-card__details {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.5rem 1.25rem;
+  margin-top: 0.15rem;
+}
+
+@media (min-width: 40rem) {
+  .about-card__details {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .about-card__list--split {
+    padding-left: 1.25rem;
+    border-left: 1px solid rgba(167, 139, 250, 0.25);
+  }
+}
+
+.about-card__list,
+.about-card__tech-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.about-card__list {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.about-card__detail-link {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-width: 0;
+  color: #ede9fe;
+  font-size: 0.885rem;
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.about-card__detail-text {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+a.about-card__detail-link:hover {
+  color: #fff;
+}
+
+a.about-card__detail-link:focus-visible {
+  outline: 2px solid var(--ac-violet-300);
+  outline-offset: 4px;
+  border-radius: 0.5rem;
+}
+
+.about-card__chip {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.55rem;
+  color: var(--ac-violet-300);
+  background: var(--ac-chip-bg);
+  border: 1px solid var(--ac-chip-line);
+  transition:
+    box-shadow 0.3s ease,
+    background-color 0.3s ease,
+    transform 0.3s var(--ac-ease);
+}
+
+.about-card__chip > svg {
+  transition: transform 0.3s var(--ac-ease);
+}
+
+.about-card__detail:hover .about-card__chip {
+  background: rgba(139, 92, 246, 0.3);
+  box-shadow: 0 0 16px rgba(139, 92, 246, 0.55);
+}
+
+.about-card__detail:hover .about-card__chip > svg {
+  transform: scale(1.15) rotate(-6deg);
+}
+
+/* --------------------------------------------------------------------------
+   Tech stack
+   -------------------------------------------------------------------------- */
+
+.about-card__tech-block {
+  display: grid;
+  gap: 0.6rem;
+  margin-top: 0.15rem;
+}
+
+.about-card__tech-head {
+  color: var(--ac-violet-300);
+}
+
+.about-card__tech-head h3 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ac-ink);
+}
+
+.about-card__tech-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem 0.55rem;
+}
+
+.about-card__tech {
+  display: grid;
+  place-items: center;
+  min-width: 4rem;
+  height: 2.65rem;
+  padding: 0 0.85rem;
+  border-radius: 999px;
+  background: var(--ac-pill-bg);
+  border: 1px solid rgba(167, 139, 250, 0.3);
+  transition:
+    transform 0.3s var(--ac-ease),
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.about-card__tech > svg {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+.about-card__tech:hover,
+.about-card__tech:focus-visible {
+  transform: translateY(-3px) scale(1.05);
+  border-color: rgba(196, 181, 253, 0.8);
+  box-shadow:
+    0 0 18px rgba(139, 92, 246, 0.65),
+    0 0 4px rgba(196, 181, 253, 0.6),
+    inset 0 0 12px rgba(139, 92, 246, 0.25);
+}
+
+a.about-card__tech:focus-visible {
+  outline: 2px solid var(--ac-violet-300);
+  outline-offset: 3px;
+}
+
+/* Named pills: same glass pill language, sized to fit the skill label */
+.about-card__tech--labeled {
+  flex-direction: column;
+  gap: 0.28rem;
+  height: auto;
+  min-height: 2.65rem;
+  min-width: 4.6rem;
+  padding: 0.38rem 0.7rem;
+}
+
+.about-card__tech--labeled > svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.about-card__tech-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+  text-align: center;
+  color: rgba(237, 233, 254, 0.9);
+  white-space: nowrap;
+  transition: color 0.3s ease;
+}
+
+.about-card__tech--labeled:hover .about-card__tech-label,
+.about-card__tech--labeled:focus-visible .about-card__tech-label {
+  color: #fff;
+}
+
+/* --------------------------------------------------------------------------
+   Buttons
+   -------------------------------------------------------------------------- */
+
+.about-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.35rem;
+}
+
+.about-card__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  height: 2.85rem;
+  padding: 0 1.4rem;
+  border-radius: 999px;
+  font-size: 0.925rem;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  color: var(--ac-ink);
+  cursor: pointer;
+  transition:
+    transform 0.25s var(--ac-ease),
+    box-shadow 0.3s ease,
+    background-position 0.6s ease,
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.about-card__btn:focus-visible {
+  outline: 2px solid var(--ac-violet-300);
+  outline-offset: 3px;
+}
+
+.about-card__btn:active {
+  transform: translateY(0) scale(0.97);
+}
+
+.about-card__btn-icon,
+.about-card__btn-arrow {
+  flex: none;
+  transition: transform 0.3s var(--ac-ease);
+}
+
+.about-card__btn--primary {
+  border: 1px solid rgba(196, 181, 253, 0.35);
+  background-image: linear-gradient(110deg, #6d28d9, #8b5cf6, #6366f1, #8b5cf6);
+  background-size: 250% 100%;
+  background-position: 0% 0;
+  box-shadow: 0 8px 24px -10px rgba(124, 58, 237, 0.8);
+}
+
+.about-card__btn--primary:hover {
+  background-position: 100% 0;
+  transform: translateY(-2px);
+  box-shadow:
+    0 12px 32px -8px rgba(139, 92, 246, 0.9),
+    0 0 22px rgba(139, 92, 246, 0.45);
+}
+
+.about-card__btn--primary:hover .about-card__btn-arrow {
+  transform: translateX(5px);
+}
+
+.about-card__btn--primary:hover .about-card__btn-icon--send {
+  transform: translate(2px, -2px) rotate(-8deg);
+}
+
+.about-card__btn--ghost {
+  border: 1px solid rgba(167, 139, 250, 0.55);
+  background: rgba(24, 14, 62, 0.28);
+}
+
+.about-card__btn--ghost:hover {
+  transform: translateY(-2px);
+  background: rgba(139, 92, 246, 0.2);
+  border-color: rgba(196, 181, 253, 0.85);
+  box-shadow: 0 0 22px rgba(139, 92, 246, 0.4);
+}
+
+.about-card__btn--ghost:hover .about-card__btn-icon--download {
+  transform: translateY(3px);
+}
+
+/* --------------------------------------------------------------------------
+   1366×768 / Compact desktop optimization
+   Ensures card sits comfortably within typical laptop viewport height
+   -------------------------------------------------------------------------- */
+@media (min-width: 56rem) and (max-height: 820px) {
+  .about-card__grid {
+    padding: 1.15rem 1.45rem;
+    gap: 1.5rem;
+  }
+
+  .about-card__content {
+    gap: 0.65rem;
+  }
+
+  .about-card__name {
+    font-size: 2.35rem;
+  }
+
+  .about-card__bio {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .about-card__tech-block {
+    gap: 0.45rem;
+  }
+
+  .about-card__tech-list {
+    gap: 0.4rem 0.5rem;
+  }
+}
+
+@media (max-width: 30rem) {
+  .about-card__btn {
+    flex: 1 1 100%;
+  }
+
+  .about-card__symbol--lg {
+    display: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Keyframes
+   -------------------------------------------------------------------------- */
+
+@keyframes ac-enter {
+  from {
+    transform: translateY(32px) scale(0.97);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes ac-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes ac-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes ac-spin {
+  to {
+    --about-angle: 360deg;
+  }
+}
+
+@keyframes ac-drift-a {
+  to {
+    transform: translate(6rem, 4rem) scale(1.15);
+  }
+}
+
+@keyframes ac-drift-b {
+  to {
+    transform: translate(-5rem, -3rem) scale(1.1);
+  }
+}
+
+@keyframes ac-shine {
+  0% {
+    transform: translateX(-150%) skewX(-18deg);
+  }
+  35%,
+  100% {
+    transform: translateX(380%) skewX(-18deg);
+  }
+}
+
+@keyframes ac-bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--r, 0deg));
+  }
+  50% {
+    transform: translateY(-10px) rotate(calc(var(--r, 0deg) + 3deg));
+  }
+}
+
+@keyframes ac-dots {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.75;
+  }
+}
+
+@keyframes ac-gradient {
+  to {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes ac-ping {
+  75%,
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Reduced motion: everything is visible and static
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .about-card,
+  .about-card *,
+  .about-card *::before,
+  .about-card *::after {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .about-card:hover,
+  .about-card__portrait:hover .about-card__photo,
+  .about-card__tech:hover,
+  .about-card__tech:focus-visible,
+  .about-card__btn:hover {
+    transform: none;
+  }
+}

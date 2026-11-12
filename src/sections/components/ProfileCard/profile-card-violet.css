@@ -1,0 +1,125 @@
+/* ==========================================================================
+   Violet retheme for the React Bits ProfileCard + portrait atmosphere.
+   Scoped to .about-profile-card so it only affects the card inside the
+   About section. Shifts the holographic spectrum, bars and glow from the
+   default rainbow/teal palette toward the site's violet / indigo theme.
+   ========================================================================== */
+
+.about-profile-card {
+  width: clamp(280px, 24vw, 320px);
+  /* Slightly violet-tinted glass frame + tile */
+  --pc-frame: rgba(41, 33, 66, 0.66);
+  --pc-frame-edge: rgba(196, 181, 253, 0.14);
+  --pc-frame-highlight: rgba(196, 181, 253, 0.1);
+  --pc-frame-shadow:
+    0 22px 44px -20px rgba(0, 0, 0, 0.8),
+    0 6px 16px -8px rgba(0, 0, 0, 0.5),
+    0 0 60px -18px rgba(139, 92, 246, 0.35);
+  --pc-tile: linear-gradient(180deg, #342a4d 0%, #1f1833 100%);
+  --pc-tile-edge: rgba(196, 181, 253, 0.12);
+  --pc-tile-highlight: rgba(196, 181, 253, 0.14);
+}
+
+/* Holographic spectrum: violet → indigo → purple instead of full rainbow */
+.about-profile-card .profile-card__holo {
+  --pc-spectrum: repeating-linear-gradient(
+    0deg,
+    hsl(262, 83%, 78%) 5%,
+    hsl(243, 75%, 74%) 10%,
+    hsl(228, 90%, 76%) 15%,
+    hsl(268, 80%, 78%) 20%,
+    hsl(285, 65%, 78%) 25%,
+    hsl(252, 60%, 72%) 30%,
+    hsl(262, 83%, 78%) 35%
+  );
+  --pc-bars: repeating-linear-gradient(
+    -45deg,
+    #140b2e 0%,
+    hsl(258, 30%, 60%) 3.8%,
+    hsl(258, 40%, 68%) 4.5%,
+    hsl(258, 30%, 60%) 5.2%,
+    #140b2e 10%,
+    #140b2e 12%
+  );
+}
+
+/* Glow gradient uses the same violet family */
+.about-profile-card .profile-card__holo-glow {
+  background-image:
+    linear-gradient(
+      45deg,
+      hsl(262, 83%, 78%),
+      hsl(243, 75%, 74%),
+      hsl(228, 90%, 76%),
+      hsl(268, 80%, 78%),
+      hsl(285, 65%, 78%),
+      hsl(252, 60%, 72%)
+    ),
+    radial-gradient(circle at var(--pc-pointer-x) var(--pc-pointer-y), hsl(0, 0%, 70%) 0%, hsla(0, 0%, 30%, 0.2) 90%),
+    var(--pc-grain);
+}
+
+/* Soft violet edge glow on the glass body */
+.about-profile-card .profile-card__rim {
+  box-shadow:
+    inset 0 0 0 1px var(--pc-frame-edge),
+    inset 0 1px 0 var(--pc-frame-highlight),
+    inset 0 0 32px rgba(139, 92, 246, 0.08);
+}
+
+/* --------------------------------------------------------------------------
+   Portrait atmosphere — the developer backdrop sits BEHIND the transparent
+   portrait (public/portrait-backdrop.svg: deep navy, faint editor chrome,
+   low-opacity code marks). The PNG itself is never modified.
+   -------------------------------------------------------------------------- */
+
+.about-profile-card .profile-card__tile {
+  background-image: url('../../../../public/sections/about/portrait-backdrop.svg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Fit the whole portrait instead of cropping it, anchored to the bottom so the
+   shoulders meet the tile edge. The parallax inset is kept, so the tilt motion
+   is unchanged. */
+.about-profile-card .profile-card__photo {
+  object-fit: contain;
+  object-position: center bottom;
+}
+
+/* Gentle ambient glow behind the portrait, matching the card's violet theme. */
+.about-profile-card .profile-card__tile::before {
+  content: '';
+  position: absolute;
+  inset: 12% 6% 4%;
+  z-index: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.28), transparent 68%);
+  pointer-events: none;
+}
+
+/* Keep the portrait and its overlays above that glow. */
+.about-profile-card .profile-card__photo,
+.about-profile-card .profile-card__scrim,
+.about-profile-card .profile-card__info {
+  z-index: 1;
+}
+
+.about-profile-card .profile-card__scrim,
+.about-profile-card .profile-card__info,
+.about-profile-card .profile-card__tile-rim {
+  z-index: 2;
+}
+
+@media (min-width: 56rem) and (max-height: 820px) {
+  .about-profile-card {
+    width: clamp(260px, 20vw, 290px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-profile-card .profile-card__photo {
+    transform: none;
+  }
+}

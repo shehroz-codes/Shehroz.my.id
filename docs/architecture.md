@@ -8,9 +8,9 @@
 - `src/app/App.css` retains viewport layering, centered/fixed navbar positioning
   and the logo presentation without changes in Phase 05.
 - `src/components/Hero/` composes the introduction, single-line WarpText heading,
-  roles, CTAs and social/reaction controls. `HeroLanyard.tsx` lazy-loads the
+  roles, CTAs and social controls. `HeroLanyard.tsx` lazy-loads the
   supplied typed card using a right-column framing slot and a viewport-wide
-  desktop stage (below the text on mobile).
+  desktop stage (above the text on mobile).
 - `src/components/{WarpText,RotatingText,Magnet,PulseHeart,SocialSpotlight}/`
   contains the existing supplied Hero implementations converted to strict TypeScript.
 - `src/content/portfolio.ts` centralizes editable identity, roles, paths and links.
@@ -28,7 +28,8 @@ conflicting briefs. Phase 05 therefore uses WarpText, RotatingText, Magnet,
 PulseHeart and SocialSpotlight. Lanyard was subsequently removed by the final
 corrections. Phase 06 now integrates the newly supplied TypeScript Lanyard and
 original badge PNGs. No ProfileCard or StarBorder is included.
-Only Hero is a new portfolio section; other nav destinations remain unavailable.
+Hero is followed by the supplied About Card, My Interests and Portfolio Showcase.
+See [AI handoff](AI_HANDOFF.md) for the current integration boundaries and navigation.
 
 ## Layering and loading
 
@@ -43,8 +44,7 @@ its simulated length derives from the higher resting card position. The scene
 scrolls away with the Hero rather than remaining fixed over future sections.
 Hero copy is at local layer 1 above the stage at 0; the header stays at 20.
 The expanded canvas is pointer-transparent. Window listeners raycast the actual
-card, ignore copy/header/interactive controls, and capture only a card grab. Its pin target is bounded to the physical strap
-and grip reach to avoid indefinitely stretching the original spring engine.
+card, ignore copy/header/interactive controls, and capture only a card grab. Its drag target uses the original spring engine without the previous desktop reach clamp.
 Cleanup restores the cursor and removes listeners. On mobile the canvas returns
 to the inline slot and original local pointer/touch handling.
 
@@ -69,14 +69,11 @@ keeps that cost out of initial/reduced-motion loads. The original PNGs total
 4.22MB; they are intentionally uncompressed originals. These are build sizes,
 not physical GPU, network-speed, FPS or Lighthouse measurements.
 
-## Shared likes status
+## Likes status
 
-No Firebase project/backend is configured. The user explicitly deferred that
-integration to a separate setup task. PulseHeart's component source is unchanged;
-Hero uses its disabled/no-count state and does not claim a shared total. No SDK,
-localStorage counter, fake persistence, initial count or privileged key is added.
-Future integration requires a selected Firebase project or service, atomic server
-increments, abuse controls, and tests across refreshes and independent sessions.
+Hero no longer renders a Like button. The reusable PulseHeart component,
+`usePortfolioLike` hook and local persistence adapter remain available for future
+use. No shared backend or Firebase SDK is configured. Do not invent a global count.
 
 ## GitHub Pages
 
@@ -86,3 +83,13 @@ Configured content asset paths omit the leading slash. No duplicate font request
 or external font service are added. The existing Node 24 Pages workflow still
 runs `npm ci` and `npm run build`, uploads `dist`, and deploys updates to `main`.
 Local build/preview checks do not establish live deployment success.
+
+## Imported completed sections
+
+`src/sections/PortfolioSections.tsx` mounts the supplied components beneath Hero
+using the original ProfileCard props. Its CSS supplies section spacing and local
+font inheritance, without importing the source demo's page background, reset,
+entry point or Vite configuration. `lucide-react` is the only added dependency.
+Public About artwork lives in `public/sections/about/`; portrait and showcase
+assets remain beside the imported source and are bundled by Vite. See
+[AI handoff](AI_HANDOFF.md) for data locations, checks and known source limitations.
