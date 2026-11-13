@@ -34,3 +34,27 @@ for (const width of [390, 1440]) {
     await page.locator('.contact-section').screenshot({ path: `/tmp/shehroz-contact-${width}.png` });
   });
 }
+
+test('photo selection uses the real browser decoder and WebP encoder, rejects invalid files, and preserves a draft', async ({ page }) => {
+  await page.goto('./');
+  const form = page.getByRole('form', { name: 'Write a public message' });
+  await form.scrollIntoViewIfNeeded();
+  await form.getByRole('textbox', { name: 'Your name' }).fill('Photo visitor');
+  await form.getByRole('textbox', { name: /Your message/ }).fill('A draft with a photo');
+  await page.locator('#contact-photo').setInputFiles('src/sections/components/showcase/assets/project-1.webp');
+  const preview = page.getByRole('img', { name: 'Selected photo preview' });
+  await expect(preview).toBeVisible();
+  const dimensions = await preview.evaluate(async (element) => {
+    const img = element as HTMLImageElement; await img.decode();
+    return { width: img.naturalWidth, height: img.naturalHeight, source: img.src };
+  });
+  expect(dimensions.width).toBe(160); expect(dimensions.height).toBe(160);
+  expect(dimensions.source.startsWith('data:image/webp;base64,')).toBe(true);
+  expect(Buffer.from(dimensions.source.split(',')[1], 'base64').length).toBeLessThanOrEqual(61440);
+  await form.getByRole('button', { name: 'Remove photo' }).click();
+  await page.locator('#contact-photo').setInputFiles({ name: 'spoof.png', mimeType: 'image/png', buffer: Buffer.from('not an image') });
+  await expect(page.getByText('This photo could not be read. Please choose another image.')).toBeVisible();
+  await page.reload();
+  await expect(form.getByRole('textbox', { name: 'Your name' })).toHaveValue('Photo visitor');
+  await expect(form.getByRole('textbox', { name: /Your message/ })).toHaveValue('A draft with a photo');
+});

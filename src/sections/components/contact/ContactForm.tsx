@@ -1,11 +1,15 @@
 import { useRef, useState } from 'react';
 import type { FormEvent } from 'react';
+import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile';
+import { turnstileSiteKey } from './config';
 import { Mail, Send } from 'lucide-react';
 import type { Backend } from './types';
 import { Field, Honeypot, Status, fieldValue, focusError } from './FormParts';
 import type { FormStatus } from './FormParts';
 
 export default function ContactForm({ backend }: { backend: Backend | null }) {
+  const captchaRef = useRef<TurnstileInstance>(null);
+  const [captchaToken, setCaptchaToken] = useState('');
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [busy, setBusy] = useState(false);
   const submitting = useRef(false);
@@ -18,7 +22,7 @@ export default function ContactForm({ backend }: { backend: Backend | null }) {
     const input = {
       name: fieldValue(data, 'name'), email: fieldValue(data, 'email'),
       subject: fieldValue(data, 'subject'), message: fieldValue(data, 'message'),
-      honeypot: fieldValue(data, 'website'),
+      turnstileToken: captchaToken, honeypot: fieldValue(data, 'website'),
     };
     const next: Record<string, string> = {};
     if ([...input.name].length < 2 || [...input.name].length > 80) next.name = 'Please enter your full name (2–80 characters).';
@@ -31,10 +35,10 @@ export default function ContactForm({ backend }: { backend: Backend | null }) {
     try {
       await backend.submitPrivate(input);
       form.reset();
-      setStatus({ kind: 'ok', text: 'Your message was received by the contact service. Email delivery is not confirmed.' });
+      setStatus({ kind: 'ok', text: 'Your private message was received securely.' });
     } catch (error) {
       setStatus({ kind: 'err', text: error instanceof Error ? error.message : 'Your message could not be sent. Please try again.' });
-    } finally { submitting.current = false; setBusy(false); }
+    } finally { setCaptchaToken(''); captchaRef.current?.reset(); submitting.current = false; setBusy(false); }
   }
   const attributes = (name: string) => ({
     id: `contact-private-${name}`, name, required: true,
@@ -58,7 +62,11 @@ export default function ContactForm({ backend }: { backend: Backend | null }) {
       </Field>
       <Honeypot />
       {backend?.mode === 'preview' && <p className="preview-count">Private message delivery is not connected. This form will not send or store your message.</p>}
-      <div className="form-actions"><button className="btn" type="submit" disabled={busy || !backend}>
+      {backend?.requiresCaptcha && (turnstileSiteKey ? <Turnstile ref={captchaRef} siteKey={turnstileSiteKey}
+        options={{ theme: 'dark', size: 'flexible', action: 'private-message' }} onSuccess={setCaptchaToken}
+        onExpire={() => { setCaptchaToken(''); captchaRef.current?.reset(); }} onError={() => setCaptchaToken('')} />
+        : <p role="status">Security verification is not configured. Private delivery is unavailable.</p>)}
+      <div className="form-actions"><button className="btn" type="submit" disabled={busy || !backend || Boolean(backend.requiresCaptcha && !captchaToken)}>
         <Send className="icon" aria-hidden="true" />{busy ? 'Sending…' : 'Send Message'}
       </button></div>
       <Status status={status} />

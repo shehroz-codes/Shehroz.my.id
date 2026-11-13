@@ -24,7 +24,7 @@ export default function ContactSection() {
   }, [loadAttempt]);
   return <section className="contact-section" aria-labelledby="contact-title">
     {contactMode === 'preview' && <div className="mode-banner-wrap">
-      <p className="mode-banner" role="note">Local preview — wall messages stay in this browser. Nothing is sent to Firebase or emailed.</p>
+      <p className="mode-banner" role="note">Local preview — wall messages stay in this browser. Nothing is published or delivered.</p>
     </div>}
     {failed && <div className="mode-banner" role="alert">
       <p>The contact service could not load. Nothing has been sent.</p>

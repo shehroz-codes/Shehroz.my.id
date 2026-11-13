@@ -16,7 +16,6 @@ export const contactProfile = {
 // Live mode is an explicit opt-in after backend/rules review and verification.
 // Never put service-account credentials or email/moderation secrets in VITE_*.
 export const contactMode = import.meta.env.VITE_CONTACT_MODE === 'live' ? 'live' : 'preview';
-export const contactProvider = import.meta.env.VITE_CONTACT_BACKEND === 'supabase' ? 'supabase' : 'firebase';
 export const turnstileSiteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY?.trim() ?? '';
 // This is only a UI gate. The Edge Function's independent server gate stays authoritative.
 export const visitorSubmissionsEnabled = import.meta.env.VITE_VISITOR_SUBMISSIONS_ENABLED === 'true';

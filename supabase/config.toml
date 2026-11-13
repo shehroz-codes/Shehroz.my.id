@@ -1,0 +1,14 @@
+project_id = "Shehroz-my-id"
+
+[functions.submit-visitor-message]
+verify_jwt = true
+
+[functions.submit-private-message]
+verify_jwt = true
+
+[functions.manage-visitor-messages]
+verify_jwt = true
+
+# A public read-only image request has no bearer. Handler checks message publication.
+[functions.visitor-photo]
+verify_jwt = false

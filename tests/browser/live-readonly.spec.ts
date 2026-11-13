@@ -18,7 +18,10 @@ for (const width of [320, 390, 768, 1440]) {
     await expect(page.getByText('<img src=x onerror=alert(1)>', { exact: true })).toBeVisible();
     await expect(page.locator('.msg__text img')).toHaveCount(0);
     await expect(page.getByRole('button', { name: 'Post Message' })).toBeDisabled();
-    await expect(page.getByRole('button', { name: 'Choose photo' })).toBeDisabled();
+    await expect(page.getByRole('button', { name: 'Choose photo' })).toBeEnabled();
+    await page.getByRole('textbox', { name: 'Your name', exact: true }).fill('Draft visitor');
+    await page.getByRole('textbox', { name: /Your message/, exact: true }).fill('Draft while posting is off');
+    await expect(page.getByText('26 / 300')).toBeVisible();
     await expect(page.locator('iframe[src*="turnstile"]')).toHaveCount(0);
     // Removing DOM disabled attributes cannot turn on the adapter or server gates.
     await page.getByRole('form', { name: 'Write a public message' }).evaluate((form) => {
