@@ -35,17 +35,19 @@ function VisitorMessage({ message: m }: { message: WallMessage }) {
   </li>;
 }
 
-export default function VisitorWall({ backend, cooling }: { backend: Backend | null; cooling: boolean }) {
+export default function VisitorWall({ backend, cooling, unavailable = false }: { backend: Backend | null; cooling: boolean; unavailable?: boolean }) {
   const [limit, setLimit] = useState(wallSettings.pageSize);
   const [feed, setFeed] = useState<Feed>({ messages: [], hasMore: false });
   const [error, setError] = useState('');
   const [loaded, setLoaded] = useState(false);
+  const [attempt, setAttempt] = useState(0);
+  const failure = unavailable ? 'The contact service could not load. Please retry the contact service.' : error;
   useEffect(() => {
     setError(''); setLoaded(false);
     if (!backend) return;
     return backend.subscribe(limit, (next) => { setFeed(next); setLoaded(true); setError(''); },
       (message) => { setError(message); setLoaded(true); setFeed({ messages: [], hasMore: false }); });
-  }, [backend, limit]);
+  }, [backend, limit, attempt]);
   return <article className="card feed-card gb" data-cooldown={cooling} aria-labelledby="contact-wall-title">
     <div className="feed-card__head">
       <h3 id="contact-wall-title"><Users className="icon" aria-hidden="true" />Visitor Messages</h3>
@@ -55,12 +57,13 @@ export default function VisitorWall({ backend, cooling }: { backend: Backend | n
       <ul className="feed" aria-label="Visitor messages">
         {feed.messages.length ? feed.messages.map((message) => <VisitorMessage key={message.id} message={message} />) : (
           <li className="empty"><MessageCircle className="icon" aria-hidden="true" />
-            <h4>{error ? 'Wall unavailable' : !loaded ? 'Loading messages…' : 'No messages yet'}</h4>
-            <p>{error || (backend?.mode === 'preview' ? 'Try a local preview of the visitor wall.' : 'Leave a note for the visitor wall.')}</p>
+            <h4>{failure ? 'Wall unavailable' : !loaded ? 'Loading messages…' : 'No messages yet'}</h4>
+            <p>{failure || (backend?.mode === 'preview' ? 'Try a local preview of the visitor wall.' : 'Leave a note for the visitor wall.')}</p>
           </li>
         )}
       </ul>
     </div>
-    {feed.hasMore && <div className="feed__more"><button className="btn btn--ghost" type="button" onClick={() => setLimit((old) => old + wallSettings.pageSize)}>Load more messages</button></div>}
+    {error && !unavailable && <div className="feed__more"><button className="btn btn--ghost" type="button" onClick={() => setAttempt((old) => old + 1)}>Retry messages</button></div>}
+    {feed.hasMore && !failure && <div className="feed__more"><button className="btn btn--ghost" type="button" onClick={() => setLimit((old) => old + wallSettings.pageSize)}>Load more messages</button></div>}
   </article>;
 }
