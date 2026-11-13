@@ -1,5 +1,9 @@
 # Supabase visitor wall review — 2026-11-13
 
+Historical PR #23 report. Current grants, live-read configuration and deployment
+state have changed. See [the current readiness audit](BACKEND_READINESS_AUDIT.md)
+for verified findings and the activation plan; do not use this report to activate.
+
 ## 1. Executive summary — COMPLETE implementation; NEEDS TESTING activation
 
 The existing Contact layout is preserved. Supabase is an opt-in visitor wall

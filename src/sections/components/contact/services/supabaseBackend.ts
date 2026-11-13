@@ -17,13 +17,19 @@ export function createSupabaseBackend(client: SupabaseClient, enabled = false): 
     subscribe(limit, update, error) {
       let active = true;
       let loading = false;
+      let requestController: AbortController | undefined;
+      let requestTimer: number | undefined;
       const refresh = async () => {
         if (loading || !active) return;
         loading = true;
+        const controller = new AbortController();
+        requestController = controller;
+        requestTimer = window.setTimeout(() => controller.abort(), 15_000);
         try {
           const result = await client.from('visitor_messages').select(publicColumns)
             .eq('status', 'published').eq('is_demo', false)
-            .order('created_at', { ascending: false }).order('id', { ascending: false }).limit(limit + 1);
+            .order('created_at', { ascending: false }).order('id', { ascending: false }).limit(limit + 1)
+            .abortSignal(controller.signal);
           if (result.error) throw result.error;
           if (!active) return;
           const rows = result.data ?? [];
@@ -33,13 +39,13 @@ export function createSupabaseBackend(client: SupabaseClient, enabled = false): 
             createdAt: new Date(row.created_at).getTime(), isDemo: false,
           })) });
         } catch { if (active) error('Visitor messages could not be loaded. Please try again later.'); }
-        finally { loading = false; }
+        finally { clearTimeout(requestTimer); requestController = undefined; loading = false; }
       };
       void refresh();
       // Polling avoids requiring unverified Realtime publication configuration.
       const timer = window.setInterval(() => { void refresh(); }, 30_000);
       listeners.add(refresh);
-      return () => { active = false; clearInterval(timer); listeners.delete(refresh); };
+      return () => { active = false; requestController?.abort(); clearTimeout(requestTimer); clearInterval(timer); listeners.delete(refresh); };
     },
     async submitPublic(input) {
       if (!enabled) throw new ContactError('Public submissions are not enabled yet.');

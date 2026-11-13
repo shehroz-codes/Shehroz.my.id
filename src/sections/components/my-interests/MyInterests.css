@@ -772,7 +772,8 @@
   }
 
   .mi-portrait {
-    max-width: 270px;
+    /* Allow for the halo's 9% inset and pulse at the narrowest viewport. */
+    max-width: min(270px, calc(100vw / 1.2));
   }
 
   .mi-card {

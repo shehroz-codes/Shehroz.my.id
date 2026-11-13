@@ -55,3 +55,10 @@ it('preview accepts an 80-character name without requiring CAPTCHA', async () =>
   await waitFor(() => expect(b.submitPublic).toHaveBeenCalledTimes(1));
   expect(screen.queryByText('Verify')).toBeNull();
 });
+it('counts emoji with the same length units enforced by the server', () => {
+  render(<VisitorComposer backend={{ ...backend(), mode: 'preview', requiresCaptcha: false }} remaining={0} cooldownLabel="" />);
+  const text = screen.getByRole('textbox', { name: /Your message/ });
+  fireEvent.change(text, { target: { value: '😀'.repeat(150) } });
+  expect(screen.getByText('300 / 300')).toBeTruthy();
+  expect((text as HTMLTextAreaElement).maxLength).toBe(300);
+});

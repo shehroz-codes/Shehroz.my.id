@@ -7,9 +7,9 @@ const input = { name: 'Visitor', text: 'Hello!', photo: null, photoDataUrl: null
   country: { code: null, name: null }, honeypot: '', turnstileToken: 'fresh-token' };
 const session = { access_token: 'visitor-jwt', expires_at: Date.now() / 1000 + 3600 };
 function fixture() {
-  const query = { select: vi.fn(), eq: vi.fn(), order: vi.fn(), limit: vi.fn() };
-  query.select.mockReturnValue(query); query.eq.mockReturnValue(query); query.order.mockReturnValue(query);
-  query.limit.mockResolvedValue({ data: [{ id: 'm1', name: 'Test', text: '<script>plain text</script>', created_at: '2026-11-13T00:00:00Z', country_code: null, country_name: null }], error: null });
+  const query = { select: vi.fn(), eq: vi.fn(), order: vi.fn(), limit: vi.fn(), abortSignal: vi.fn() };
+  query.select.mockReturnValue(query); query.eq.mockReturnValue(query); query.order.mockReturnValue(query); query.limit.mockReturnValue(query);
+  query.abortSignal.mockResolvedValue({ data: [{ id: 'm1', name: 'Test', text: '<script>plain text</script>', created_at: '2026-11-13T00:00:00Z', country_code: null, country_name: null }], error: null });
   const auth = { getSession: vi.fn().mockResolvedValue({ data: { session }, error: null }),
     refreshSession: vi.fn().mockResolvedValue({ data: { session }, error: null }),
     signInAnonymously: vi.fn().mockResolvedValue({ data: { session }, error: null }) };
@@ -105,8 +105,30 @@ describe('Supabase adapter (mocked)', () => {
     await backend.submitPublic(input); await vi.waitFor(() => expect(update).toHaveBeenCalledTimes(2));
     stop(); await vi.advanceTimersByTimeAsync(60_000); expect(update).toHaveBeenCalledTimes(2);
   });
+  it('turns a stalled public read into an error after 15 seconds', async () => {
+    vi.useFakeTimers(); const f = fixture();
+    f.query.abortSignal.mockImplementation((signal: AbortSignal) => new Promise((resolve) => {
+      signal.addEventListener('abort', () => resolve({ data: null, error: { message: 'aborted' } }));
+    }));
+    const update = vi.fn(); const fail = vi.fn();
+    const stop = createSupabaseBackend(f.client).subscribe(5, update, fail);
+    await vi.advanceTimersByTimeAsync(14_999); expect(fail).not.toHaveBeenCalled();
+    await vi.advanceTimersByTimeAsync(1); expect(fail).toHaveBeenCalledTimes(1);
+    expect(update).not.toHaveBeenCalled(); stop();
+  });
+  it('aborts an unfinished read on unsubscribe without a stale error', async () => {
+    const f = fixture(); let requestSignal: AbortSignal | undefined;
+    f.query.abortSignal.mockImplementation((signal: AbortSignal) => new Promise((resolve) => {
+      requestSignal = signal;
+      signal.addEventListener('abort', () => resolve({ data: null, error: { message: 'aborted' } }));
+    }));
+    const update = vi.fn(); const fail = vi.fn();
+    const stop = createSupabaseBackend(f.client).subscribe(5, update, fail);
+    stop(); await Promise.resolve(); await Promise.resolve();
+    expect(requestSignal?.aborted).toBe(true); expect(update).not.toHaveBeenCalled(); expect(fail).not.toHaveBeenCalled();
+  });
   it('reports live read failure without preview fallback', async () => {
-    const f = fixture(); f.query.limit.mockResolvedValue({ data: null, error: { message: 'denied' } });
+    const f = fixture(); f.query.abortSignal.mockResolvedValue({ data: null, error: { message: 'denied' } });
     const update = vi.fn(); const fail = vi.fn(); const stop = createSupabaseBackend(f.client).subscribe(5, update, fail);
     await vi.waitFor(() => expect(fail).toHaveBeenCalled()); expect(update).not.toHaveBeenCalled(); stop();
   });

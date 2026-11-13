@@ -5,6 +5,8 @@ const BUCKET = "visitor-photos-private";
 const MAX_BODY = 100 * 1024;
 const MAX_PHOTO = 60 * 1024;
 const MAX_DIMENSION = 256;
+// Review-only patch: keep server photo acceptance disabled until delivery exists.
+const PHOTOS_ENABLED = false;
 
 function json(
   data: Record<string, unknown>,
@@ -152,7 +154,9 @@ async function verifyCaptcha(
     if (!response.ok) return false;
 
     const result = await response.json();
-    return result.success === true;
+    return result.success === true &&
+      result.hostname === 'shehroz-codes.github.io' &&
+      result.action === 'visitor-message';
   } catch {
     return false;
   }
@@ -160,9 +164,10 @@ async function verifyCaptcha(
 
 export default {
   fetch: withSupabase(
-    { auth: "user", cors: { headers: {
+    { auth: "user", errors: { detailed: false }, audience: "authenticated",
+      issuer: "https://lctzkigzaudjiotopzye.supabase.co/auth/v1", cors: { headers: {
       "Access-Control-Allow-Origin": "https://shehroz-codes.github.io",
-      "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+      "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-retry-count, traceparent, tracestate, baggage",
       "Access-Control-Allow-Methods": "POST, OPTIONS",
       "Vary": "Origin",
     } } },
@@ -193,11 +198,11 @@ export default {
         );
       }
 
-      const userId = ctx.userClaims?.sub;
+      const userId = ctx.userClaims?.id;
 
       if (
-        typeof userId !== "string" ||
-        !/^[0-9a-f]{8}-[0-9a-f-]{27,}$/i.test(userId)
+        ctx.userClaims?.role !== 'authenticated' || typeof userId !== "string" ||
+        !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(userId)
       ) {
         return json({ error: "Invalid user" }, 401);
       }
@@ -290,6 +295,7 @@ export default {
         let photoBytes: Uint8Array | null = null;
 
         if (rawPhoto !== null) {
+          if (!PHOTOS_ENABLED) return json({ error: "Visitor photos are not available yet" }, 400);
           if (
             !(rawPhoto instanceof File) ||
             rawPhoto.type !== "image/webp" ||

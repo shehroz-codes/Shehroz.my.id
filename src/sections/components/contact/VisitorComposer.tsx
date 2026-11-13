@@ -64,7 +64,7 @@ export default function VisitorComposer({ backend, remaining, cooldownLabel }: {
       const trimmed = text.trim();
       if (trimmed.length < 4 || !/[A-Za-z]{2}/.test(trimmed)) return;
       const result = correct(trimmed);
-      if (result !== trimmed && result !== dismissed && [...result].length <= 300) setSuggestion(result);
+      if (result !== trimmed && result !== dismissed && result.length <= 300) setSuggestion(result);
     }, 700);
     return () => clearTimeout(timer);
   }, [text, dismissed]);
@@ -161,9 +161,9 @@ export default function VisitorComposer({ backend, remaining, cooldownLabel }: {
           </div>
           <div className="field composer__text-field">
             <label htmlFor="contact-public-text"><span>Your message <span className="req" aria-hidden="true">*</span></span>
-              <span className={`composer__counter${[...text].length >= 270 ? ' is-near' : ''}`} id="contact-counter">{[...text].length} / 300</span>
+              <span className={`composer__counter${text.length >= 270 ? ' is-near' : ''}`} id="contact-counter">{text.length} / 300</span>
             </label>
-            <textarea ref={textRef} className="textarea" id="contact-public-text" name="text" rows={3} required
+            <textarea ref={textRef} className="textarea" id="contact-public-text" name="text" rows={3} maxLength={300} required
               value={text} aria-invalid={Boolean(errors.text)} aria-describedby="contact-public-text-err contact-counter"
               onChange={(event) => { setText(event.target.value); setErrors((old) => ({ ...old, text: '' })); }}
               onKeyDown={(event) => { if (event.key === 'Escape') { setDismissed(suggestion); setSuggestion(''); } }}
@@ -189,7 +189,7 @@ export default function VisitorComposer({ backend, remaining, cooldownLabel }: {
             <button type="button" className="x" aria-label="Dismiss suggestion" onClick={() => { setDismissed(suggestion); setSuggestion(''); textRef.current?.focus(); }}><X className="icon" aria-hidden="true" /></button>
           </div>}
           {backend?.requiresCaptcha && !unavailable && (turnstileSiteKey ? <Turnstile
-            ref={captchaRef} siteKey={turnstileSiteKey} options={{ theme: 'dark', size: 'flexible' }}
+            ref={captchaRef} siteKey={turnstileSiteKey} options={{ theme: 'dark', size: 'flexible', action: 'visitor-message' }}
             onSuccess={setCaptchaToken}
             onExpire={() => { setCaptchaToken(''); setStatus({ kind: 'warn', text: 'Verification expired. Please complete the security check again.' }); captchaRef.current?.reset(); }}
             onError={() => { setCaptchaToken(''); setStatus({ kind: 'err', text: 'Security verification could not load. Please try again later.' }); }}

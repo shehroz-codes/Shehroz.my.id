@@ -35,7 +35,7 @@ jobs:
           VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
           VITE_SUPABASE_PUBLISHABLE_KEY: ${{ vars.VITE_SUPABASE_PUBLISHABLE_KEY }}
           VITE_TURNSTILE_SITE_KEY: ${{ vars.VITE_TURNSTILE_SITE_KEY }}
-          # Keep production in preview until the backend and live tests are reviewed.
+          # Public reads are live; keep writes disabled until security review passes.
           VITE_CONTACT_MODE: live
           VITE_CONTACT_BACKEND: supabase
           VITE_VISITOR_SUBMISSIONS_ENABLED: 'false'
