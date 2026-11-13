@@ -31,6 +31,14 @@ jobs:
 
       - name: Build production site
         run: npm run build
+        env:
+          VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ vars.VITE_SUPABASE_PUBLISHABLE_KEY }}
+          VITE_TURNSTILE_SITE_KEY: ${{ vars.VITE_TURNSTILE_SITE_KEY }}
+          # Keep production in preview until the backend and live tests are reviewed.
+          VITE_CONTACT_MODE: preview
+          VITE_CONTACT_BACKEND: supabase
+          VITE_VISITOR_SUBMISSIONS_ENABLED: 'false'
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

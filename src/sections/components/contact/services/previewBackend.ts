@@ -46,7 +46,7 @@ export const previewBackend: Backend = {
   async submitPublic({ name, text, photoDataUrl, country, honeypot }) {
     if (honeypot) throw new ContactError('Submission rejected.');
     name = name.trim(); text = text.trim();
-    if (!name || [...name].length > 40 || !text || [...text].length > 300) {
+    if (!name || name.length > 80 || !text || text.length > 300) {
       throw new ContactError('Enter a name and a message of up to 300 characters.');
     }
     const record = read();

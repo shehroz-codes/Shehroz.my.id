@@ -8,6 +8,9 @@ import { correct } from './services/suggest';
 import { setLiveExpiry } from './services/storage';
 import { Field, Honeypot, Status, fieldValue, focusError } from './FormParts';
 import type { FormStatus } from './FormParts';
+import { Turnstile } from '@marsidev/react-turnstile';
+import type { TurnstileInstance } from '@marsidev/react-turnstile';
+import { turnstileSiteKey } from './config';
 
 const countries = ['PK', 'IN', 'AE', 'SA', 'GB', 'US', 'CA', 'DE', 'FR', 'AU', 'TR', 'SG', 'BD', 'MY', 'QA', 'KW', 'OM', 'NL', 'SE', 'CH', 'IT', 'ES', 'BR', 'JP', 'CN'];
 const names = new Intl.DisplayNames(['en'], { type: 'region' });
@@ -39,6 +42,9 @@ export default function VisitorComposer({ backend, remaining, cooldownLabel }: {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<FormStatus | null>(null);
   const [busy, setBusy] = useState(false);
+  const submitting = useRef(false);
+  const captchaRef = useRef<TurnstileInstance>(null);
+  const [captchaToken, setCaptchaToken] = useState('');
   const [readingPhoto, setReadingPhoto] = useState(false);
   const [photo, setPhoto] = useState<{ file: File; dataUrl: string } | null>(null);
   const [detected, setDetected] = useState<Country>({ code: null, name: null });
@@ -64,7 +70,9 @@ export default function VisitorComposer({ backend, remaining, cooldownLabel }: {
   }, [text, dismissed]);
   const country: Country = countryChoice === 'auto' ? detected
     : { code: countryChoice || null, name: countryChoice ? names.of(countryChoice) ?? countryChoice : null };
-  const disabled = busy || readingPhoto || remaining > 0 || !backend;
+  const unavailable = backend?.submissionsEnabled === false;
+  const disabled = busy || readingPhoto || remaining > 0 || !backend || unavailable;
+  const submitDisabled = disabled || Boolean(backend?.requiresCaptcha && (!turnstileSiteKey || !captchaToken));
 
   function clearPhoto() {
     photoSequence.current++; setPhoto(null); setReadingPhoto(false);
@@ -88,20 +96,21 @@ export default function VisitorComposer({ backend, remaining, cooldownLabel }: {
   }
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (disabled || !backend) return;
+    if (submitDisabled || submitting.current || !backend) return;
     const data = new FormData(event.currentTarget);
-    const name = fieldValue(data, 'name');
-    const trimmed = text.trim();
+    const name = fieldValue(data, 'name').normalize('NFC');
+    const trimmed = text.trim().normalize('NFC');
     const next: Record<string, string> = {};
-    if (!name || [...name].length > 40) next.name = 'Please enter your name (up to 40 characters).';
-    if (!trimmed || [...trimmed].length > 300) next.text = 'Please write a message of 1–300 characters.';
+    if (!name || name.length > 80) next.name = 'Please enter your name (up to 80 characters).';
+    if (!trimmed || trimmed.length > 300) next.text = 'Please write a message of 1–300 characters.';
     setErrors(next); setStatus(null);
     if (Object.keys(next).length) { focusError(event.currentTarget); return; }
-    setBusy(true);
+    submitting.current = true; setBusy(true);
     try {
       const result = await backend.submitPublic({
         name, text: trimmed, photo: photo?.file ?? null, photoDataUrl: photo?.dataUrl ?? null,
         country, honeypot: fieldValue(data, 'website'),
+        turnstileToken: captchaToken,
       });
       if (backend.mode === 'live') setLiveExpiry(result.cooldownUntil);
       setText(''); setSuggestion(''); clearPhoto();
@@ -114,7 +123,10 @@ export default function VisitorComposer({ backend, remaining, cooldownLabel }: {
     } catch (error) {
       if (backend.mode === 'live' && error instanceof ContactError && error.cooldownUntil) setLiveExpiry(error.cooldownUntil);
       setStatus({ kind: 'err', text: error instanceof Error ? error.message : 'Your message could not be posted. Please try again.' });
-    } finally { setBusy(false); }
+    } finally {
+      submitting.current = false; setBusy(false);
+      setCaptchaToken(''); captchaRef.current?.reset();
+    }
   }
 
   return <article className="card composer-card" aria-labelledby="contact-composer-title">
@@ -128,7 +140,7 @@ export default function VisitorComposer({ backend, remaining, cooldownLabel }: {
         <div className="composer__inner">
           <div className="composer__compact-row">
             <Field id="contact-public-name" label="Your name" error={errors.name}>
-              <input className="input" id="contact-public-name" name="name" maxLength={40} required autoComplete="nickname"
+              <input className="input" id="contact-public-name" name="name" maxLength={80} required autoComplete="nickname"
                 aria-invalid={Boolean(errors.name)} aria-describedby="contact-public-name-err" placeholder="Your name or alias"
                 onChange={() => setErrors((old) => ({ ...old, name: '' }))} />
             </Field>
@@ -136,7 +148,7 @@ export default function VisitorComposer({ backend, remaining, cooldownLabel }: {
               <label htmlFor="contact-photo"><span>Photo <span className="opt">(optional)</span></span></label>
               <div className="photo-ctrl">
                 <input ref={fileRef} type="file" id="contact-photo" accept="image/jpeg,image/png,image/webp" onChange={choosePhoto} tabIndex={-1} />
-                <button className="btn btn--ghost" type="button" onClick={() => fileRef.current?.click()}>
+                <button className="btn btn--ghost" type="button" disabled={backend?.photosEnabled === false} onClick={() => fileRef.current?.click()}>
                   <ImageIcon className="icon" aria-hidden="true" />Choose photo
                 </button>
                 {photo && <span className="photo-thumb">
@@ -144,6 +156,7 @@ export default function VisitorComposer({ backend, remaining, cooldownLabel }: {
                   <button type="button" onClick={clearPhoto} aria-label="Remove photo"><X className="icon" aria-hidden="true" /></button>
                 </span>}
               </div>
+              {backend?.photosEnabled === false && <p className="preview-count">Photos are unavailable until secure photo delivery is connected.</p>}
             </div>
           </div>
           <div className="field composer__text-field">
@@ -160,7 +173,7 @@ export default function VisitorComposer({ backend, remaining, cooldownLabel }: {
           <Honeypot />
           <div className="composer__country-section">
             <div className="country-line"><Globe className="icon" aria-hidden="true" />
-              {backend?.mode === 'live' ? 'Country is determined by the contact service (approximate).'
+              {backend?.countryAvailable === false ? 'Posting without country.' : backend?.mode === 'live' ? 'Country is determined by the contact service (approximate).'
                 : country.name ? `${country.name} · ${countryChoice === 'auto' ? 'Estimated from browser timezone' : 'Selected manually'}` : 'Unspecified · Posting without country'}
             </div>
             {backend?.mode !== 'live' && <select className="country-select" aria-label="Country selection"
@@ -175,7 +188,15 @@ export default function VisitorComposer({ backend, remaining, cooldownLabel }: {
             <button type="button" className="btn btn--ghost suggest__use-btn" onClick={() => { setText(suggestion); textRef.current?.focus(); }}>Use suggestion</button>
             <button type="button" className="x" aria-label="Dismiss suggestion" onClick={() => { setDismissed(suggestion); setSuggestion(''); textRef.current?.focus(); }}><X className="icon" aria-hidden="true" /></button>
           </div>}
-          <div className="composer__actions"><button className="btn" type="submit">
+          {backend?.requiresCaptcha && !unavailable && (turnstileSiteKey ? <Turnstile
+            ref={captchaRef} siteKey={turnstileSiteKey} options={{ theme: 'dark', size: 'flexible' }}
+            onSuccess={setCaptchaToken}
+            onExpire={() => { setCaptchaToken(''); setStatus({ kind: 'warn', text: 'Verification expired. Please complete the security check again.' }); captchaRef.current?.reset(); }}
+            onError={() => { setCaptchaToken(''); setStatus({ kind: 'err', text: 'Security verification could not load. Please try again later.' }); }}
+            onUnsupported={() => { setCaptchaToken(''); setStatus({ kind: 'err', text: 'Security verification is unavailable in this browser.' }); }}
+          /> : <p className="preview-count" role="alert">Security verification is not configured. Public submissions are unavailable.</p>)}
+          {unavailable && <p className="preview-count" role="status">Public submissions are not enabled yet.</p>}
+          <div className="composer__actions"><button className="btn" type="submit" disabled={submitDisabled}>
             <Send className="icon" aria-hidden="true" />{busy ? 'Posting…' : readingPhoto ? 'Reading photo…' : backend?.mode === 'preview' ? 'Preview Message' : 'Post Message'}
           </button></div>
         </div>
