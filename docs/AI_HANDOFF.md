@@ -45,7 +45,8 @@ fallback until an email is published. The navbar design is unchanged.
 ## Assets, dependencies and attribution
 
 Only `lucide-react` was missing and added. React, TypeScript, Vite and Tailwind
-reuse the host toolchain and lockfile. No Firebase, router or second app is added.
+reuse the host toolchain and lockfile. No router or second app is added.
+The later Firebase foundation is documented below.
 
 - Original profile PNG, iconpattern SVG and backdrop SVG:
   `public/sections/about/`. Runtime public paths use `import.meta.env.BASE_URL`.
@@ -83,4 +84,43 @@ remain disabled and no audio is invented. Supply licensed tracks or official
 embeds to validate real playback. Showcase assets include labeled sample projects,
 certificates and experience letters; unprovided links stay unavailable. About
 email/CV/LinkedIn and several social channels remain unconfigured. No credentials
-or backend are needed. Vite's existing large Lanyard chunk warning remains.
+or backend are needed to render the portfolio. Vite's existing large Lanyard chunk warning remains.
+
+
+## Firebase foundation (no feature integration)
+
+- Existing project: `shehroz-portfolio-45a2b`; web app: **Shehroz Portfolio Web**.
+  Default Firestore: **(default), Standard Edition, Native Mode** (developer
+  verified locally). Do not create replacements.
+- Official modular `firebase` SDK is a runtime dependency. `src/lib/firebase.ts`
+  exports `firebaseApp`, `db` and `isFirebaseConfigured`; it reuses the default app
+  across hot reloads. All six values must be present/nonblank, otherwise instances
+  are null. Consumers must guard `db` and handle runtime permission/network errors.
+  No Analytics, Auth, Admin SDK, read/write calls or current UI imports are added.
+- `.env.example` documents `VITE_FIREBASE_API_KEY`, `VITE_FIREBASE_AUTH_DOMAIN`,
+  `VITE_FIREBASE_PROJECT_ID`, `VITE_FIREBASE_STORAGE_BUCKET`,
+  `VITE_FIREBASE_MESSAGING_SENDER_ID` and `VITE_FIREBASE_APP_ID`.
+  Copy to ignored `.env.local` and use the existing web app's real public config.
+  Vite embeds values during builds; restart dev/rebuild after changes. Never put
+  OAuth/login tokens, service accounts or private keys in frontend variables.
+- `.firebaserc` targets the existing project. `firebase.json` configures only
+  Firestore rules/indexes. `firestore.rules` denies all client access recursively;
+  `firestore.indexes.json` has empty indexes/field overrides, not a live export.
+  No Hosting or Pages workflow changes are included.
+- Files in GitHub do **not** activate Firestore rules. Codex Cloud currently lacks
+  authenticated Firebase management access; no remote reads or deployments were
+  tested here. The developer deploys manually on Linux Mint with their existing
+  authenticated Firebase CLI. See [README](../README.md#firestore-configuration-and-manual-deployment)
+  for exact login/project/database/app checks and the explicit project-scoped
+  `deploy --only firestore:rules` command. Review live rules before replacement;
+  this baseline denies all clients. Compare live indexes before any index deploy.
+  Rules management needs appropriate IAM (such as Firebase Rules Admin); future
+  backend deployments need separate permissions. Review/verify prototype rules.
+- Local setup: `npm ci`, `cp .env.example .env.local`, fill values, then
+  `npm run dev`, `npm run typecheck`, `npm run build`. Configuration is optional
+  for existing portfolio sections; presence does not prove remote access.
+- Future Contact and Visitor Message Wall should use shared `db` through feature
+  services. Define schemas, allowed queries/indexes, rules, validation and abuse
+  controls first. Neither feature nor collections, messages, uploads, cooldowns,
+  AI moderation or location detection exists in this phase. Keep current About
+  links, navigation, Hero, Interests and Showcase behavior intact.
