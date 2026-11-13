@@ -965,7 +965,7 @@ const PillNav = ({
                   }}
                   className={SLOT}
                   data-on={
-                    fill && indicator === "pill" && index === activeIndex
+                    fill && index === activeIndex
                       ? ""
                       : undefined
                   }

@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import GlowCursor from "../components/GlowCursor/GlowCursor";
 import PillNav from "../components/PillNav/PillNav";
 import type { PillNavItem } from "../components/PillNav/PillNav";
@@ -8,12 +9,47 @@ import { Hero } from "../components/Hero/Hero";
 const navigation: PillNavItem[] = [
   { label: "Home", href: "#home", ariaLabel: "Home" },
   { label: "About", href: "#about", ariaLabel: "About" },
-  { label: "Skills", href: "#skills", ariaLabel: "Skills" },
+  { label: "My Interests", href: "#interests", ariaLabel: "My Interests" },
   { label: "Projects", href: "#projects", ariaLabel: "Projects" },
   { label: "Contact", disabled: true, ariaLabel: "Contact — not implemented yet" },
 ];
 
 export function App() {
+  const [activeHref, setActiveHref] = useState("#home");
+
+  useEffect(() => {
+    const sections = ["about", "interests", "projects"]
+      .map((id) => document.getElementById(id))
+      .filter((section): section is HTMLElement => section !== null);
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      // Use one stable viewport line in both directions; Home wraps all sections.
+      const activationLine = window.innerHeight * 0.25;
+      let href = "#home";
+      for (const section of sections) {
+        if (section.getBoundingClientRect().top <= activationLine) {
+          href = `#${section.id}`;
+        }
+      }
+      setActiveHref(href);
+    };
+    const schedule = () => {
+      if (!frame) frame = window.requestAnimationFrame(update);
+    };
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    const observer = new ResizeObserver(schedule);
+    sections.forEach((section) => observer.observe(section));
+    update();
+    return () => {
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+      observer.disconnect();
+      window.cancelAnimationFrame(frame);
+    };
+  }, []);
+
   return (
     <div className="app-shell">
       <GlowCursor
@@ -42,7 +78,7 @@ export function App() {
               logoAlt="MS — Home"
               logoHref="#home"
               items={navigation}
-              activeHref="#home"
+              activeHref={activeHref}
               theme="dark"
               layout="split"
               surface="glass"
@@ -58,7 +94,7 @@ export function App() {
               highlightTextColor="var(--color-text)"
               barColor="color-mix(in srgb, var(--color-surface) 80%, transparent)"
               style={{
-                "--pn-mark": "40px",
+                "--pn-mark": "44px",
                 "--pn-h": "50px",
                 "--pn-inner": "42px",
                 "--pn-x": "18px",
