@@ -11,14 +11,14 @@ const navigation: PillNavItem[] = [
   { label: "About", href: "#about", ariaLabel: "About" },
   { label: "My Interests", href: "#interests", ariaLabel: "My Interests" },
   { label: "Projects", href: "#projects", ariaLabel: "Projects" },
-  { label: "Contact", disabled: true, ariaLabel: "Contact — not implemented yet" },
+  { label: "Contact", href: "#contact", ariaLabel: "Contact" },
 ];
 
 export function App() {
   const [activeHref, setActiveHref] = useState("#home");
 
   useEffect(() => {
-    const sections = ["about", "interests", "projects"]
+    const sections = ["about", "interests", "projects", "contact"]
       .map((id) => document.getElementById(id))
       .filter((section): section is HTMLElement => section !== null);
     let frame = 0;

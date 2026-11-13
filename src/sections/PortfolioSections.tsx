@@ -2,6 +2,7 @@ import AboutCard from './components/AboutCard';
 import ProfileCard from './components/ProfileCard/ProfileCard';
 import MyInterests from './components/my-interests/MyInterests';
 import PortfolioShowcase from './components/showcase/PortfolioShowcase';
+import ContactSection from './components/contact/ContactSection';
 import { aboutCardProps } from './config/aboutCardData';
 import { contactHref, profile } from './config/profile';
 import './PortfolioSections.css';
@@ -13,6 +14,7 @@ import './PortfolioSections.css';
  *   1. About Card
  *   2. My Interests Section
  *   3. Portfolio Showcase Section
+ *   4. Contact and Visitor Message Wall
  */
 export function PortfolioSections() {
   return (
@@ -51,6 +53,9 @@ export function PortfolioSections() {
       <div id="projects" className="portfolio-section-anchor">
         <span id="skills" className="portfolio-skills-anchor" aria-hidden="true" />
         <PortfolioShowcase />
+      </div>
+      <div id="contact" className="portfolio-section-anchor">
+        <ContactSection />
       </div>
     </div>
   );
