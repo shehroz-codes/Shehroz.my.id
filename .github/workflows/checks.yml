@@ -1,0 +1,24 @@
+name: Validate portfolio
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
+      # This runner creates a disposable local database, never a hosted connection.
+      - run: npm run test:database
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:browser

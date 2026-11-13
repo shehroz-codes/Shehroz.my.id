@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import type { FormEvent } from 'react';
 import { Mail, Send } from 'lucide-react';
 import type { Backend } from './types';
@@ -8,10 +8,11 @@ import type { FormStatus } from './FormParts';
 export default function ContactForm({ backend }: { backend: Backend | null }) {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [busy, setBusy] = useState(false);
+  const submitting = useRef(false);
   const [status, setStatus] = useState<FormStatus | null>(null);
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (busy || !backend) return;
+    if (submitting.current || !backend) return;
     const form = event.currentTarget;
     const data = new FormData(form);
     const input = {
@@ -26,14 +27,14 @@ export default function ContactForm({ backend }: { backend: Backend | null }) {
     if ([...input.message].length < 10 || [...input.message].length > 2000) next.message = 'Message must be 10–2000 characters.';
     setErrors(next); setStatus(null);
     if (Object.keys(next).length) { focusError(form); return; }
-    setBusy(true);
+    submitting.current = true; setBusy(true);
     try {
       await backend.submitPrivate(input);
       form.reset();
       setStatus({ kind: 'ok', text: 'Your message was received by the contact service. Email delivery is not confirmed.' });
     } catch (error) {
       setStatus({ kind: 'err', text: error instanceof Error ? error.message : 'Your message could not be sent. Please try again.' });
-    } finally { setBusy(false); }
+    } finally { submitting.current = false; setBusy(false); }
   }
   const attributes = (name: string) => ({
     id: `contact-private-${name}`, name, required: true,
