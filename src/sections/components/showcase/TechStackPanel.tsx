@@ -96,7 +96,12 @@ export default function TechStackPanel() {
               <h3>{group}</h3>
               <span>{String(items.length).padStart(2, "0")}</span>
             </div>
-            <ul className="ps-tech-grid">
+            <ul
+              className="ps-tech-grid"
+              style={{ "--tech-columns": Math.ceil(items.length / 2) } as CSSProperties}
+              tabIndex={0}
+              aria-label={`${group} technologies`}
+            >
               {items.map(({ name, icon: TechnologyIcon, color }) => (
                 <li
                   className="ps-tech-tile"
