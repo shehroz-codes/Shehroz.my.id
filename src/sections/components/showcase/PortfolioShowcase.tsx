@@ -57,8 +57,8 @@ const tabs: TabDefinition[] = [
     icon: "stack",
     heading: "My development",
     accent: "Toolkit",
-    subtitle: "The technologies confirmed in my project data.",
-    meta: "CONFIRMED TECHNOLOGIES",
+    subtitle: "The tools and technologies in my development toolkit.",
+    meta: "PERSONAL TOOLKIT",
   },
 ];
 export default function PortfolioShowcase({
