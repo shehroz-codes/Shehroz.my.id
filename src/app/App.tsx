@@ -5,6 +5,7 @@ import type { PillNavItem } from "../components/PillNav/PillNav";
 import "./App.css";
 import { PortfolioSections } from "../sections/PortfolioSections";
 import { Hero } from "../components/Hero/Hero";
+import PortfolioFooter from "../components/PortfolioFooter";
 
 const navigation: PillNavItem[] = [
   { label: "Home", href: "#home", ariaLabel: "Home" },
@@ -120,6 +121,7 @@ export function App() {
           <Hero />
           <PortfolioSections />
         </main>
+        <PortfolioFooter />
       </div>
     </div>
   );
