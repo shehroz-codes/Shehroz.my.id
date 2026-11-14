@@ -1,12 +1,13 @@
 
+import { notifyTelegram, origin } from '../_shared/contact.ts';
 import { withSupabase } from "npm:@supabase/server@1.9.2";
 
 const BUCKET = "visitor-photos-private";
 const MAX_BODY = 100 * 1024;
 const MAX_PHOTO = 60 * 1024;
 const MAX_DIMENSION = 256;
-// Review-only patch: keep server photo acceptance disabled until delivery exists.
-const PHOTOS_ENABLED = false;
+// Only processed thumbnails are accepted; delivery checks publication on each request.
+const PHOTOS_ENABLED = true;
 
 function json(
   data: Record<string, unknown>,
@@ -176,6 +177,7 @@ export default {
         return json({ error: "Method not allowed" }, 405);
       }
 
+      if (req.headers.get('origin') !== origin) return json({ error: 'Origin not allowed' }, 403);
       // Deployment safety switch.
       // Submissions stay disabled until testing is complete.
       if (
@@ -242,7 +244,7 @@ export default {
           {
             method: "POST",
             headers: { "content-type": contentType },
-            body: bytes,
+            body: new Uint8Array(bytes).buffer,
           },
         ).formData();
 
@@ -251,6 +253,7 @@ export default {
           "text",
           "photo",
           "turnstile_token",
+          "website",
         ]);
 
         for (const key of form.keys()) {
@@ -262,6 +265,7 @@ export default {
           }
         }
 
+        if (form.get('website')) return json({ error: 'Invalid fields' }, 400);
         const rawName = form.get("name");
         const rawText = form.get("text");
         const rawPhoto = form.get("photo");
@@ -332,9 +336,17 @@ export default {
         }
 
         if (photoBytes) {
+          // Header bounds first, then a real WASM decoder rejects malformed image content.
+          try {
+            const { decodeThumbnail } = await import('../_shared/photo.ts');
+            photoBytes = decodeThumbnail(photoBytes);
+          } catch { return json({ error: 'Invalid image content' }, 400); }
           uploadedPath =
             `${userId}/${crypto.randomUUID()}.webp`;
 
+          // Durable cleanup intent exists before upload, including interrupted requests.
+          const queued = await ctx.supabaseAdmin.from('visitor_photo_cleanup').insert({ path: uploadedPath });
+          if (queued.error) return json({ error: 'Photo upload unavailable' }, 503);
           const { error } =
             await ctx.supabaseAdmin.storage
               .from(BUCKET)
@@ -388,6 +400,12 @@ export default {
         }
 
         committed = true;
+        // Publication is committed. Neither notification nor queue maintenance can turn it into a failure.
+        if (uploadedPath) {
+          try { await ctx.supabaseAdmin.from('visitor_photo_cleanup').delete().eq('path', uploadedPath); }
+          catch { console.warn('Photo queue maintenance deferred'); }
+        }
+        await notifyTelegram(`Visitor wall: ${name}\n${text.slice(0, 300)}\nPublished: ${new Date().toISOString()}\nMessage: ${messageId}\nManage: https://supabase.com/dashboard/project/lctzkigzaudjiotopzye/editor`);
 
         return json(
           {
@@ -418,9 +436,8 @@ export default {
               .from(BUCKET)
               .remove([uploadedPath]);
 
-          if (error) {
-            console.error("Photo cleanup failed");
-          }
+          if (error) console.error("Photo cleanup deferred to owner maintenance");
+          else await ctx.supabaseAdmin.from('visitor_photo_cleanup').delete().eq('path', uploadedPath);
         }
       }
     },

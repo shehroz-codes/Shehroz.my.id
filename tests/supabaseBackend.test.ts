@@ -55,15 +55,15 @@ describe('Supabase adapter (mocked)', () => {
     const f = fixture(); await expect(createSupabaseBackend(f.client, true).submitPublic({ ...input, ...patch })).rejects.toThrow();
     expect(f.invoke).not.toHaveBeenCalled(); expect(f.auth.getSession).not.toHaveBeenCalled();
   });
-  it('does not accept photos without secure delivery', async () => {
-    const f = fixture(); await expect(createSupabaseBackend(f.client, true).submitPublic({ ...input, photo: new File(['x'], 'a.webp', { type: 'image/webp' }) })).rejects.toThrow('secure photo delivery');
+  it('rejects uncompressed photos', async () => {
+    const f = fixture(); await expect(createSupabaseBackend(f.client, true).submitPublic({ ...input, photo: new File(['x'], 'a.png', { type: 'image/png' }) })).rejects.toThrow('compressed WebP');
     expect(f.invoke).not.toHaveBeenCalled();
   });
   it('sends only the verified multipart contract with the session JWT', async () => {
     const f = fixture(); await createSupabaseBackend(f.client, true).submitPublic({ ...input, name: '  Visitor  ' });
     const [slug, options] = f.invoke.mock.calls[0];
     expect(slug).toBe('submit-visitor-message'); expect(options.headers.Authorization).toBe('Bearer visitor-jwt');
-    expect([...options.body.entries()]).toEqual([['name', 'Visitor'], ['text', 'Hello!'], ['turnstile_token', 'fresh-token']]);
+    expect([...options.body.entries()]).toEqual([['website', ''], ['name', 'Visitor'], ['text', 'Hello!'], ['turnstile_token', 'fresh-token']]);
     expect(f.from).not.toHaveBeenCalled();
   });
   it('never sends a token consumed by anonymous Auth to the Edge Function', async () => {

@@ -33,6 +33,7 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "4.14.0",
+    "@imagemagick/magick-wasm": "0.0.30",
     "@playwright/test": "1.65.0",
     "@supabase/server": "1.9.2",
     "@tailwindcss/vite": "^4.3.5",

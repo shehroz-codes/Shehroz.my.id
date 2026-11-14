@@ -22,7 +22,7 @@ function backend(): Backend {
     subscribe: () => () => {}, submitPublic: vi.fn().mockResolvedValue({ status: 'published', cooldownUntil: Date.now() + 600_000 }),
     submitPrivate: vi.fn(), detectCountry: async () => ({ code: null, name: null }) };
 }
-afterEach(() => { cleanup(); vi.clearAllMocks(); localStorage.clear(); });
+afterEach(() => { cleanup(); vi.clearAllMocks(); localStorage.clear(); sessionStorage.clear(); });
 it('requires verification, handles expiry/errors, resets after attempts and preserves failed drafts', async () => {
   const b = backend(); vi.mocked(b.submitPublic).mockRejectedValue(new Error('Security verification failed'));
   render(<VisitorComposer backend={b} remaining={0} cooldownLabel="" />);
@@ -43,7 +43,7 @@ it('requires verification, handles expiry/errors, resets after attempts and pres
 it('leaves submissions and photos disabled at the safety gate', () => {
   render(<VisitorComposer backend={{ ...backend(), submissionsEnabled: false }} remaining={0} cooldownLabel="" />);
   expect((screen.getByRole('button', { name: 'Post Message' }) as HTMLButtonElement).disabled).toBe(true);
-  expect(screen.queryByText('Verify')).toBeNull(); expect(screen.getByText('Public submissions are not enabled yet.')).toBeTruthy();
+  expect(screen.queryByText('Verify')).toBeNull(); expect(screen.getByText(/Public submissions are not enabled yet/)).toBeTruthy();
   expect((screen.getByRole('button', { name: 'Choose photo' }) as HTMLButtonElement).disabled).toBe(true);
 });
 it('preview accepts an 80-character name without requiring CAPTCHA', async () => {
@@ -61,4 +61,34 @@ it('counts emoji with the same length units enforced by the server', () => {
   fireEvent.change(text, { target: { value: '😀'.repeat(150) } });
   expect(screen.getByText('300 / 300')).toBeTruthy();
   expect((text as HTMLTextAreaElement).maxLength).toBe(300);
+});
+
+it('keeps drafts editable at the publishing gate and restores them after remount', () => {
+  const b = { ...backend(), submissionsEnabled: false, photosEnabled: true };
+  const view = render(<VisitorComposer backend={b} remaining={60000} cooldownLabel="1:00" />);
+  const name = screen.getByRole('textbox', { name: 'Your name' }) as HTMLInputElement;
+  const text = screen.getByRole('textbox', { name: /Your message/ }) as HTMLTextAreaElement;
+  expect(name.disabled).toBe(false); expect(text.disabled).toBe(false);
+  fireEvent.change(name, { target: { value: 'Draft visitor' } });
+  fireEvent.change(text, { target: { value: 'My draft' } });
+  expect(screen.getByText('8 / 300')).toBeTruthy();
+  expect((screen.getByRole('button', { name: 'Choose photo' }) as HTMLButtonElement).disabled).toBe(false);
+  view.unmount(); render(<VisitorComposer backend={b} remaining={0} cooldownLabel="" />);
+  expect((screen.getByRole('textbox', { name: 'Your name' }) as HTMLInputElement).value).toBe('Draft visitor');
+  expect((screen.getByRole('textbox', { name: /Your message/ }) as HTMLTextAreaElement).value).toBe('My draft');
+  expect(b.submitPublic).not.toHaveBeenCalled();
+});
+it('establishes anonymous Auth before enabling Post and requires a fresh CAPTCHA token', async () => {
+  const b = { ...backend(), prepareSession: vi.fn().mockResolvedValueOnce(true).mockResolvedValueOnce(false) };
+  render(<VisitorComposer backend={b} remaining={0} cooldownLabel="" />);
+  fireEvent.change(screen.getByRole('textbox', { name: 'Your name' }), { target: { value: 'Visitor' } });
+  fireEvent.change(screen.getByRole('textbox', { name: /Your message/ }), { target: { value: 'One public post' } });
+  fireEvent.click(screen.getByText('Verify'));
+  await waitFor(() => expect(screen.getByText(/Visitor session ready/)).toBeTruthy());
+  expect((screen.getByRole('button', { name: 'Post Message' }) as HTMLButtonElement).disabled).toBe(true);
+  expect(b.submitPublic).not.toHaveBeenCalled();
+  fireEvent.click(screen.getByText('Verify'));
+  await waitFor(() => expect((screen.getByRole('button', { name: 'Post Message' }) as HTMLButtonElement).disabled).toBe(false));
+  fireEvent.click(screen.getByRole('button', { name: 'Post Message' }));
+  await waitFor(() => expect(b.submitPublic).toHaveBeenCalledTimes(1));
 });

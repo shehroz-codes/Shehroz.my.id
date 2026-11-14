@@ -10,19 +10,20 @@ function countryFlag(code: string | null) {
     ? [...code.toUpperCase()].map((letter) => String.fromCodePoint(127397 + letter.charCodeAt(0))).join('') : '';
 }
 function VisitorMessage({ message: m }: { message: WallMessage }) {
+  const [failedPhoto, setFailedPhoto] = useState<string | null>(null);
   const initials = m.name.trim().split(/\s+/).slice(0, 2).map((word) => [...word][0]).join('').toUpperCase();
   let hue = 0;
   for (const letter of m.name) hue = (hue * 31 + letter.codePointAt(0)!) % 360;
   const photo = m.photoUrl && (/^data:image\/(jpeg|png|webp);base64,/.test(m.photoUrl) || m.photoUrl.startsWith('https://')) ? m.photoUrl : null;
   return <li className="msg">
     <div className="msg__avatar" style={{ background: `linear-gradient(135deg,hsl(${hue} 70% 45%),hsl(${(hue + 50) % 360} 70% 30%))` }}>
-      {photo ? <img src={photo} alt={`${m.name}'s photo`} loading="lazy" /> : initials}
+      {photo && failedPhoto !== photo ? <img onError={() => setFailedPhoto(photo)} src={photo} alt={`${m.name}'s photo`} loading="lazy" /> : initials}
     </div>
     <div className="msg__body">
       <div className="msg__top">
         <div className="msg__who">
           <span className="msg__name" dir="auto">{m.name}</span>
-          <span className="msg__country">{countryFlag(m.countryCode) || <Globe className="icon" aria-hidden="true" />}{m.countryName || 'Unspecified'}</span>
+          <span className="msg__country">{m.countryName && <>{countryFlag(m.countryCode) || <Globe className="icon" aria-hidden="true" />}{m.countryName}</>}</span>
           {m.isDemo && <span className="tag">Local preview</span>}
         </div>
         <div className="msg__when">

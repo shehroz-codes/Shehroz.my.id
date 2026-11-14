@@ -5,22 +5,24 @@ import { ContactError } from '../types';
 import type { Backend } from '../types';
 
 // Explicit columns match live column grants. Never select photo_path or visitor_id.
-export const publicColumns = 'id,name,text,country_code,country_name,created_at';
+export const publicColumns = 'id,name,text,country_code,country_name,created_at,has_photo';
 export function createSupabaseBackend(client: SupabaseClient, enabled = false): Backend {
   const session = createVisitorSession(client);
   const listeners = new Set<() => void>();
   let submitting = false;
   return {
     mode: 'live', requiresCaptcha: true, submissionsEnabled: enabled,
-    // No trusted photo delivery endpoint exists yet. Do not accept invisible photos.
-    photosEnabled: false, countryAvailable: false,
+    photosEnabled: true, countryAvailable: false,
+    async prepareSession(token) { return (await session(token)).captchaConsumed; },
     subscribe(limit, update, error) {
       let active = true;
       let loading = false;
+      let refreshAgain = false;
       let requestController: AbortController | undefined;
       let requestTimer: number | undefined;
       const refresh = async () => {
-        if (loading || !active) return;
+        if (!active) return;
+        if (loading) { refreshAgain = true; return; }
         loading = true;
         const controller = new AbortController();
         requestController = controller;
@@ -34,12 +36,14 @@ export function createSupabaseBackend(client: SupabaseClient, enabled = false): 
           if (!active) return;
           const rows = result.data ?? [];
           update({ hasMore: rows.length > limit, messages: rows.slice(0, limit).map((row) => ({
-            id: row.id, name: row.name, text: row.text, photoUrl: null,
+            id: row.id, name: row.name, text: row.text, photoUrl: row.has_photo ? `https://lctzkigzaudjiotopzye.supabase.co/functions/v1/visitor-photo?id=${encodeURIComponent(row.id)}` : null,
             countryCode: row.country_code, countryName: row.country_name,
             createdAt: new Date(row.created_at).getTime(), isDemo: false,
           })) });
         } catch { if (active) error('Visitor messages could not be loaded. Please try again later.'); }
-        finally { clearTimeout(requestTimer); requestController = undefined; loading = false; }
+        finally { clearTimeout(requestTimer); requestController = undefined; loading = false;
+          if (refreshAgain && active) { refreshAgain = false; void refresh(); }
+        }
       };
       void refresh();
       // Polling avoids requiring unverified Realtime publication configuration.
@@ -56,7 +60,7 @@ export function createSupabaseBackend(client: SupabaseClient, enabled = false): 
           /[\u0000-\u001f\u007f]/u.test(name) || /[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/u.test(text)) {
         throw new ContactError('Enter a name of 1–80 characters and a message of 1–300 characters.');
       }
-      if (input.photo) throw new ContactError('Visitor photos are unavailable until secure photo delivery is connected.');
+      if (input.photo && (input.photo.type !== 'image/webp' || input.photo.size > 60 * 1024)) throw new ContactError('Choose a compressed WebP thumbnail up to 60 KB.');
       const token = input.turnstileToken;
       if (!token || token.length > 4096) throw new ContactError('Please complete the security check again.');
       submitting = true;
@@ -66,6 +70,8 @@ export function createSupabaseBackend(client: SupabaseClient, enabled = false): 
           throw new ContactError('Your visitor session is ready. Please complete the security check again, then post your message.');
         }
         const form = new FormData();
+        if (input.photo) form.append('photo', input.photo);
+        form.append('website', input.honeypot);
         form.append('name', name); form.append('text', text); form.append('turnstile_token', token);
         // Never retry a write automatically: a lost response can follow a committed post.
         const { data, error } = await client.functions.invoke('submit-visitor-message', {
@@ -94,8 +100,15 @@ export function createSupabaseBackend(client: SupabaseClient, enabled = false): 
         throw new ContactError('Submission is unconfirmed. Check the wall before trying again.');
       } finally { submitting = false; }
     },
-    // Private correspondence continues through the existing Firebase service only.
-    async submitPrivate(input) { return (await import('./firebaseBackend')).firebaseBackend.submitPrivate(input); },
+    async submitPrivate(input) {
+      if (!input.turnstileToken) throw new ContactError('Please complete the security check.');
+      const auth = await session(input.turnstileToken);
+      if (auth.captchaConsumed) throw new ContactError('Your visitor session is ready. Please verify again to send your private message.');
+      const { data, error } = await client.functions.invoke('submit-private-message', {
+        body: input, headers: { Authorization: `Bearer ${auth.accessToken}` }, timeout: 15_000,
+      });
+      if (error || data?.success !== true) throw new ContactError('Private delivery is unconfirmed. Please try later.');
+    },
     async detectCountry() { return { code: null, name: null }; },
   };
 }
@@ -105,12 +118,13 @@ let adapter: Backend | undefined;
 function live() { return adapter ??= createSupabaseBackend(getSupabase(), visitorSubmissionsEnabled); }
 export const supabaseBackend: Backend = {
   mode: 'live', requiresCaptcha: true, submissionsEnabled: visitorSubmissionsEnabled,
-  photosEnabled: false, countryAvailable: false,
+  photosEnabled: true, countryAvailable: false,
+  async prepareSession(token) { return live().prepareSession!(token); },
   subscribe(limit, update, error) {
     try { return live().subscribe(limit, update, error); }
     catch { error('The visitor wall is not configured.'); return () => {}; }
   },
   async submitPublic(input) { return live().submitPublic(input); },
-  async submitPrivate(input) { return (await import('./firebaseBackend')).firebaseBackend.submitPrivate(input); },
+  async submitPrivate(input) { return live().submitPrivate(input); },
   async detectCountry() { return { code: null, name: null }; },
 };

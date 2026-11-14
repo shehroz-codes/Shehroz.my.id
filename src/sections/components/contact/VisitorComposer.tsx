@@ -15,28 +15,14 @@ import { turnstileSiteKey } from './config';
 const countries = ['PK', 'IN', 'AE', 'SA', 'GB', 'US', 'CA', 'DE', 'FR', 'AU', 'TR', 'SG', 'BD', 'MY', 'QA', 'KW', 'OM', 'NL', 'SE', 'CH', 'IT', 'ES', 'BR', 'JP', 'CN'];
 const names = new Intl.DisplayNames(['en'], { type: 'region' });
 
-/** Source's square thumbnail crop, limited to 160px for browser-only preview. */
-async function thumbnail(file: File): Promise<string> {
-  const url = URL.createObjectURL(file);
-  try {
-    const image = new window.Image();
-    image.src = url;
-    await image.decode();
-    if (image.width * image.height > 20_000_000) throw new Error('Please choose a smaller image.');
-    const canvas = document.createElement('canvas');
-    canvas.width = canvas.height = 160;
-    const context = canvas.getContext('2d');
-    if (!context) throw new Error('Photo preview is unavailable.');
-    const edge = Math.min(image.width, image.height);
-    context.drawImage(image, (image.width - edge) / 2, (image.height - edge) / 2, edge, edge, 0, 0, 160, 160);
-    return canvas.toDataURL('image/jpeg', 0.82);
-  } finally { URL.revokeObjectURL(url); }
-}
+import { thumbnail } from './services/photo';
 
 export default function VisitorComposer({ backend, remaining, cooldownLabel }: {
   backend: Backend | null; remaining: number; cooldownLabel: string;
 }) {
-  const [text, setText] = useState('');
+  const [name, setName] = useState(() => { try { return sessionStorage.getItem('visitor-draft-name') ?? ''; } catch { return ''; } });
+  const [text, setText] = useState(() => { try { return sessionStorage.getItem('visitor-draft-text') ?? ''; } catch { return ''; } });
+  useEffect(() => { try { sessionStorage.setItem('visitor-draft-name', name); sessionStorage.setItem('visitor-draft-text', text); } catch { /* Draft still works without storage. */ } }, [name, text]);
   const [suggestion, setSuggestion] = useState('');
   const [dismissed, setDismissed] = useState('');
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -45,6 +31,9 @@ export default function VisitorComposer({ backend, remaining, cooldownLabel }: {
   const submitting = useRef(false);
   const captchaRef = useRef<TurnstileInstance>(null);
   const [captchaToken, setCaptchaToken] = useState('');
+  const [preparingSession, setPreparingSession] = useState(false);
+  const verificationSequence = useRef(0);
+  useEffect(() => () => { verificationSequence.current++; }, []);
   const [readingPhoto, setReadingPhoto] = useState(false);
   const [photo, setPhoto] = useState<{ file: File; dataUrl: string } | null>(null);
   const [detected, setDetected] = useState<Country>({ code: null, name: null });
@@ -71,9 +60,28 @@ export default function VisitorComposer({ backend, remaining, cooldownLabel }: {
   const country: Country = countryChoice === 'auto' ? detected
     : { code: countryChoice || null, name: countryChoice ? names.of(countryChoice) ?? countryChoice : null };
   const unavailable = backend?.submissionsEnabled === false;
-  const disabled = busy || readingPhoto || remaining > 0 || !backend || unavailable;
-  const submitDisabled = disabled || Boolean(backend?.requiresCaptcha && (!turnstileSiteKey || !captchaToken));
+  const disabled = busy;
+  const publicationBlocked = busy || preparingSession || readingPhoto || remaining > 0 || !backend || unavailable;
+  const submitDisabled = publicationBlocked || Boolean(backend?.requiresCaptcha && (!turnstileSiteKey || !captchaToken));
 
+  async function verified(token: string) {
+    if (!backend?.prepareSession) { setCaptchaToken(token); return; }
+    const sequence = ++verificationSequence.current;
+    setPreparingSession(true); setCaptchaToken('');
+    try {
+      const consumed = await backend.prepareSession(token);
+      if (sequence !== verificationSequence.current) return;
+      if (consumed) {
+        captchaRef.current?.reset();
+        setStatus({ kind: 'warn', text: 'Visitor session ready. Please complete one fresh security check before posting.' });
+      } else { setCaptchaToken(token); setStatus(null); }
+    } catch (error) {
+      if (sequence === verificationSequence.current) {
+        captchaRef.current?.reset();
+        setStatus({ kind: 'err', text: error instanceof Error ? error.message : 'Visitor verification failed. Please try again.' });
+      }
+    } finally { if (sequence === verificationSequence.current) setPreparingSession(false); }
+  }
   function clearPhoto() {
     photoSequence.current++; setPhoto(null); setReadingPhoto(false);
     if (fileRef.current) fileRef.current.value = '';
@@ -88,8 +96,8 @@ export default function VisitorComposer({ backend, remaining, cooldownLabel }: {
     const sequence = ++photoSequence.current;
     setReadingPhoto(true); setStatus(null);
     try {
-      const dataUrl = await thumbnail(file);
-      if (sequence === photoSequence.current) setPhoto({ file, dataUrl });
+      const prepared = await thumbnail(file);
+      if (sequence === photoSequence.current) setPhoto(prepared);
     } catch {
       if (sequence === photoSequence.current) setStatus({ kind: 'err', text: 'This photo could not be read. Please choose another image.' });
     } finally { if (sequence === photoSequence.current) setReadingPhoto(false); }
@@ -113,7 +121,7 @@ export default function VisitorComposer({ backend, remaining, cooldownLabel }: {
         turnstileToken: captchaToken,
       });
       if (backend.mode === 'live') setLiveExpiry(result.cooldownUntil);
-      setText(''); setSuggestion(''); clearPhoto();
+      setText(''); setName(''); setSuggestion(''); clearPhoto();
       setStatus({
         kind: result.status === 'pending' ? 'warn' : 'ok',
         text: backend.mode === 'preview'
@@ -142,7 +150,7 @@ export default function VisitorComposer({ backend, remaining, cooldownLabel }: {
             <Field id="contact-public-name" label="Your name" error={errors.name}>
               <input className="input" id="contact-public-name" name="name" maxLength={80} required autoComplete="nickname"
                 aria-invalid={Boolean(errors.name)} aria-describedby="contact-public-name-err" placeholder="Your name or alias"
-                onChange={() => setErrors((old) => ({ ...old, name: '' }))} />
+                value={name} onChange={(event) => { setName(event.target.value); setErrors((old) => ({ ...old, name: '' })); }} />
             </Field>
             <div className="field photo-ctrl-field">
               <label htmlFor="contact-photo"><span>Photo <span className="opt">(optional)</span></span></label>
@@ -190,12 +198,12 @@ export default function VisitorComposer({ backend, remaining, cooldownLabel }: {
           </div>}
           {backend?.requiresCaptcha && !unavailable && (turnstileSiteKey ? <Turnstile
             ref={captchaRef} siteKey={turnstileSiteKey} options={{ theme: 'dark', size: 'flexible', action: 'visitor-message' }}
-            onSuccess={setCaptchaToken}
-            onExpire={() => { setCaptchaToken(''); setStatus({ kind: 'warn', text: 'Verification expired. Please complete the security check again.' }); captchaRef.current?.reset(); }}
-            onError={() => { setCaptchaToken(''); setStatus({ kind: 'err', text: 'Security verification could not load. Please try again later.' }); }}
-            onUnsupported={() => { setCaptchaToken(''); setStatus({ kind: 'err', text: 'Security verification is unavailable in this browser.' }); }}
+            onSuccess={verified}
+            onExpire={() => { verificationSequence.current++; setPreparingSession(false); setCaptchaToken(''); setStatus({ kind: 'warn', text: 'Verification expired. Please complete the security check again.' }); captchaRef.current?.reset(); }}
+            onError={() => { verificationSequence.current++; setPreparingSession(false); setCaptchaToken(''); setStatus({ kind: 'err', text: 'Security verification could not load. Please try again later.' }); }}
+            onUnsupported={() => { verificationSequence.current++; setPreparingSession(false); setCaptchaToken(''); setStatus({ kind: 'err', text: 'Security verification is unavailable in this browser.' }); }}
           /> : <p className="preview-count" role="alert">Security verification is not configured. Public submissions are unavailable.</p>)}
-          {unavailable && <p className="preview-count" role="status">Public submissions are not enabled yet.</p>}
+          {unavailable && <p className="preview-count" role="status">Public submissions are not enabled yet. You can prepare a draft here.</p>}
           <div className="composer__actions"><button className="btn" type="submit" disabled={submitDisabled}>
             <Send className="icon" aria-hidden="true" />{busy ? 'Posting…' : readingPhoto ? 'Reading photo…' : backend?.mode === 'preview' ? 'Preview Message' : 'Post Message'}
           </button></div>

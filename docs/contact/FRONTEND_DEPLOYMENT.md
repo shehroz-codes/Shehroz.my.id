@@ -1,3 +1,5 @@
+> Current implementation and release procedure: [Supabase Contact completion](COMPLETION_AND_RELEASE.md). The notes below include historical states.
+
 # Read-only frontend deployment preparation
 
 PR #24 remains draft and unmerged. Public submissions remain OFF. This is a

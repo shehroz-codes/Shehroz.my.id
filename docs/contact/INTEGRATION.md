@@ -1,3 +1,5 @@
+> Current implementation and release procedure: [Supabase Contact completion](COMPLETION_AND_RELEASE.md). The notes below include historical states.
+
 # Contact and visitor wall integration
 
 ## Source and scope
