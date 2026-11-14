@@ -1,0 +1,444 @@
+/* =========================================================
+   PortfolioFooter — scoped styles
+   Everything lives under `.pf-footer` (BEM-ish `pf-` prefix),
+   so nothing here can leak into your other sections.
+   Fonts (Inter, Space Grotesk, JetBrains Mono) are NOT loaded here:
+   your site already loads them; fallbacks are listed below.
+   ========================================================= */
+
+.pf-footer {
+  /* theme tokens (scoped) */
+  --pf-bg: #050310;
+  --pf-surface: #07051a;
+  --pf-violet: #5b21f0;
+  --pf-indigo: #4f46e5;
+
+  --pf-text: #f4f3ff;
+  --pf-soft: #dcd9f2;
+  --pf-muted: #b9b5dc;
+  --pf-accent: #9b6dff;
+  --pf-accent-2: #b79cff;
+  --pf-border: rgba(139, 92, 246, 0.75);
+  --pf-rule: rgba(124, 92, 255, 0.38);
+  --pf-vr: rgba(124, 92, 255, 0.32);
+  --pf-active-bg: #2a1a78;
+  --pf-ok: #22c55e;
+
+  --pf-font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --pf-font-head: "Space Grotesk", "Inter", system-ui, sans-serif;
+  --pf-font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  padding-top: 56px;
+  background: var(--pf-bg);
+  color: var(--pf-text);
+  font-family: var(--pf-font-body);
+  line-height: normal; /* keeps sizing identical even under Tailwind preflight */
+  -webkit-font-smoothing: antialiased;
+  color-scheme: dark;
+}
+
+.pf-footer *,
+.pf-footer *::before,
+.pf-footer *::after {
+  box-sizing: border-box;
+}
+
+/* the one glow: static corner glow, top-left only */
+.pf-footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(
+    circle at 0 0,
+    rgba(91, 33, 240, 0.36) 0,
+    rgba(91, 33, 240, 0.14) 150px,
+    transparent 340px
+  );
+  pointer-events: none;
+}
+
+.pf-inner {
+  width: min(1240px, 100% - 64px);
+  margin-inline: auto;
+}
+
+/* glowing divider with bright centre */
+.pf-glow {
+  position: relative;
+  height: 1px;
+  margin-bottom: 44px;
+  background: linear-gradient(
+    90deg,
+    rgba(160, 150, 220, 0.12),
+    rgba(91, 33, 240, 0.7) 50%,
+    rgba(160, 150, 220, 0.12)
+  );
+}
+.pf-glow::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -1px;
+  width: min(280px, 40%);
+  height: 3px;
+  transform: translateX(-50%);
+  border-radius: 3px;
+  background: linear-gradient(90deg, transparent, #d8ccff 50%, transparent);
+  box-shadow: 0 0 14px 2px rgba(150, 110, 255, 0.55);
+}
+
+.pf-vr {
+  flex: none;
+  width: 1px;
+  height: 56px;
+  background: var(--pf-vr);
+}
+.pf-vr--sm {
+  height: 24px;
+}
+
+/* ---------- Row 1 ---------- */
+.pf-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 36px;
+}
+
+.pf-brand__name {
+  margin: 0;
+  font-family: var(--pf-font-head);
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--pf-text);
+  white-space: nowrap;
+}
+.pf-brand__name span {
+  color: var(--pf-accent);
+  background: linear-gradient(90deg, #8b5cf6, var(--pf-accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.pf-brand__tagline {
+  margin: 8px 0 0;
+  font-family: var(--pf-font-mono);
+  font-size: 0.9375rem;
+  color: var(--pf-muted);
+  white-space: nowrap;
+}
+.pf-brand__tagline::before {
+  content: ">_ ";
+  color: var(--pf-text);
+}
+
+.pf-nav__list {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pf-nav__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 16px;
+  border-radius: 10px;
+  color: var(--pf-soft);
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+.pf-nav__link:hover {
+  color: #fff;
+  background: rgba(91, 33, 240, 0.16);
+}
+.pf-nav__link[aria-current] {
+  color: #fff;
+  background: var(--pf-active-bg);
+}
+
+.pf-socials {
+  display: flex;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pf-social {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  border: 1.5px solid var(--pf-border);
+  background: var(--pf-surface);
+  color: #fff;
+  transition: border-color 0.15s ease, transform 0.15s ease, background-color 0.15s ease;
+}
+.pf-social svg {
+  width: 22px;
+  height: 22px;
+  display: block;
+}
+.pf-icon--fill {
+  fill: currentColor;
+}
+.pf-icon--stroke {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.pf-icon--both {
+  fill: currentColor;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+a.pf-social:hover {
+  border-color: var(--pf-accent-2);
+  background: rgba(91, 33, 240, 0.18);
+  transform: translateY(-2px);
+}
+.pf-social--soon {
+  opacity: 0.4;
+  border-color: var(--pf-rule);
+  cursor: not-allowed;
+}
+
+/* keyboard focus */
+.pf-nav__link:focus-visible,
+a.pf-social:focus-visible,
+.pf-totop:focus-visible {
+  outline: 2px solid var(--pf-accent-2);
+  outline-offset: 3px;
+}
+
+/* ---------- Row 2 ---------- */
+.pf-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 0 34px;
+  border-top: 1px solid var(--pf-rule);
+}
+
+.pf-copy {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--pf-soft);
+  white-space: nowrap;
+}
+.pf-copy strong {
+  color: var(--pf-accent);
+  font-weight: 500;
+}
+
+.pf-status,
+.pf-totop {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 40px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1.5px solid var(--pf-border);
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.pf-status__dot {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--pf-ok);
+}
+.pf-status__dot::after {
+  /* soft pulse: transform + opacity only (GPU friendly) */
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--pf-ok);
+  animation: pf-pulse 2.6s ease-out infinite;
+}
+@keyframes pf-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  70% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+.pf-built {
+  margin: 0;
+  font-family: var(--pf-font-mono);
+  font-size: 0.8125rem;
+  color: var(--pf-muted);
+  text-wrap: balance;
+}
+
+.pf-totop {
+  text-decoration: none;
+  transition: border-color 0.15s ease, transform 0.15s ease, background-color 0.15s ease;
+}
+.pf-totop svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.pf-totop:hover {
+  border-color: var(--pf-accent-2);
+  background: rgba(91, 33, 240, 0.18);
+  transform: translateY(-2px);
+}
+
+/* ---------- Tablet ---------- */
+@media (max-width: 1179px) {
+  .pf-vr {
+    display: none;
+  }
+
+  .pf-top {
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .pf-brand {
+    order: 1;
+    flex: 1 1 auto;
+  }
+  .pf-socials {
+    order: 2;
+  }
+  .pf-nav {
+    order: 3;
+    flex: 1 1 100%;
+  }
+  .pf-nav__list {
+    flex-wrap: wrap;
+    margin-inline: -16px;
+  }
+
+  .pf-bottom {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .pf-copy {
+    order: 1;
+  }
+  .pf-status {
+    order: 2;
+  }
+  .pf-totop {
+    order: 3;
+    margin-left: auto;
+  }
+  .pf-built {
+    order: 4;
+    flex: 1 1 100%;
+  }
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 639px) {
+  .pf-footer {
+    padding-top: 40px;
+  }
+  .pf-inner {
+    width: calc(100% - 32px);
+  }
+  .pf-glow {
+    margin-bottom: 32px;
+  }
+  .pf-brand__name {
+    font-size: 1.75rem;
+  }
+  .pf-brand__tagline {
+    font-size: 0.875rem;
+  }
+
+  .pf-top {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+    padding-bottom: 28px;
+  }
+  .pf-brand,
+  .pf-nav {
+    flex: none;
+    width: 100%;
+  }
+  .pf-nav__list {
+    justify-content: center;
+    margin-inline: 0;
+    flex-wrap: wrap;
+  }
+  .pf-socials {
+    order: 3;
+  }
+
+  .pf-bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 14px;
+  }
+  .pf-status {
+    order: 1;
+  }
+  .pf-copy {
+    order: 2;
+    white-space: normal;
+    text-wrap: balance;
+  }
+  .pf-built {
+    order: 3;
+    flex: none;
+  }
+  .pf-totop {
+    order: 4;
+    margin-left: 0;
+  }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .pf-status__dot::after {
+    animation: none;
+    opacity: 0;
+  }
+  .pf-social,
+  .pf-totop,
+  .pf-nav__link {
+    transition: none;
+  }
+  a.pf-social:hover,
+  .pf-totop:hover {
+    transform: none;
+  }
+}
