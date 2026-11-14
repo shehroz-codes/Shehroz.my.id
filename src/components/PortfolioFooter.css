@@ -8,7 +8,6 @@
 
 .pf-footer {
   /* theme tokens (scoped) */
-  --pf-bg: #050310;
   --pf-surface: #07051a;
   --pf-violet: #5b21f0;
   --pf-indigo: #4f46e5;
@@ -32,7 +31,7 @@
   overflow: hidden;
   isolation: isolate;
   padding-top: 56px;
-  background: var(--pf-bg);
+  background: transparent; /* show the site-wide GlowCursor background through the footer */
   color: var(--pf-text);
   font-family: var(--pf-font-body);
   line-height: normal; /* keeps sizing identical even under Tailwind preflight */
@@ -44,21 +43,6 @@
 .pf-footer *::before,
 .pf-footer *::after {
   box-sizing: border-box;
-}
-
-/* the one glow: static corner glow, top-left only */
-.pf-footer::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: radial-gradient(
-    circle at 0 0,
-    rgba(91, 33, 240, 0.36) 0,
-    rgba(91, 33, 240, 0.14) 150px,
-    transparent 340px
-  );
-  pointer-events: none;
 }
 
 .pf-inner {
@@ -293,9 +277,17 @@ a.pf-social:focus-visible,
 
 .pf-built {
   margin: 0;
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 8px 12px;
+  border: 1px solid rgba(183, 156, 255, 0.75);
+  border-radius: 10px;
+  background: transparent;
   font-family: var(--pf-font-mono);
   font-size: 0.8125rem;
-  color: var(--pf-muted);
+  font-weight: 600;
+  color: #e6ddff;
   text-wrap: balance;
 }
 
