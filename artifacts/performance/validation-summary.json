@@ -1,0 +1,81 @@
+{
+  "typecheck": "PASS (npm run build invokes npm run typecheck)",
+  "productionBuild": "PASS",
+  "unitTests": {
+    "files": 10,
+    "passed": 77
+  },
+  "baselineProductionBrowserTests": 8,
+  "finalProductionBrowserTests": {
+    "startTime": "2026-11-14T15:06:12.275Z",
+    "duration": 129657.766,
+    "expected": 8,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "existingBrowserTests": {
+    "startTime": "2026-11-14T15:08:22.467Z",
+    "duration": 107562.14799999999,
+    "expected": 8,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "localDatabase": "PASS: disposable local Docker only; no hosted database connection",
+  "assetPixelComparisons": {
+    "passed": 5,
+    "differentChannels": 0
+  },
+  "liveBackend": "UNVERIFIED",
+  "lighthouse": "NOT MEASURED",
+  "fieldINP": "NOT MEASURED",
+  "visual": {
+    "about": [
+      {
+        "profile": "desktop",
+        "dimensions": [
+          "1408",
+          "624"
+        ],
+        "differentPixels": 68,
+        "totalPixels": 878592,
+        "differentPercent": 0.007739656177156177
+      },
+      {
+        "profile": "mobile",
+        "dimensions": [
+          "716",
+          "2560"
+        ],
+        "differentPixels": 0,
+        "totalPixels": 1832960,
+        "differentPercent": 0.0
+      },
+      {
+        "profile": "low-end",
+        "dimensions": [
+          "716",
+          "2560"
+        ],
+        "differentPixels": 0,
+        "totalPixels": 1832960,
+        "differentPercent": 0.0
+      }
+    ],
+    "lanyardMatchedFrames": [
+      {
+        "profile": "desktop",
+        "differentPixels": "0",
+        "rmse": "0 (0)",
+        "exit": 0
+      },
+      {
+        "profile": "mobile",
+        "differentPixels": "0",
+        "rmse": "0 (0)",
+        "exit": 0
+      }
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+[
+  {
+    "file": "public/sections/about/profile.png",
+    "sha256": "d3a19c5189a4c29fbbd87802efb357d22f9123e28a53e7f636934933fc1d4c65",
+    "bytes": 640933
+  },
+  {
+    "file": "src/sections/assets/portraits/real-portrait.png",
+    "sha256": "d3a19c5189a4c29fbbd87802efb357d22f9123e28a53e7f636934933fc1d4c65",
+    "bytes": 640933
+  }
+]

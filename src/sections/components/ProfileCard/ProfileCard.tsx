@@ -358,7 +358,7 @@ const ProfileCard = ({
             <span className="profile-card__holo-shift" />
           </span>
           {avatarUrl && (
-            <img className="profile-card__photo" src={avatarUrl} alt={name || ''} loading="lazy" draggable={false} />
+            <img className="profile-card__photo" src={avatarUrl} alt={name || ''} loading="lazy" decoding="async" draggable={false} />
           )}
           {(name || title) && (
             <>

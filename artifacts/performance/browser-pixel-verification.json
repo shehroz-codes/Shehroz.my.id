@@ -1,0 +1,60 @@
+{
+  "browser": "Real Chromium, canvas 2D RGBA comparison",
+  "results": [
+    {
+      "original": "public/images/lanyard/card-front.png",
+      "optimized": "public/images/lanyard/card-front.webp",
+      "beforeBytes": 2394468,
+      "afterBytes": 1157008,
+      "width": 1086,
+      "height": 1448,
+      "dimensionsMatch": true,
+      "differentChannels": 0,
+      "maxDifference": 0
+    },
+    {
+      "original": "public/images/lanyard/card-back.png",
+      "optimized": "public/images/lanyard/card-back.webp",
+      "beforeBytes": 1822339,
+      "afterBytes": 831776,
+      "width": 1086,
+      "height": 1448,
+      "dimensionsMatch": true,
+      "differentChannels": 0,
+      "maxDifference": 0
+    },
+    {
+      "original": "public/sections/about/profile.png",
+      "optimized": "public/sections/about/profile-optimized.png",
+      "beforeBytes": 640933,
+      "afterBytes": 475557,
+      "width": 1024,
+      "height": 1024,
+      "dimensionsMatch": true,
+      "differentChannels": 0,
+      "maxDifference": 0
+    },
+    {
+      "original": "src/sections/assets/portraits/anime-portrait.png",
+      "optimized": "src/sections/assets/portraits/anime-portrait-optimized.png",
+      "beforeBytes": 1008321,
+      "afterBytes": 789399,
+      "width": 1024,
+      "height": 1024,
+      "dimensionsMatch": true,
+      "differentChannels": 0,
+      "maxDifference": 0
+    },
+    {
+      "original": "src/sections/components/contact/assets/profile.png",
+      "optimized": "src/sections/components/contact/assets/profile.webp",
+      "beforeBytes": 1853228,
+      "afterBytes": 918914,
+      "width": 1024,
+      "height": 1024,
+      "dimensionsMatch": true,
+      "differentChannels": 0,
+      "maxDifference": 0
+    }
+  ]
+}

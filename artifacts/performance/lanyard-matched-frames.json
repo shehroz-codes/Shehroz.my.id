@@ -1,0 +1,34 @@
+[
+  {
+    "label": "baseline",
+    "name": "desktop",
+    "callbacks": 60,
+    "simulationClock": 999.9999999999991,
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "label": "optimized",
+    "name": "desktop",
+    "callbacks": 60,
+    "simulationClock": 999.9999999999991,
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "label": "baseline",
+    "name": "mobile",
+    "callbacks": 60,
+    "simulationClock": 999.9999999999991,
+    "width": 537,
+    "height": 732
+  },
+  {
+    "label": "optimized",
+    "name": "mobile",
+    "callbacks": 60,
+    "simulationClock": 999.9999999999991,
+    "width": 537,
+    "height": 732
+  }
+]

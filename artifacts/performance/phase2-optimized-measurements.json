@@ -1,0 +1,3750 @@
+[
+  {
+    "label": "phase2-optimized",
+    "profile": "desktop",
+    "repetition": 1,
+    "cache": "cold",
+    "browser": "156.0.8078.79",
+    "conditions": "unthrottled localhost",
+    "fcp": 584,
+    "lcp": {
+      "startTime": 584,
+      "size": 35855,
+      "element": "hero-introduction"
+    },
+    "cls": 0,
+    "blockingTime": 6874,
+    "blockingWindowEnd": 9021.700000000012,
+    "heroReady": 5838.299999999988,
+    "heroTimedOut": false,
+    "aboutMount": 436.5,
+    "aboutRevealAfterScroll": 609,
+    "aboutPortraitAfterScroll": 998.9000000000233,
+    "aboutCompleteAfterScroll": 4106.599999999977,
+    "jsTransfer": 369284,
+    "jsBody": 368384,
+    "cssTransfer": 25850,
+    "heapBytes": 12808008,
+    "overflow": false,
+    "errors": [],
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+    ],
+    "failures": [
+      {
+        "url": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e024dfc8542b4afa02d7a668705",
+        "error": "net::ERR_TUNNEL_CONNECTION_FAILED"
+      }
+    ],
+    "initial": {
+      "lcp": {
+        "startTime": 584,
+        "size": 35855,
+        "element": "hero-introduction"
+      },
+      "cls": 0,
+      "longTasks": [
+        {
+          "startTime": 134.59999999997672,
+          "duration": 75
+        },
+        {
+          "startTime": 212.09999999997672,
+          "duration": 225
+        },
+        {
+          "startTime": 526.2999999999884,
+          "duration": 101
+        },
+        {
+          "startTime": 627.9000000000233,
+          "duration": 336
+        },
+        {
+          "startTime": 1054.2000000000116,
+          "duration": 203
+        },
+        {
+          "startTime": 1303.5999999999767,
+          "duration": 91
+        },
+        {
+          "startTime": 1405,
+          "duration": 106
+        },
+        {
+          "startTime": 1616.9000000000233,
+          "duration": 395
+        },
+        {
+          "startTime": 2015.2000000000116,
+          "duration": 2843
+        },
+        {
+          "startTime": 4949.099999999977,
+          "duration": 50
+        },
+        {
+          "startTime": 5027.5,
+          "duration": 115
+        },
+        {
+          "startTime": 5143.5,
+          "duration": 693
+        },
+        {
+          "startTime": 5841.200000000012,
+          "duration": 288
+        },
+        {
+          "startTime": 6132.099999999977,
+          "duration": 223
+        },
+        {
+          "startTime": 6356.900000000023,
+          "duration": 232
+        },
+        {
+          "startTime": 6591.599999999977,
+          "duration": 205
+        },
+        {
+          "startTime": 6797.599999999977,
+          "duration": 232
+        },
+        {
+          "startTime": 7040.599999999977,
+          "duration": 279
+        },
+        {
+          "startTime": 7321.099999999977,
+          "duration": 204
+        },
+        {
+          "startTime": 7530.700000000012,
+          "duration": 223
+        },
+        {
+          "startTime": 7753.799999999988,
+          "duration": 291
+        },
+        {
+          "startTime": 8045.599999999977,
+          "duration": 193
+        },
+        {
+          "startTime": 8239.700000000012,
+          "duration": 201
+        },
+        {
+          "startTime": 8448.5,
+          "duration": 278
+        },
+        {
+          "startTime": 8727,
+          "duration": 293
+        }
+      ],
+      "heroReady": 5838.299999999988,
+      "aboutMounted": 436.5,
+      "aboutRevealed": null,
+      "resources": [
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/index-H7JYJiGQ.js",
+          "initiatorType": "script",
+          "startTime": 37.70000000001164,
+          "responseEnd": 125.29999999998836,
+          "duration": 87.59999999997672,
+          "transferSize": 162009,
+          "encodedBodySize": 161709
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/index-D2gQNqDz.css",
+          "initiatorType": "link",
+          "startTime": 39.59999999997672,
+          "responseEnd": 101.20000000001164,
+          "duration": 61.600000000034925,
+          "transferSize": 24031,
+          "encodedBodySize": 23731
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/inter-latin-wght-normal-Dx4kXJAl.woff2",
+          "initiatorType": "css",
+          "startTime": 267.5,
+          "responseEnd": 451.4000000000233,
+          "duration": 183.90000000002328,
+          "transferSize": 48556,
+          "encodedBodySize": 48256
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/portrait-backdrop-DMgJuG56.svg",
+          "initiatorType": "css",
+          "startTime": 294.5999999999767,
+          "responseEnd": 305.79999999998836,
+          "duration": 11.200000000011642,
+          "transferSize": 1869,
+          "encodedBodySize": 1569
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/sections/about/iconpattern.svg",
+          "initiatorType": "css",
+          "startTime": 295,
+          "responseEnd": 306.0999999999767,
+          "duration": 11.099999999976717,
+          "transferSize": 610,
+          "encodedBodySize": 310
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/space-grotesk-latin-wght-normal-BhU9QXUp.woff2",
+          "initiatorType": "css",
+          "startTime": 324.5999999999767,
+          "responseEnd": 468,
+          "duration": 143.40000000002328,
+          "transferSize": 22588,
+          "encodedBodySize": 22288
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/jetbrains-mono-latin-wght-normal-B9CIFXIH.woff2",
+          "initiatorType": "css",
+          "startTime": 326.5999999999767,
+          "responseEnd": 468.0999999999767,
+          "duration": 141.5,
+          "transferSize": 40704,
+          "encodedBodySize": 40404
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/icons/web-app-manifest-192x192.png",
+          "initiatorType": "img",
+          "startTime": 436.70000000001164,
+          "responseEnd": 448.0999999999767,
+          "duration": 11.399999999965075,
+          "transferSize": 83075,
+          "encodedBodySize": 82775
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/sections/about/profile-optimized.png",
+          "initiatorType": "img",
+          "startTime": 437.0999999999767,
+          "responseEnd": 453.5,
+          "duration": 16.400000000023283,
+          "transferSize": 475857,
+          "encodedBodySize": 475557
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/anime-portrait-optimized-eKhak6Wp.png",
+          "initiatorType": "img",
+          "startTime": 437.4000000000233,
+          "responseEnd": 457.29999999998836,
+          "duration": 19.899999999965075,
+          "transferSize": 789699,
+          "encodedBodySize": 789399
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/icons/favicon.svg",
+          "initiatorType": "other",
+          "startTime": 967.7999999999884,
+          "responseEnd": 975.2999999999884,
+          "duration": 7.5,
+          "transferSize": 24699,
+          "encodedBodySize": 24399
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/RotatingText-iPiWcolD.js",
+          "initiatorType": "script",
+          "startTime": 1293.9000000000233,
+          "responseEnd": 1337.9000000000233,
+          "duration": 44,
+          "transferSize": 55387,
+          "encodedBodySize": 55087
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/RotatingText-B7BL-bgu.css",
+          "initiatorType": "link",
+          "startTime": 1294.5,
+          "responseEnd": 1311.4000000000233,
+          "duration": 16.900000000023283,
+          "transferSize": 924,
+          "encodedBodySize": 624
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/images/lanyard/card-front.webp",
+          "initiatorType": "link",
+          "startTime": 1296.5,
+          "responseEnd": 1352.9000000000233,
+          "duration": 56.40000000002328,
+          "transferSize": 1157308,
+          "encodedBodySize": 1157008
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/images/lanyard/card-back.webp",
+          "initiatorType": "link",
+          "startTime": 1296.7000000000116,
+          "responseEnd": 1351.5999999999767,
+          "duration": 54.899999999965075,
+          "transferSize": 832076,
+          "encodedBodySize": 831776
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/Lanyard-CQ5eOE8H.js",
+          "initiatorType": "script",
+          "startTime": 1297,
+          "responseEnd": 1351.9000000000233,
+          "duration": 54.90000000002328,
+          "transferSize": 151888,
+          "encodedBodySize": 151588
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/Lanyard-BUJBlfLP.css",
+          "initiatorType": "link",
+          "startTime": 1297.2000000000116,
+          "responseEnd": 1316.7999999999884,
+          "duration": 19.599999999976717,
+          "transferSize": 895,
+          "encodedBodySize": 595
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/icons/favicon.ico",
+          "initiatorType": "other",
+          "startTime": 1302.2000000000116,
+          "responseEnd": 1337,
+          "duration": 34.79999999998836,
+          "transferSize": 15386,
+          "encodedBodySize": 15086
+        }
+      ],
+      "paints": [
+        {
+          "name": "first-paint",
+          "startTime": 112
+        },
+        {
+          "name": "first-contentful-paint",
+          "startTime": 584
+        }
+      ],
+      "elapsed": 9021.700000000012,
+      "memory": 12808008,
+      "heroMode": "webgl"
+    }
+  },
+  {
+    "label": "phase2-optimized",
+    "profile": "desktop",
+    "repetition": 1,
+    "cache": "warm",
+    "browser": "156.0.8078.79",
+    "conditions": "unthrottled localhost",
+    "fcp": 536,
+    "lcp": {
+      "startTime": 536,
+      "size": 35855,
+      "element": "hero-introduction"
+    },
+    "cls": 0.00006815728081597223,
+    "blockingTime": 5709,
+    "blockingWindowEnd": 7818.700000000012,
+    "heroReady": 5336.5,
+    "heroTimedOut": false,
+    "aboutMount": 348.8999999999651,
+    "aboutRevealAfterScroll": 591.5999999999767,
+    "aboutPortraitAfterScroll": 1015.9000000000233,
+    "aboutCompleteAfterScroll": 4266.299999999988,
+    "jsTransfer": 900,
+    "jsBody": 368384,
+    "cssTransfer": 900,
+    "heapBytes": 18296281,
+    "overflow": false,
+    "errors": [],
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+    ],
+    "failures": [
+      {
+        "url": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e024dfc8542b4afa02d7a668705",
+        "error": "net::ERR_TUNNEL_CONNECTION_FAILED"
+      }
+    ],
+    "initial": {
+      "lcp": {
+        "startTime": 536,
+        "size": 35855,
+        "element": "hero-introduction"
+      },
+      "cls": 0.00006815728081597223,
+      "longTasks": [
+        {
+          "startTime": 296.8999999999651,
+          "duration": 52
+        },
+        {
+          "startTime": 406.3999999999651,
+          "duration": 390
+        },
+        {
+          "startTime": 831.7000000000116,
+          "duration": 170
+        },
+        {
+          "startTime": 1020.2999999999884,
+          "duration": 89
+        },
+        {
+          "startTime": 1115.2999999999884,
+          "duration": 122
+        },
+        {
+          "startTime": 1301.7000000000116,
+          "duration": 195
+        },
+        {
+          "startTime": 1497.5999999999767,
+          "duration": 3144
+        },
+        {
+          "startTime": 4822.700000000012,
+          "duration": 512
+        },
+        {
+          "startTime": 5338.799999999988,
+          "duration": 275
+        },
+        {
+          "startTime": 5622.5,
+          "duration": 195
+        },
+        {
+          "startTime": 5827,
+          "duration": 207
+        },
+        {
+          "startTime": 6034.799999999988,
+          "duration": 276
+        },
+        {
+          "startTime": 6320.099999999977,
+          "duration": 192
+        },
+        {
+          "startTime": 6518.799999999988,
+          "duration": 271
+        },
+        {
+          "startTime": 6790.5,
+          "duration": 285
+        },
+        {
+          "startTime": 7081.099999999977,
+          "duration": 239
+        },
+        {
+          "startTime": 7320.399999999965,
+          "duration": 287
+        }
+      ],
+      "heroReady": 5336.5,
+      "aboutMounted": 348.8999999999651,
+      "aboutRevealed": null,
+      "resources": [
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/index-H7JYJiGQ.js",
+          "initiatorType": "script",
+          "startTime": 236.70000000001164,
+          "responseEnd": 244.70000000001164,
+          "duration": 8,
+          "transferSize": 300,
+          "encodedBodySize": 161709
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/index-D2gQNqDz.css",
+          "initiatorType": "link",
+          "startTime": 237.5,
+          "responseEnd": 242.70000000001164,
+          "duration": 5.2000000000116415,
+          "transferSize": 300,
+          "encodedBodySize": 23731
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/icons/web-app-manifest-192x192.png",
+          "initiatorType": "img",
+          "startTime": 299.5999999999767,
+          "responseEnd": 305,
+          "duration": 5.400000000023283,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/sections/about/profile-optimized.png",
+          "initiatorType": "img",
+          "startTime": 307.70000000001164,
+          "responseEnd": 309,
+          "duration": 1.2999999999883585,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/anime-portrait-optimized-eKhak6Wp.png",
+          "initiatorType": "img",
+          "startTime": 308.5,
+          "responseEnd": 309.79999999998836,
+          "duration": 1.2999999999883585,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/inter-latin-wght-normal-Dx4kXJAl.woff2",
+          "initiatorType": "css",
+          "startTime": 325.29999999998836,
+          "responseEnd": 327.3999999999651,
+          "duration": 2.099999999976717,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/portrait-backdrop-DMgJuG56.svg",
+          "initiatorType": "css",
+          "startTime": 328.29999999998836,
+          "responseEnd": 329.29999999998836,
+          "duration": 1,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/sections/about/iconpattern.svg",
+          "initiatorType": "css",
+          "startTime": 328.70000000001164,
+          "responseEnd": 329.5999999999767,
+          "duration": 0.8999999999650754,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/space-grotesk-latin-wght-normal-BhU9QXUp.woff2",
+          "initiatorType": "css",
+          "startTime": 338.29999999998836,
+          "responseEnd": 339.3999999999651,
+          "duration": 1.099999999976717,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/jetbrains-mono-latin-wght-normal-B9CIFXIH.woff2",
+          "initiatorType": "css",
+          "startTime": 339.3999999999651,
+          "responseEnd": 341.0999999999767,
+          "duration": 1.7000000000116415,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/icons/favicon.svg",
+          "initiatorType": "other",
+          "startTime": 796.7000000000116,
+          "responseEnd": 799.2999999999884,
+          "duration": 2.599999999976717,
+          "transferSize": 300,
+          "encodedBodySize": 24399
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/RotatingText-iPiWcolD.js",
+          "initiatorType": "script",
+          "startTime": 1006.8999999999651,
+          "responseEnd": 1031.2999999999884,
+          "duration": 24.400000000023283,
+          "transferSize": 300,
+          "encodedBodySize": 55087
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/RotatingText-B7BL-bgu.css",
+          "initiatorType": "link",
+          "startTime": 1007.2999999999884,
+          "responseEnd": 1024.5999999999767,
+          "duration": 17.29999999998836,
+          "transferSize": 300,
+          "encodedBodySize": 624
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/images/lanyard/card-front.webp",
+          "initiatorType": "link",
+          "startTime": 1008,
+          "responseEnd": 1030.2999999999884,
+          "duration": 22.29999999998836,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/images/lanyard/card-back.webp",
+          "initiatorType": "link",
+          "startTime": 1008.2999999999884,
+          "responseEnd": 1037.399999999965,
+          "duration": 29.099999999976717,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/Lanyard-CQ5eOE8H.js",
+          "initiatorType": "script",
+          "startTime": 1008.5,
+          "responseEnd": 1039.7999999999884,
+          "duration": 31.29999999998836,
+          "transferSize": 300,
+          "encodedBodySize": 151588
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/Lanyard-BUJBlfLP.css",
+          "initiatorType": "link",
+          "startTime": 1008.5999999999767,
+          "responseEnd": 1030.7000000000116,
+          "duration": 22.100000000034925,
+          "transferSize": 300,
+          "encodedBodySize": 595
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/icons/favicon.ico",
+          "initiatorType": "other",
+          "startTime": 1010.2999999999884,
+          "responseEnd": 1038.2999999999884,
+          "duration": 28,
+          "transferSize": 300,
+          "encodedBodySize": 15086
+        }
+      ],
+      "paints": [
+        {
+          "name": "first-paint",
+          "startTime": 536
+        },
+        {
+          "name": "first-contentful-paint",
+          "startTime": 536
+        }
+      ],
+      "elapsed": 7818.700000000012,
+      "memory": 18296281,
+      "heroMode": "webgl"
+    }
+  },
+  {
+    "label": "phase2-optimized",
+    "profile": "desktop",
+    "repetition": 2,
+    "cache": "cold",
+    "browser": "156.0.8078.79",
+    "conditions": "unthrottled localhost",
+    "fcp": 548,
+    "lcp": {
+      "startTime": 548,
+      "size": 37260,
+      "element": "hero-introduction"
+    },
+    "cls": 0.0005473818680877057,
+    "blockingTime": 6533,
+    "blockingWindowEnd": 8383.600000000035,
+    "heroReady": 5405.700000000012,
+    "heroTimedOut": false,
+    "aboutMount": 395.5,
+    "aboutRevealAfterScroll": 571.7000000000116,
+    "aboutPortraitAfterScroll": 980.2999999999884,
+    "aboutCompleteAfterScroll": 4313.200000000012,
+    "jsTransfer": 369284,
+    "jsBody": 368384,
+    "cssTransfer": 25850,
+    "heapBytes": 13470404,
+    "overflow": false,
+    "errors": [],
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+    ],
+    "failures": [
+      {
+        "url": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e024dfc8542b4afa02d7a668705",
+        "error": "net::ERR_TUNNEL_CONNECTION_FAILED"
+      }
+    ],
+    "initial": {
+      "lcp": {
+        "startTime": 548,
+        "size": 37260,
+        "element": "hero-introduction"
+      },
+      "cls": 0.0005473818680877057,
+      "longTasks": [
+        {
+          "startTime": 108.70000000001164,
+          "duration": 78
+        },
+        {
+          "startTime": 187.30000000004657,
+          "duration": 209
+        },
+        {
+          "startTime": 416.9000000000233,
+          "duration": 51
+        },
+        {
+          "startTime": 487.4000000000233,
+          "duration": 61
+        },
+        {
+          "startTime": 551.2000000000116,
+          "duration": 318
+        },
+        {
+          "startTime": 921.4000000000233,
+          "duration": 237
+        },
+        {
+          "startTime": 1204.2000000000116,
+          "duration": 116
+        },
+        {
+          "startTime": 1382.4000000000233,
+          "duration": 276
+        },
+        {
+          "startTime": 1658.8000000000466,
+          "duration": 2993
+        },
+        {
+          "startTime": 4826.300000000047,
+          "duration": 578
+        },
+        {
+          "startTime": 5409,
+          "duration": 294
+        },
+        {
+          "startTime": 5707.5,
+          "duration": 206
+        },
+        {
+          "startTime": 5917.5,
+          "duration": 234
+        },
+        {
+          "startTime": 6153.200000000012,
+          "duration": 202
+        },
+        {
+          "startTime": 6366.900000000023,
+          "duration": 226
+        },
+        {
+          "startTime": 6608.300000000047,
+          "duration": 280
+        },
+        {
+          "startTime": 6889.900000000023,
+          "duration": 198
+        },
+        {
+          "startTime": 7093.5,
+          "duration": 203
+        },
+        {
+          "startTime": 7297.700000000012,
+          "duration": 290
+        },
+        {
+          "startTime": 7589.900000000023,
+          "duration": 270
+        },
+        {
+          "startTime": 7867.700000000012,
+          "duration": 237
+        },
+        {
+          "startTime": 8106.200000000012,
+          "duration": 275
+        }
+      ],
+      "heroReady": 5405.700000000012,
+      "aboutMounted": 395.5,
+      "aboutRevealed": null,
+      "resources": [
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/index-H7JYJiGQ.js",
+          "initiatorType": "script",
+          "startTime": 16.800000000046566,
+          "responseEnd": 94.80000000004657,
+          "duration": 78,
+          "transferSize": 162009,
+          "encodedBodySize": 161709
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/index-D2gQNqDz.css",
+          "initiatorType": "link",
+          "startTime": 18.100000000034925,
+          "responseEnd": 72.90000000002328,
+          "duration": 54.79999999998836,
+          "transferSize": 24031,
+          "encodedBodySize": 23731
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/inter-latin-wght-normal-Dx4kXJAl.woff2",
+          "initiatorType": "css",
+          "startTime": 297.1000000000349,
+          "responseEnd": 411.5,
+          "duration": 114.39999999996508,
+          "transferSize": 48556,
+          "encodedBodySize": 48256
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/portrait-backdrop-DMgJuG56.svg",
+          "initiatorType": "css",
+          "startTime": 301.70000000001164,
+          "responseEnd": 308.70000000001164,
+          "duration": 7,
+          "transferSize": 1869,
+          "encodedBodySize": 1569
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/sections/about/iconpattern.svg",
+          "initiatorType": "css",
+          "startTime": 303,
+          "responseEnd": 308.80000000004657,
+          "duration": 5.800000000046566,
+          "transferSize": 610,
+          "encodedBodySize": 310
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/space-grotesk-latin-wght-normal-BhU9QXUp.woff2",
+          "initiatorType": "css",
+          "startTime": 321.70000000001164,
+          "responseEnd": 424.20000000001164,
+          "duration": 102.5,
+          "transferSize": 22588,
+          "encodedBodySize": 22288
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/jetbrains-mono-latin-wght-normal-B9CIFXIH.woff2",
+          "initiatorType": "css",
+          "startTime": 323.80000000004657,
+          "responseEnd": 424.4000000000233,
+          "duration": 100.59999999997672,
+          "transferSize": 40704,
+          "encodedBodySize": 40404
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/icons/web-app-manifest-192x192.png",
+          "initiatorType": "img",
+          "startTime": 395.6000000000349,
+          "responseEnd": 405.1000000000349,
+          "duration": 9.5,
+          "transferSize": 83075,
+          "encodedBodySize": 82775
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/sections/about/profile-optimized.png",
+          "initiatorType": "img",
+          "startTime": 395.70000000001164,
+          "responseEnd": 419.1000000000349,
+          "duration": 23.400000000023283,
+          "transferSize": 475857,
+          "encodedBodySize": 475557
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/anime-portrait-optimized-eKhak6Wp.png",
+          "initiatorType": "img",
+          "startTime": 395.80000000004657,
+          "responseEnd": 455.6000000000349,
+          "duration": 59.79999999998836,
+          "transferSize": 789699,
+          "encodedBodySize": 789399
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/icons/favicon.svg",
+          "initiatorType": "other",
+          "startTime": 869.8000000000466,
+          "responseEnd": 877.7000000000116,
+          "duration": 7.899999999965075,
+          "transferSize": 24699,
+          "encodedBodySize": 24399
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/RotatingText-iPiWcolD.js",
+          "initiatorType": "script",
+          "startTime": 908.5,
+          "responseEnd": 924.3000000000466,
+          "duration": 15.800000000046566,
+          "transferSize": 55387,
+          "encodedBodySize": 55087
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/RotatingText-B7BL-bgu.css",
+          "initiatorType": "link",
+          "startTime": 909.1000000000349,
+          "responseEnd": 910.8000000000466,
+          "duration": 1.7000000000116415,
+          "transferSize": 924,
+          "encodedBodySize": 624
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/images/lanyard/card-front.webp",
+          "initiatorType": "link",
+          "startTime": 914,
+          "responseEnd": 937.3000000000466,
+          "duration": 23.300000000046566,
+          "transferSize": 1157308,
+          "encodedBodySize": 1157008
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/images/lanyard/card-back.webp",
+          "initiatorType": "link",
+          "startTime": 914.3000000000466,
+          "responseEnd": 934,
+          "duration": 19.699999999953434,
+          "transferSize": 832076,
+          "encodedBodySize": 831776
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/Lanyard-CQ5eOE8H.js",
+          "initiatorType": "script",
+          "startTime": 914.6000000000349,
+          "responseEnd": 968.1000000000349,
+          "duration": 53.5,
+          "transferSize": 151888,
+          "encodedBodySize": 151588
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/Lanyard-BUJBlfLP.css",
+          "initiatorType": "link",
+          "startTime": 914.9000000000233,
+          "responseEnd": 924,
+          "duration": 9.099999999976717,
+          "transferSize": 895,
+          "encodedBodySize": 595
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/icons/favicon.ico",
+          "initiatorType": "other",
+          "startTime": 1164.7000000000116,
+          "responseEnd": 1168,
+          "duration": 3.2999999999883585,
+          "transferSize": 15386,
+          "encodedBodySize": 15086
+        }
+      ],
+      "paints": [
+        {
+          "name": "first-paint",
+          "startTime": 100
+        },
+        {
+          "name": "first-contentful-paint",
+          "startTime": 548
+        }
+      ],
+      "elapsed": 8383.600000000035,
+      "memory": 13470404,
+      "heroMode": "webgl"
+    }
+  },
+  {
+    "label": "phase2-optimized",
+    "profile": "desktop",
+    "repetition": 2,
+    "cache": "warm",
+    "browser": "156.0.8078.79",
+    "conditions": "unthrottled localhost",
+    "fcp": 248,
+    "lcp": {
+      "startTime": 248,
+      "size": 35855,
+      "element": "hero-introduction"
+    },
+    "cls": 0.000070751953125,
+    "blockingTime": 6047,
+    "blockingWindowEnd": 7858.399999999965,
+    "heroReady": 5057.799999999988,
+    "heroTimedOut": false,
+    "aboutMount": 160,
+    "aboutRevealAfterScroll": 509.5,
+    "aboutPortraitAfterScroll": 1162.6999999999534,
+    "aboutCompleteAfterScroll": 4072.6999999999534,
+    "jsTransfer": 900,
+    "jsBody": 368384,
+    "cssTransfer": 900,
+    "heapBytes": 15515047,
+    "overflow": false,
+    "errors": [],
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED"
+    ],
+    "failures": [
+      {
+        "url": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e024dfc8542b4afa02d7a668705",
+        "error": "net::ERR_TUNNEL_CONNECTION_FAILED"
+      }
+    ],
+    "initial": {
+      "lcp": {
+        "startTime": 248,
+        "size": 35855,
+        "element": "hero-introduction"
+      },
+      "cls": 0.000070751953125,
+      "longTasks": [
+        {
+          "startTime": 219,
+          "duration": 327
+        },
+        {
+          "startTime": 581.5,
+          "duration": 149
+        },
+        {
+          "startTime": 750.3999999999651,
+          "duration": 71
+        },
+        {
+          "startTime": 826.2000000000116,
+          "duration": 114
+        },
+        {
+          "startTime": 1042.2999999999884,
+          "duration": 196
+        },
+        {
+          "startTime": 1239.399999999965,
+          "duration": 3072
+        },
+        {
+          "startTime": 4506,
+          "duration": 551
+        },
+        {
+          "startTime": 5060.299999999988,
+          "duration": 253
+        },
+        {
+          "startTime": 5317.5,
+          "duration": 224
+        },
+        {
+          "startTime": 5544,
+          "duration": 256
+        },
+        {
+          "startTime": 5809.399999999965,
+          "duration": 237
+        },
+        {
+          "startTime": 6058.5,
+          "duration": 273
+        },
+        {
+          "startTime": 6332.200000000012,
+          "duration": 225
+        },
+        {
+          "startTime": 6559,
+          "duration": 238
+        },
+        {
+          "startTime": 6805.099999999977,
+          "duration": 244
+        },
+        {
+          "startTime": 7056.099999999977,
+          "duration": 294
+        },
+        {
+          "startTime": 7356.5,
+          "duration": 268
+        },
+        {
+          "startTime": 7625.5,
+          "duration": 232
+        }
+      ],
+      "heroReady": 5057.799999999988,
+      "aboutMounted": 160,
+      "aboutRevealed": null,
+      "resources": [
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/index-H7JYJiGQ.js",
+          "initiatorType": "script",
+          "startTime": 56.399999999965075,
+          "responseEnd": 63.79999999998836,
+          "duration": 7.400000000023283,
+          "transferSize": 300,
+          "encodedBodySize": 161709
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/index-D2gQNqDz.css",
+          "initiatorType": "link",
+          "startTime": 56.899999999965075,
+          "responseEnd": 62.20000000001164,
+          "duration": 5.300000000046566,
+          "transferSize": 300,
+          "encodedBodySize": 23731
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/icons/web-app-manifest-192x192.png",
+          "initiatorType": "img",
+          "startTime": 113.70000000001164,
+          "responseEnd": 117,
+          "duration": 3.2999999999883585,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/sections/about/profile-optimized.png",
+          "initiatorType": "img",
+          "startTime": 123.59999999997672,
+          "responseEnd": 128.59999999997672,
+          "duration": 5,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/anime-portrait-optimized-eKhak6Wp.png",
+          "initiatorType": "img",
+          "startTime": 125.20000000001164,
+          "responseEnd": 128.89999999996508,
+          "duration": 3.699999999953434,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/inter-latin-wght-normal-Dx4kXJAl.woff2",
+          "initiatorType": "css",
+          "startTime": 135,
+          "responseEnd": 136.09999999997672,
+          "duration": 1.099999999976717,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/portrait-backdrop-DMgJuG56.svg",
+          "initiatorType": "css",
+          "startTime": 137.59999999997672,
+          "responseEnd": 138.79999999998836,
+          "duration": 1.2000000000116415,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/sections/about/iconpattern.svg",
+          "initiatorType": "css",
+          "startTime": 138,
+          "responseEnd": 139.09999999997672,
+          "duration": 1.099999999976717,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/space-grotesk-latin-wght-normal-BhU9QXUp.woff2",
+          "initiatorType": "css",
+          "startTime": 148.29999999998836,
+          "responseEnd": 149.5,
+          "duration": 1.2000000000116415,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/jetbrains-mono-latin-wght-normal-B9CIFXIH.woff2",
+          "initiatorType": "css",
+          "startTime": 149.79999999998836,
+          "responseEnd": 150.70000000001164,
+          "duration": 0.9000000000232831,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/icons/favicon.svg",
+          "initiatorType": "other",
+          "startTime": 218.5,
+          "responseEnd": 220.39999999996508,
+          "duration": 1.8999999999650754,
+          "transferSize": 300,
+          "encodedBodySize": 24399
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/RotatingText-iPiWcolD.js",
+          "initiatorType": "script",
+          "startTime": 732.7999999999884,
+          "responseEnd": 751.5,
+          "duration": 18.70000000001164,
+          "transferSize": 300,
+          "encodedBodySize": 55087
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/RotatingText-B7BL-bgu.css",
+          "initiatorType": "link",
+          "startTime": 734,
+          "responseEnd": 742.7000000000116,
+          "duration": 8.700000000011642,
+          "transferSize": 300,
+          "encodedBodySize": 624
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/images/lanyard/card-front.webp",
+          "initiatorType": "link",
+          "startTime": 735.0999999999767,
+          "responseEnd": 742.2999999999884,
+          "duration": 7.2000000000116415,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/images/lanyard/card-back.webp",
+          "initiatorType": "link",
+          "startTime": 735.7000000000116,
+          "responseEnd": 742.5,
+          "duration": 6.7999999999883585,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/Lanyard-CQ5eOE8H.js",
+          "initiatorType": "script",
+          "startTime": 736.0999999999767,
+          "responseEnd": 760.8999999999651,
+          "duration": 24.79999999998836,
+          "transferSize": 300,
+          "encodedBodySize": 151588
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/Lanyard-BUJBlfLP.css",
+          "initiatorType": "link",
+          "startTime": 736.2999999999884,
+          "responseEnd": 750,
+          "duration": 13.700000000011642,
+          "transferSize": 300,
+          "encodedBodySize": 595
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/icons/favicon.ico",
+          "initiatorType": "other",
+          "startTime": 739.3999999999651,
+          "responseEnd": 751.7999999999884,
+          "duration": 12.400000000023283,
+          "transferSize": 300,
+          "encodedBodySize": 15086
+        }
+      ],
+      "paints": [
+        {
+          "name": "first-paint",
+          "startTime": 100
+        },
+        {
+          "name": "first-contentful-paint",
+          "startTime": 248
+        }
+      ],
+      "elapsed": 7858.399999999965,
+      "memory": 15515047,
+      "heroMode": "webgl"
+    }
+  },
+  {
+    "label": "phase2-optimized",
+    "profile": "mobile",
+    "repetition": 1,
+    "cache": "cold",
+    "browser": "156.0.8078.79",
+    "conditions": "unthrottled localhost",
+    "fcp": 864,
+    "lcp": {
+      "startTime": 864,
+      "size": 33390,
+      "element": "hero-introduction"
+    },
+    "cls": 0.00025869067334401114,
+    "blockingTime": 5111,
+    "blockingWindowEnd": 7777.899999999965,
+    "heroReady": 2214,
+    "heroTimedOut": false,
+    "aboutMount": 488.5999999999767,
+    "aboutRevealAfterScroll": 226.79999999998836,
+    "aboutPortraitAfterScroll": 276.4000000000233,
+    "aboutCompleteAfterScroll": 3087.100000000035,
+    "jsTransfer": 369284,
+    "jsBody": 368384,
+    "cssTransfer": 25850,
+    "heapBytes": 11217677,
+    "overflow": false,
+    "errors": [],
+    "consoleErrors": [],
+    "failures": [],
+    "initial": {
+      "lcp": {
+        "startTime": 864,
+        "size": 33390,
+        "element": "hero-introduction"
+      },
+      "cls": 0.00025869067334401114,
+      "longTasks": [
+        {
+          "startTime": 129.5,
+          "duration": 81
+        },
+        {
+          "startTime": 212.09999999997672,
+          "duration": 277
+        },
+        {
+          "startTime": 502.79999999998836,
+          "duration": 333
+        },
+        {
+          "startTime": 862.8999999999651,
+          "duration": 153
+        },
+        {
+          "startTime": 1060.6999999999534,
+          "duration": 150
+        },
+        {
+          "startTime": 1360.1999999999534,
+          "duration": 127
+        },
+        {
+          "startTime": 1686.7999999999884,
+          "duration": 184
+        },
+        {
+          "startTime": 1871.7999999999884,
+          "duration": 340
+        },
+        {
+          "startTime": 2214,
+          "duration": 2683
+        },
+        {
+          "startTime": 4899.799999999988,
+          "duration": 177
+        },
+        {
+          "startTime": 5079.199999999953,
+          "duration": 134
+        },
+        {
+          "startTime": 5220.699999999953,
+          "duration": 239
+        },
+        {
+          "startTime": 5461,
+          "duration": 159
+        },
+        {
+          "startTime": 5620.299999999988,
+          "duration": 201
+        },
+        {
+          "startTime": 5860.099999999977,
+          "duration": 226
+        },
+        {
+          "startTime": 6092.399999999965,
+          "duration": 180
+        },
+        {
+          "startTime": 6275.799999999988,
+          "duration": 143
+        },
+        {
+          "startTime": 6419.799999999988,
+          "duration": 203
+        },
+        {
+          "startTime": 6623.799999999988,
+          "duration": 197
+        },
+        {
+          "startTime": 6857.099999999977,
+          "duration": 137
+        },
+        {
+          "startTime": 6994.399999999965,
+          "duration": 188
+        },
+        {
+          "startTime": 7183.5,
+          "duration": 211
+        },
+        {
+          "startTime": 7397.5,
+          "duration": 182
+        }
+      ],
+      "heroReady": 2214,
+      "aboutMounted": 488.5999999999767,
+      "aboutRevealed": null,
+      "resources": [
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/index-H7JYJiGQ.js",
+          "initiatorType": "script",
+          "startTime": 21,
+          "responseEnd": 113.69999999995343,
+          "duration": 92.69999999995343,
+          "transferSize": 162009,
+          "encodedBodySize": 161709
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/index-D2gQNqDz.css",
+          "initiatorType": "link",
+          "startTime": 22,
+          "responseEnd": 98.09999999997672,
+          "duration": 76.09999999997672,
+          "transferSize": 24031,
+          "encodedBodySize": 23731
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/inter-latin-wght-normal-Dx4kXJAl.woff2",
+          "initiatorType": "css",
+          "startTime": 295,
+          "responseEnd": 498.5,
+          "duration": 203.5,
+          "transferSize": 48556,
+          "encodedBodySize": 48256
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/portrait-backdrop-DMgJuG56.svg",
+          "initiatorType": "css",
+          "startTime": 300.69999999995343,
+          "responseEnd": 311,
+          "duration": 10.300000000046566,
+          "transferSize": 1869,
+          "encodedBodySize": 1569
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/sections/about/iconpattern.svg",
+          "initiatorType": "css",
+          "startTime": 301,
+          "responseEnd": 311.0999999999767,
+          "duration": 10.099999999976717,
+          "transferSize": 610,
+          "encodedBodySize": 310
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/space-grotesk-latin-wght-normal-BhU9QXUp.woff2",
+          "initiatorType": "css",
+          "startTime": 315.29999999998836,
+          "responseEnd": 509.5999999999767,
+          "duration": 194.29999999998836,
+          "transferSize": 22588,
+          "encodedBodySize": 22288
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/jetbrains-mono-latin-wght-normal-B9CIFXIH.woff2",
+          "initiatorType": "css",
+          "startTime": 316.29999999998836,
+          "responseEnd": 509.69999999995343,
+          "duration": 193.39999999996508,
+          "transferSize": 40704,
+          "encodedBodySize": 40404
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/icons/web-app-manifest-192x192.png",
+          "initiatorType": "img",
+          "startTime": 488.79999999998836,
+          "responseEnd": 496.3999999999651,
+          "duration": 7.599999999976717,
+          "transferSize": 83075,
+          "encodedBodySize": 82775
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/sections/about/profile-optimized.png",
+          "initiatorType": "img",
+          "startTime": 488.8999999999651,
+          "responseEnd": 500.8999999999651,
+          "duration": 12,
+          "transferSize": 475857,
+          "encodedBodySize": 475557
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/anime-portrait-optimized-eKhak6Wp.png",
+          "initiatorType": "img",
+          "startTime": 489,
+          "responseEnd": 501.69999999995343,
+          "duration": 12.699999999953434,
+          "transferSize": 789699,
+          "encodedBodySize": 789399
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/icons/favicon.svg",
+          "initiatorType": "other",
+          "startTime": 1030,
+          "responseEnd": 1062.2999999999884,
+          "duration": 32.29999999998836,
+          "transferSize": 24699,
+          "encodedBodySize": 24399
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/RotatingText-iPiWcolD.js",
+          "initiatorType": "script",
+          "startTime": 1034.899999999965,
+          "responseEnd": 1079.1999999999534,
+          "duration": 44.29999999998836,
+          "transferSize": 55387,
+          "encodedBodySize": 55087
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/RotatingText-B7BL-bgu.css",
+          "initiatorType": "link",
+          "startTime": 1035.1999999999534,
+          "responseEnd": 1063,
+          "duration": 27.800000000046566,
+          "transferSize": 924,
+          "encodedBodySize": 624
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/images/lanyard/card-front.webp",
+          "initiatorType": "link",
+          "startTime": 1036.6999999999534,
+          "responseEnd": 1086,
+          "duration": 49.300000000046566,
+          "transferSize": 1157308,
+          "encodedBodySize": 1157008
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/images/lanyard/card-back.webp",
+          "initiatorType": "link",
+          "startTime": 1036.899999999965,
+          "responseEnd": 1083,
+          "duration": 46.100000000034925,
+          "transferSize": 832076,
+          "encodedBodySize": 831776
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/Lanyard-CQ5eOE8H.js",
+          "initiatorType": "script",
+          "startTime": 1037.1999999999534,
+          "responseEnd": 1090.5,
+          "duration": 53.300000000046566,
+          "transferSize": 151888,
+          "encodedBodySize": 151588
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/Lanyard-BUJBlfLP.css",
+          "initiatorType": "link",
+          "startTime": 1037.399999999965,
+          "responseEnd": 1068.899999999965,
+          "duration": 31.5,
+          "transferSize": 895,
+          "encodedBodySize": 595
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/icons/favicon.ico",
+          "initiatorType": "other",
+          "startTime": 1232.5,
+          "responseEnd": 1261,
+          "duration": 28.5,
+          "transferSize": 15386,
+          "encodedBodySize": 15086
+        }
+      ],
+      "paints": [
+        {
+          "name": "first-paint",
+          "startTime": 108
+        },
+        {
+          "name": "first-contentful-paint",
+          "startTime": 864
+        }
+      ],
+      "elapsed": 7777.899999999965,
+      "memory": 11217677,
+      "heroMode": "webgl"
+    }
+  },
+  {
+    "label": "phase2-optimized",
+    "profile": "mobile",
+    "repetition": 1,
+    "cache": "warm",
+    "browser": "156.0.8078.79",
+    "conditions": "unthrottled localhost",
+    "fcp": 552,
+    "lcp": {
+      "startTime": 552,
+      "size": 33390,
+      "element": "hero-introduction"
+    },
+    "cls": 0.0002359852671801668,
+    "blockingTime": 5259,
+    "blockingWindowEnd": 7175.400000000023,
+    "heroReady": 1686,
+    "heroTimedOut": false,
+    "aboutMount": 213.10000000003492,
+    "aboutRevealAfterScroll": 205.70000000001164,
+    "aboutPortraitAfterScroll": 266.79999999998836,
+    "aboutCompleteAfterScroll": 3074.2999999999884,
+    "jsTransfer": 900,
+    "jsBody": 368384,
+    "cssTransfer": 900,
+    "heapBytes": 18367822,
+    "overflow": false,
+    "errors": [],
+    "consoleErrors": [],
+    "failures": [],
+    "initial": {
+      "lcp": {
+        "startTime": 552,
+        "size": 33390,
+        "element": "hero-introduction"
+      },
+      "cls": 0.0002359852671801668,
+      "longTasks": [
+        {
+          "startTime": 126.10000000003492,
+          "duration": 87
+        },
+        {
+          "startTime": 215,
+          "duration": 318
+        },
+        {
+          "startTime": 558.9000000000233,
+          "duration": 191
+        },
+        {
+          "startTime": 775.4000000000233,
+          "duration": 183
+        },
+        {
+          "startTime": 1061.7000000000116,
+          "duration": 98
+        },
+        {
+          "startTime": 1338.9000000000233,
+          "duration": 346
+        },
+        {
+          "startTime": 1686,
+          "duration": 2598
+        },
+        {
+          "startTime": 4289.400000000023,
+          "duration": 155
+        },
+        {
+          "startTime": 4445.400000000023,
+          "duration": 139
+        },
+        {
+          "startTime": 4591.400000000023,
+          "duration": 171
+        },
+        {
+          "startTime": 4764.200000000012,
+          "duration": 223
+        },
+        {
+          "startTime": 4987.799999999988,
+          "duration": 248
+        },
+        {
+          "startTime": 5246.200000000012,
+          "duration": 188
+        },
+        {
+          "startTime": 5437.400000000023,
+          "duration": 153
+        },
+        {
+          "startTime": 5591.700000000012,
+          "duration": 185
+        },
+        {
+          "startTime": 5777.100000000035,
+          "duration": 197
+        },
+        {
+          "startTime": 5987.400000000023,
+          "duration": 198
+        },
+        {
+          "startTime": 6185.600000000035,
+          "duration": 204
+        },
+        {
+          "startTime": 6390.200000000012,
+          "duration": 243
+        },
+        {
+          "startTime": 6633.799999999988,
+          "duration": 151
+        },
+        {
+          "startTime": 6785.900000000023,
+          "duration": 184
+        },
+        {
+          "startTime": 6970,
+          "duration": 204
+        }
+      ],
+      "heroReady": 1686,
+      "aboutMounted": 213.10000000003492,
+      "aboutRevealed": null,
+      "resources": [
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/index-H7JYJiGQ.js",
+          "initiatorType": "script",
+          "startTime": 96.70000000001164,
+          "responseEnd": 110.40000000002328,
+          "duration": 13.700000000011642,
+          "transferSize": 300,
+          "encodedBodySize": 161709
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/index-D2gQNqDz.css",
+          "initiatorType": "link",
+          "startTime": 96.79999999998836,
+          "responseEnd": 101.29999999998836,
+          "duration": 4.5,
+          "transferSize": 300,
+          "encodedBodySize": 23731
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/icons/web-app-manifest-192x192.png",
+          "initiatorType": "img",
+          "startTime": 128,
+          "responseEnd": 132.5,
+          "duration": 4.5,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/sections/about/profile-optimized.png",
+          "initiatorType": "img",
+          "startTime": 133.70000000001164,
+          "responseEnd": 138.10000000003492,
+          "duration": 4.400000000023283,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/anime-portrait-optimized-eKhak6Wp.png",
+          "initiatorType": "img",
+          "startTime": 136.10000000003492,
+          "responseEnd": 138.29999999998836,
+          "duration": 2.199999999953434,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/inter-latin-wght-normal-Dx4kXJAl.woff2",
+          "initiatorType": "css",
+          "startTime": 146.60000000003492,
+          "responseEnd": 148,
+          "duration": 1.3999999999650754,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/portrait-backdrop-DMgJuG56.svg",
+          "initiatorType": "css",
+          "startTime": 153.79999999998836,
+          "responseEnd": 155.40000000002328,
+          "duration": 1.6000000000349246,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/sections/about/iconpattern.svg",
+          "initiatorType": "css",
+          "startTime": 154.10000000003492,
+          "responseEnd": 157.29999999998836,
+          "duration": 3.199999999953434,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/space-grotesk-latin-wght-normal-BhU9QXUp.woff2",
+          "initiatorType": "css",
+          "startTime": 164.79999999998836,
+          "responseEnd": 168.20000000001164,
+          "duration": 3.400000000023283,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/jetbrains-mono-latin-wght-normal-B9CIFXIH.woff2",
+          "initiatorType": "css",
+          "startTime": 166.20000000001164,
+          "responseEnd": 169.20000000001164,
+          "duration": 3,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/icons/favicon.svg",
+          "initiatorType": "other",
+          "startTime": 557.2999999999884,
+          "responseEnd": 562.5,
+          "duration": 5.2000000000116415,
+          "transferSize": 300,
+          "encodedBodySize": 24399
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/RotatingText-iPiWcolD.js",
+          "initiatorType": "script",
+          "startTime": 754.4000000000233,
+          "responseEnd": 764.2000000000116,
+          "duration": 9.799999999988358,
+          "transferSize": 300,
+          "encodedBodySize": 55087
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/RotatingText-B7BL-bgu.css",
+          "initiatorType": "link",
+          "startTime": 754.9000000000233,
+          "responseEnd": 758.9000000000233,
+          "duration": 4,
+          "transferSize": 300,
+          "encodedBodySize": 624
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/images/lanyard/card-front.webp",
+          "initiatorType": "link",
+          "startTime": 756.9000000000233,
+          "responseEnd": 763.5,
+          "duration": 6.599999999976717,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/images/lanyard/card-back.webp",
+          "initiatorType": "link",
+          "startTime": 757.7000000000116,
+          "responseEnd": 763.7999999999884,
+          "duration": 6.099999999976717,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/Lanyard-CQ5eOE8H.js",
+          "initiatorType": "script",
+          "startTime": 758.2000000000116,
+          "responseEnd": 773.4000000000233,
+          "duration": 15.200000000011642,
+          "transferSize": 300,
+          "encodedBodySize": 151588
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/Lanyard-BUJBlfLP.css",
+          "initiatorType": "link",
+          "startTime": 759.1000000000349,
+          "responseEnd": 767.2000000000116,
+          "duration": 8.099999999976717,
+          "transferSize": 300,
+          "encodedBodySize": 595
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/icons/favicon.ico",
+          "initiatorType": "other",
+          "startTime": 965,
+          "responseEnd": 966.7999999999884,
+          "duration": 1.7999999999883585,
+          "transferSize": 300,
+          "encodedBodySize": 15086
+        }
+      ],
+      "paints": [
+        {
+          "name": "first-paint",
+          "startTime": 116
+        },
+        {
+          "name": "first-contentful-paint",
+          "startTime": 552
+        }
+      ],
+      "elapsed": 7175.400000000023,
+      "memory": 18367822,
+      "heroMode": "webgl"
+    }
+  },
+  {
+    "label": "phase2-optimized",
+    "profile": "mobile",
+    "repetition": 2,
+    "cache": "cold",
+    "browser": "156.0.8078.79",
+    "conditions": "unthrottled localhost",
+    "fcp": 616,
+    "lcp": {
+      "startTime": 616,
+      "size": 33390,
+      "element": "hero-introduction"
+    },
+    "cls": 0.00023271123422596884,
+    "blockingTime": 4886,
+    "blockingWindowEnd": 7071.400000000023,
+    "heroReady": 1713.7000000000116,
+    "heroTimedOut": false,
+    "aboutMount": 288.6000000000349,
+    "aboutRevealAfterScroll": 523.2000000000116,
+    "aboutPortraitAfterScroll": 616,
+    "aboutCompleteAfterScroll": 3404.3000000000466,
+    "jsTransfer": 369284,
+    "jsBody": 368384,
+    "cssTransfer": 25850,
+    "heapBytes": 16366052,
+    "overflow": false,
+    "errors": [],
+    "consoleErrors": [],
+    "failures": [],
+    "initial": {
+      "lcp": {
+        "startTime": 616,
+        "size": 33390,
+        "element": "hero-introduction"
+      },
+      "cls": 0.00023271123422596884,
+      "longTasks": [
+        {
+          "startTime": 130.29999999998836,
+          "duration": 158
+        },
+        {
+          "startTime": 307.29999999998836,
+          "duration": 286
+        },
+        {
+          "startTime": 616.4000000000233,
+          "duration": 174
+        },
+        {
+          "startTime": 820.7999999999884,
+          "duration": 157
+        },
+        {
+          "startTime": 1113.4000000000233,
+          "duration": 125
+        },
+        {
+          "startTime": 1367.2000000000116,
+          "duration": 60
+        },
+        {
+          "startTime": 1462.100000000035,
+          "duration": 250
+        },
+        {
+          "startTime": 1713.7999999999884,
+          "duration": 2596
+        },
+        {
+          "startTime": 4316.5,
+          "duration": 162
+        },
+        {
+          "startTime": 4483.5,
+          "duration": 190
+        },
+        {
+          "startTime": 4675.299999999988,
+          "duration": 139
+        },
+        {
+          "startTime": 4823.700000000012,
+          "duration": 185
+        },
+        {
+          "startTime": 5009.600000000035,
+          "duration": 196
+        },
+        {
+          "startTime": 5213.400000000023,
+          "duration": 194
+        },
+        {
+          "startTime": 5408.600000000035,
+          "duration": 254
+        },
+        {
+          "startTime": 5666.200000000012,
+          "duration": 147
+        },
+        {
+          "startTime": 5816.200000000012,
+          "duration": 173
+        },
+        {
+          "startTime": 5990.700000000012,
+          "duration": 183
+        },
+        {
+          "startTime": 6174.5,
+          "duration": 141
+        },
+        {
+          "startTime": 6316.299999999988,
+          "duration": 182
+        },
+        {
+          "startTime": 6499.400000000023,
+          "duration": 181
+        },
+        {
+          "startTime": 6680.600000000035,
+          "duration": 197
+        }
+      ],
+      "heroReady": 1713.7000000000116,
+      "aboutMounted": 288.6000000000349,
+      "aboutRevealed": null,
+      "resources": [
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/index-H7JYJiGQ.js",
+          "initiatorType": "script",
+          "startTime": 17.100000000034925,
+          "responseEnd": 76.79999999998836,
+          "duration": 59.699999999953434,
+          "transferSize": 162009,
+          "encodedBodySize": 161709
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/index-D2gQNqDz.css",
+          "initiatorType": "link",
+          "startTime": 17.5,
+          "responseEnd": 31.900000000023283,
+          "duration": 14.400000000023283,
+          "transferSize": 24031,
+          "encodedBodySize": 23731
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/inter-latin-wght-normal-Dx4kXJAl.woff2",
+          "initiatorType": "css",
+          "startTime": 196.40000000002328,
+          "responseEnd": 295.9000000000233,
+          "duration": 99.5,
+          "transferSize": 48556,
+          "encodedBodySize": 48256
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/portrait-backdrop-DMgJuG56.svg",
+          "initiatorType": "css",
+          "startTime": 199.79999999998836,
+          "responseEnd": 205.20000000001164,
+          "duration": 5.400000000023283,
+          "transferSize": 1869,
+          "encodedBodySize": 1569
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/sections/about/iconpattern.svg",
+          "initiatorType": "css",
+          "startTime": 201.29999999998836,
+          "responseEnd": 205.29999999998836,
+          "duration": 4,
+          "transferSize": 610,
+          "encodedBodySize": 310
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/space-grotesk-latin-wght-normal-BhU9QXUp.woff2",
+          "initiatorType": "css",
+          "startTime": 215.10000000003492,
+          "responseEnd": 312.9000000000233,
+          "duration": 97.79999999998836,
+          "transferSize": 22588,
+          "encodedBodySize": 22288
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/jetbrains-mono-latin-wght-normal-B9CIFXIH.woff2",
+          "initiatorType": "css",
+          "startTime": 216.20000000001164,
+          "responseEnd": 313.9000000000233,
+          "duration": 97.70000000001164,
+          "transferSize": 40704,
+          "encodedBodySize": 40404
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/icons/web-app-manifest-192x192.png",
+          "initiatorType": "img",
+          "startTime": 288.6000000000349,
+          "responseEnd": 296.4000000000233,
+          "duration": 7.7999999999883585,
+          "transferSize": 83075,
+          "encodedBodySize": 82775
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/sections/about/profile-optimized.png",
+          "initiatorType": "img",
+          "startTime": 288.9000000000233,
+          "responseEnd": 302.4000000000233,
+          "duration": 13.5,
+          "transferSize": 475857,
+          "encodedBodySize": 475557
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/anime-portrait-optimized-eKhak6Wp.png",
+          "initiatorType": "img",
+          "startTime": 288.9000000000233,
+          "responseEnd": 310,
+          "duration": 21.099999999976717,
+          "transferSize": 789699,
+          "encodedBodySize": 789399
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/icons/favicon.svg",
+          "initiatorType": "other",
+          "startTime": 803.2999999999884,
+          "responseEnd": 819.1000000000349,
+          "duration": 15.800000000046566,
+          "transferSize": 24699,
+          "encodedBodySize": 24399
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/RotatingText-iPiWcolD.js",
+          "initiatorType": "script",
+          "startTime": 806.6000000000349,
+          "responseEnd": 825,
+          "duration": 18.399999999965075,
+          "transferSize": 55387,
+          "encodedBodySize": 55087
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/RotatingText-B7BL-bgu.css",
+          "initiatorType": "link",
+          "startTime": 807.4000000000233,
+          "responseEnd": 812.2000000000116,
+          "duration": 4.7999999999883585,
+          "transferSize": 924,
+          "encodedBodySize": 624
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/images/lanyard/card-front.webp",
+          "initiatorType": "link",
+          "startTime": 808.9000000000233,
+          "responseEnd": 835.1000000000349,
+          "duration": 26.20000000001164,
+          "transferSize": 1157308,
+          "encodedBodySize": 1157008
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/images/lanyard/card-back.webp",
+          "initiatorType": "link",
+          "startTime": 809.1000000000349,
+          "responseEnd": 833.5,
+          "duration": 24.399999999965075,
+          "transferSize": 832076,
+          "encodedBodySize": 831776
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/Lanyard-CQ5eOE8H.js",
+          "initiatorType": "script",
+          "startTime": 809.4000000000233,
+          "responseEnd": 840.2999999999884,
+          "duration": 30.899999999965075,
+          "transferSize": 151888,
+          "encodedBodySize": 151588
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/Lanyard-BUJBlfLP.css",
+          "initiatorType": "link",
+          "startTime": 809.6000000000349,
+          "responseEnd": 814.7999999999884,
+          "duration": 5.199999999953434,
+          "transferSize": 895,
+          "encodedBodySize": 595
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/icons/favicon.ico",
+          "initiatorType": "other",
+          "startTime": 993.7000000000116,
+          "responseEnd": 1002.2999999999884,
+          "duration": 8.599999999976717,
+          "transferSize": 15386,
+          "encodedBodySize": 15086
+        }
+      ],
+      "paints": [
+        {
+          "name": "first-paint",
+          "startTime": 72
+        },
+        {
+          "name": "first-contentful-paint",
+          "startTime": 616
+        }
+      ],
+      "elapsed": 7071.400000000023,
+      "memory": 16366052,
+      "heroMode": "webgl"
+    }
+  },
+  {
+    "label": "phase2-optimized",
+    "profile": "mobile",
+    "repetition": 2,
+    "cache": "warm",
+    "browser": "156.0.8078.79",
+    "conditions": "unthrottled localhost",
+    "fcp": 512,
+    "lcp": {
+      "startTime": 512,
+      "size": 33390,
+      "element": "hero-introduction"
+    },
+    "cls": 0.0002535865970265257,
+    "blockingTime": 5188,
+    "blockingWindowEnd": 7435.700000000012,
+    "heroReady": 1899.899999999965,
+    "heroTimedOut": false,
+    "aboutMount": 175.70000000001164,
+    "aboutRevealAfterScroll": 521.5999999999767,
+    "aboutPortraitAfterScroll": 585.4000000000233,
+    "aboutCompleteAfterScroll": 3390.5999999999767,
+    "jsTransfer": 900,
+    "jsBody": 368384,
+    "cssTransfer": 900,
+    "heapBytes": 15188290,
+    "overflow": false,
+    "errors": [],
+    "consoleErrors": [],
+    "failures": [],
+    "initial": {
+      "lcp": {
+        "startTime": 512,
+        "size": 33390,
+        "element": "hero-introduction"
+      },
+      "cls": 0.0002535865970265257,
+      "longTasks": [
+        {
+          "startTime": 102.79999999998836,
+          "duration": 73
+        },
+        {
+          "startTime": 187.39999999996508,
+          "duration": 299
+        },
+        {
+          "startTime": 504.5999999999767,
+          "duration": 197
+        },
+        {
+          "startTime": 712.7999999999884,
+          "duration": 171
+        },
+        {
+          "startTime": 1043.5,
+          "duration": 152
+        },
+        {
+          "startTime": 1422.2999999999884,
+          "duration": 471
+        },
+        {
+          "startTime": 1899.899999999965,
+          "duration": 2624
+        },
+        {
+          "startTime": 4530.399999999965,
+          "duration": 180
+        },
+        {
+          "startTime": 4711.899999999965,
+          "duration": 184
+        },
+        {
+          "startTime": 4900.099999999977,
+          "duration": 184
+        },
+        {
+          "startTime": 5091.299999999988,
+          "duration": 189
+        },
+        {
+          "startTime": 5280.899999999965,
+          "duration": 205
+        },
+        {
+          "startTime": 5494.099999999977,
+          "duration": 195
+        },
+        {
+          "startTime": 5694.200000000012,
+          "duration": 194
+        },
+        {
+          "startTime": 5890.799999999988,
+          "duration": 146
+        },
+        {
+          "startTime": 6037.799999999988,
+          "duration": 241
+        },
+        {
+          "startTime": 6279.899999999965,
+          "duration": 222
+        },
+        {
+          "startTime": 6502.5,
+          "duration": 182
+        },
+        {
+          "startTime": 6685.099999999977,
+          "duration": 154
+        },
+        {
+          "startTime": 6839.299999999988,
+          "duration": 195
+        },
+        {
+          "startTime": 7035.099999999977,
+          "duration": 199
+        }
+      ],
+      "heroReady": 1899.899999999965,
+      "aboutMounted": 175.70000000001164,
+      "aboutRevealed": null,
+      "resources": [
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/index-H7JYJiGQ.js",
+          "initiatorType": "script",
+          "startTime": 54.70000000001164,
+          "responseEnd": 79.59999999997672,
+          "duration": 24.899999999965075,
+          "transferSize": 300,
+          "encodedBodySize": 161709
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/index-D2gQNqDz.css",
+          "initiatorType": "link",
+          "startTime": 54.899999999965075,
+          "responseEnd": 59.70000000001164,
+          "duration": 4.800000000046566,
+          "transferSize": 300,
+          "encodedBodySize": 23731
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/icons/web-app-manifest-192x192.png",
+          "initiatorType": "img",
+          "startTime": 105.20000000001164,
+          "responseEnd": 108,
+          "duration": 2.7999999999883585,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/sections/about/profile-optimized.png",
+          "initiatorType": "img",
+          "startTime": 112.89999999996508,
+          "responseEnd": 114.29999999998836,
+          "duration": 1.400000000023283,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/anime-portrait-optimized-eKhak6Wp.png",
+          "initiatorType": "img",
+          "startTime": 113.09999999997672,
+          "responseEnd": 114.5,
+          "duration": 1.400000000023283,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/inter-latin-wght-normal-Dx4kXJAl.woff2",
+          "initiatorType": "css",
+          "startTime": 125.39999999996508,
+          "responseEnd": 127.59999999997672,
+          "duration": 2.2000000000116415,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/portrait-backdrop-DMgJuG56.svg",
+          "initiatorType": "css",
+          "startTime": 130.20000000001164,
+          "responseEnd": 133.09999999997672,
+          "duration": 2.8999999999650754,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/sections/about/iconpattern.svg",
+          "initiatorType": "css",
+          "startTime": 130.89999999996508,
+          "responseEnd": 133.20000000001164,
+          "duration": 2.300000000046566,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/space-grotesk-latin-wght-normal-BhU9QXUp.woff2",
+          "initiatorType": "css",
+          "startTime": 141.20000000001164,
+          "responseEnd": 142.59999999997672,
+          "duration": 1.3999999999650754,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/jetbrains-mono-latin-wght-normal-B9CIFXIH.woff2",
+          "initiatorType": "css",
+          "startTime": 142.79999999998836,
+          "responseEnd": 143.89999999996508,
+          "duration": 1.099999999976717,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/icons/favicon.svg",
+          "initiatorType": "other",
+          "startTime": 504.0999999999767,
+          "responseEnd": 512.3999999999651,
+          "duration": 8.299999999988358,
+          "transferSize": 300,
+          "encodedBodySize": 24399
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/RotatingText-iPiWcolD.js",
+          "initiatorType": "script",
+          "startTime": 704.5999999999767,
+          "responseEnd": 719.3999999999651,
+          "duration": 14.799999999988358,
+          "transferSize": 300,
+          "encodedBodySize": 55087
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/RotatingText-B7BL-bgu.css",
+          "initiatorType": "link",
+          "startTime": 704.8999999999651,
+          "responseEnd": 716.3999999999651,
+          "duration": 11.5,
+          "transferSize": 300,
+          "encodedBodySize": 624
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/images/lanyard/card-front.webp",
+          "initiatorType": "link",
+          "startTime": 705.5,
+          "responseEnd": 717.8999999999651,
+          "duration": 12.399999999965075,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/images/lanyard/card-back.webp",
+          "initiatorType": "link",
+          "startTime": 705.7999999999884,
+          "responseEnd": 719.8999999999651,
+          "duration": 14.099999999976717,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/Lanyard-CQ5eOE8H.js",
+          "initiatorType": "script",
+          "startTime": 706,
+          "responseEnd": 724.0999999999767,
+          "duration": 18.099999999976717,
+          "transferSize": 300,
+          "encodedBodySize": 151588
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/Lanyard-BUJBlfLP.css",
+          "initiatorType": "link",
+          "startTime": 706.2000000000116,
+          "responseEnd": 718.3999999999651,
+          "duration": 12.199999999953434,
+          "transferSize": 300,
+          "encodedBodySize": 595
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/icons/favicon.ico",
+          "initiatorType": "other",
+          "startTime": 889.7999999999884,
+          "responseEnd": 892.2000000000116,
+          "duration": 2.400000000023283,
+          "transferSize": 300,
+          "encodedBodySize": 15086
+        }
+      ],
+      "paints": [
+        {
+          "name": "first-paint",
+          "startTime": 104
+        },
+        {
+          "name": "first-contentful-paint",
+          "startTime": 512
+        }
+      ],
+      "elapsed": 7435.700000000012,
+      "memory": 15188290,
+      "heroMode": "webgl"
+    }
+  },
+  {
+    "label": "phase2-optimized",
+    "profile": "low-end",
+    "repetition": 1,
+    "cache": "cold",
+    "browser": "156.0.8078.79",
+    "conditions": "4x CPU, 1.6 Mbps down, 750 kbps up, 150 ms latency",
+    "fcp": 2720,
+    "lcp": {
+      "startTime": 2720,
+      "size": 33480,
+      "element": "hero-introduction"
+    },
+    "cls": 0.003775977324371271,
+    "blockingTime": 4673,
+    "blockingWindowEnd": 26168.600000000035,
+    "heroReady": 22232.20000000001,
+    "heroTimedOut": false,
+    "aboutMount": 2171.8000000000466,
+    "aboutRevealAfterScroll": 680.6000000000349,
+    "aboutPortraitAfterScroll": 890.4000000000233,
+    "aboutCompleteAfterScroll": 3691.2999999999884,
+    "jsTransfer": 369284,
+    "jsBody": 368384,
+    "cssTransfer": 25850,
+    "heapBytes": 14234519,
+    "overflow": false,
+    "errors": [],
+    "consoleErrors": [],
+    "failures": [],
+    "initial": {
+      "lcp": {
+        "startTime": 2720,
+        "size": 33480,
+        "element": "hero-introduction"
+      },
+      "cls": 0.003775977324371271,
+      "longTasks": [
+        {
+          "startTime": 1354.8000000000466,
+          "duration": 187
+        },
+        {
+          "startTime": 1548.4000000000233,
+          "duration": 630
+        },
+        {
+          "startTime": 2214.5,
+          "duration": 489
+        },
+        {
+          "startTime": 2793.600000000035,
+          "duration": 230
+        },
+        {
+          "startTime": 3054.600000000035,
+          "duration": 231
+        },
+        {
+          "startTime": 4545.200000000012,
+          "duration": 55
+        },
+        {
+          "startTime": 8116.400000000023,
+          "duration": 548
+        },
+        {
+          "startTime": 9313.800000000047,
+          "duration": 55
+        },
+        {
+          "startTime": 9414.300000000047,
+          "duration": 55
+        },
+        {
+          "startTime": 9505.600000000035,
+          "duration": 55
+        },
+        {
+          "startTime": 9616.600000000035,
+          "duration": 50
+        },
+        {
+          "startTime": 9813.5,
+          "duration": 52
+        },
+        {
+          "startTime": 11726.100000000035,
+          "duration": 64
+        },
+        {
+          "startTime": 17973.20000000001,
+          "duration": 219
+        },
+        {
+          "startTime": 20967.20000000001,
+          "duration": 152
+        },
+        {
+          "startTime": 21605.100000000035,
+          "duration": 611
+        },
+        {
+          "startTime": 22234.100000000035,
+          "duration": 778
+        },
+        {
+          "startTime": 23025.800000000047,
+          "duration": 196
+        },
+        {
+          "startTime": 23235.900000000023,
+          "duration": 274
+        },
+        {
+          "startTime": 23518.800000000047,
+          "duration": 248
+        },
+        {
+          "startTime": 23769.800000000047,
+          "duration": 311
+        },
+        {
+          "startTime": 24083.70000000001,
+          "duration": 290
+        },
+        {
+          "startTime": 24403.900000000023,
+          "duration": 264
+        },
+        {
+          "startTime": 24671.600000000035,
+          "duration": 222
+        },
+        {
+          "startTime": 24898.70000000001,
+          "duration": 205
+        },
+        {
+          "startTime": 25103.900000000023,
+          "duration": 208
+        },
+        {
+          "startTime": 25312.300000000047,
+          "duration": 196
+        },
+        {
+          "startTime": 25509.5,
+          "duration": 198
+        },
+        {
+          "startTime": 25708.20000000001,
+          "duration": 206
+        }
+      ],
+      "heroReady": 22232.20000000001,
+      "aboutMounted": 2171.8000000000466,
+      "aboutRevealed": null,
+      "resources": [
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/index-H7JYJiGQ.js",
+          "initiatorType": "script",
+          "startTime": 216.70000000001164,
+          "responseEnd": 1334.8000000000466,
+          "duration": 1118.100000000035,
+          "transferSize": 162009,
+          "encodedBodySize": 161709
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/index-D2gQNqDz.css",
+          "initiatorType": "link",
+          "startTime": 218.30000000004657,
+          "responseEnd": 645.7000000000116,
+          "duration": 427.3999999999651,
+          "transferSize": 24031,
+          "encodedBodySize": 23731
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/inter-latin-wght-normal-Dx4kXJAl.woff2",
+          "initiatorType": "css",
+          "startTime": 1751.600000000035,
+          "responseEnd": 3735.2000000000116,
+          "duration": 1983.5999999999767,
+          "transferSize": 48556,
+          "encodedBodySize": 48256
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/portrait-backdrop-DMgJuG56.svg",
+          "initiatorType": "css",
+          "startTime": 1769.2000000000116,
+          "responseEnd": 1942.7000000000116,
+          "duration": 173.5,
+          "transferSize": 1869,
+          "encodedBodySize": 1569
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/sections/about/iconpattern.svg",
+          "initiatorType": "css",
+          "startTime": 1772.100000000035,
+          "responseEnd": 1936.3000000000466,
+          "duration": 164.20000000001164,
+          "transferSize": 610,
+          "encodedBodySize": 310
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/space-grotesk-latin-wght-normal-BhU9QXUp.woff2",
+          "initiatorType": "css",
+          "startTime": 1834.100000000035,
+          "responseEnd": 3044.8000000000466,
+          "duration": 1210.7000000000116,
+          "transferSize": 22588,
+          "encodedBodySize": 22288
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/jetbrains-mono-latin-wght-normal-B9CIFXIH.woff2",
+          "initiatorType": "css",
+          "startTime": 1842.9000000000233,
+          "responseEnd": 3563.3000000000466,
+          "duration": 1720.4000000000233,
+          "transferSize": 40704,
+          "encodedBodySize": 40404
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/icons/web-app-manifest-192x192.png",
+          "initiatorType": "img",
+          "startTime": 2172.9000000000233,
+          "responseEnd": 4587.800000000047,
+          "duration": 2414.9000000000233,
+          "transferSize": 83075,
+          "encodedBodySize": 82775
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/sections/about/profile-optimized.png",
+          "initiatorType": "img",
+          "startTime": 2174.3000000000466,
+          "responseEnd": 13268.300000000047,
+          "duration": 11094,
+          "transferSize": 475857,
+          "encodedBodySize": 475557
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/anime-portrait-optimized-eKhak6Wp.png",
+          "initiatorType": "img",
+          "startTime": 2174.5,
+          "responseEnd": 17963.300000000047,
+          "duration": 15788.800000000047,
+          "transferSize": 789699,
+          "encodedBodySize": 789399
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/icons/favicon.svg",
+          "initiatorType": "other",
+          "startTime": 3036.3000000000466,
+          "responseEnd": 3877.9000000000233,
+          "duration": 841.5999999999767,
+          "transferSize": 24699,
+          "encodedBodySize": 24399
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/RotatingText-iPiWcolD.js",
+          "initiatorType": "script",
+          "startTime": 3311.3000000000466,
+          "responseEnd": 5422.800000000047,
+          "duration": 2111.5,
+          "transferSize": 55387,
+          "encodedBodySize": 55087
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/RotatingText-B7BL-bgu.css",
+          "initiatorType": "link",
+          "startTime": 3313.3000000000466,
+          "responseEnd": 3758.600000000035,
+          "duration": 445.29999999998836,
+          "transferSize": 924,
+          "encodedBodySize": 624
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/images/lanyard/card-front.webp",
+          "initiatorType": "link",
+          "startTime": 3320.4000000000233,
+          "responseEnd": 20910.400000000023,
+          "duration": 17590,
+          "transferSize": 1157308,
+          "encodedBodySize": 1157008
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/images/lanyard/card-back.webp",
+          "initiatorType": "link",
+          "startTime": 3323.7000000000116,
+          "responseEnd": 19507.70000000001,
+          "duration": 16184,
+          "transferSize": 832076,
+          "encodedBodySize": 831776
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/Lanyard-CQ5eOE8H.js",
+          "initiatorType": "script",
+          "startTime": 3325.7000000000116,
+          "responseEnd": 8032.600000000035,
+          "duration": 4706.900000000023,
+          "transferSize": 151888,
+          "encodedBodySize": 151588
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/Lanyard-BUJBlfLP.css",
+          "initiatorType": "link",
+          "startTime": 3326.9000000000233,
+          "responseEnd": 3908.4000000000233,
+          "duration": 581.5,
+          "transferSize": 895,
+          "encodedBodySize": 595
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/icons/favicon.ico",
+          "initiatorType": "other",
+          "startTime": 3924.600000000035,
+          "responseEnd": 5235.5,
+          "duration": 1310.899999999965,
+          "transferSize": 15386,
+          "encodedBodySize": 15086
+        }
+      ],
+      "paints": [
+        {
+          "name": "first-paint",
+          "startTime": 668
+        },
+        {
+          "name": "first-contentful-paint",
+          "startTime": 2720
+        }
+      ],
+      "elapsed": 26168.600000000035,
+      "memory": 14234519,
+      "heroMode": "webgl"
+    }
+  },
+  {
+    "label": "phase2-optimized",
+    "profile": "low-end",
+    "repetition": 1,
+    "cache": "warm",
+    "browser": "156.0.8078.79",
+    "conditions": "4x CPU, 1.6 Mbps down, 750 kbps up, 150 ms latency",
+    "fcp": 1304,
+    "lcp": {
+      "startTime": 1304,
+      "size": 33390,
+      "element": "hero-introduction"
+    },
+    "cls": 0.0002519990746228084,
+    "blockingTime": 6429,
+    "blockingWindowEnd": 9526.5,
+    "heroReady": 3395.8000000000466,
+    "heroTimedOut": false,
+    "aboutMount": 808.1000000000349,
+    "aboutRevealAfterScroll": 680.3999999999651,
+    "aboutPortraitAfterScroll": 782,
+    "aboutCompleteAfterScroll": 3623,
+    "jsTransfer": 900,
+    "jsBody": 368384,
+    "cssTransfer": 900,
+    "heapBytes": 15055897,
+    "overflow": false,
+    "errors": [],
+    "consoleErrors": [],
+    "failures": [],
+    "initial": {
+      "lcp": {
+        "startTime": 1304,
+        "size": 33390,
+        "element": "hero-introduction"
+      },
+      "cls": 0.0002519990746228084,
+      "longTasks": [
+        {
+          "startTime": 496.70000000001164,
+          "duration": 312
+        },
+        {
+          "startTime": 820.6000000000349,
+          "duration": 468
+        },
+        {
+          "startTime": 1348.4000000000233,
+          "duration": 103
+        },
+        {
+          "startTime": 1452.100000000035,
+          "duration": 262
+        },
+        {
+          "startTime": 1748.7000000000116,
+          "duration": 239
+        },
+        {
+          "startTime": 2236.9000000000233,
+          "duration": 245
+        },
+        {
+          "startTime": 2624.600000000035,
+          "duration": 57
+        },
+        {
+          "startTime": 2682.5,
+          "duration": 50
+        },
+        {
+          "startTime": 2782.600000000035,
+          "duration": 606
+        },
+        {
+          "startTime": 3395.8000000000466,
+          "duration": 3010
+        },
+        {
+          "startTime": 6422.100000000035,
+          "duration": 194
+        },
+        {
+          "startTime": 6627.5,
+          "duration": 189
+        },
+        {
+          "startTime": 6844.800000000047,
+          "duration": 229
+        },
+        {
+          "startTime": 7083.5,
+          "duration": 220
+        },
+        {
+          "startTime": 7311.900000000023,
+          "duration": 220
+        },
+        {
+          "startTime": 7602.700000000012,
+          "duration": 230
+        },
+        {
+          "startTime": 7843.600000000035,
+          "duration": 262
+        },
+        {
+          "startTime": 8129.800000000047,
+          "duration": 257
+        },
+        {
+          "startTime": 8392.200000000012,
+          "duration": 220
+        },
+        {
+          "startTime": 8614.200000000012,
+          "duration": 203
+        },
+        {
+          "startTime": 8827.200000000012,
+          "duration": 205
+        },
+        {
+          "startTime": 9037.900000000023,
+          "duration": 240
+        },
+        {
+          "startTime": 9279,
+          "duration": 238
+        }
+      ],
+      "heroReady": 3395.8000000000466,
+      "aboutMounted": 808.1000000000349,
+      "aboutRevealed": null,
+      "resources": [
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/index-H7JYJiGQ.js",
+          "initiatorType": "script",
+          "startTime": 294.9000000000233,
+          "responseEnd": 455.1000000000349,
+          "duration": 160.20000000001164,
+          "transferSize": 300,
+          "encodedBodySize": 161709
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/index-D2gQNqDz.css",
+          "initiatorType": "link",
+          "startTime": 295.1000000000349,
+          "responseEnd": 462.30000000004657,
+          "duration": 167.20000000001164,
+          "transferSize": 300,
+          "encodedBodySize": 23731
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/icons/web-app-manifest-192x192.png",
+          "initiatorType": "img",
+          "startTime": 507.5,
+          "responseEnd": 662.4000000000233,
+          "duration": 154.90000000002328,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/sections/about/profile-optimized.png",
+          "initiatorType": "img",
+          "startTime": 530.5,
+          "responseEnd": 685.4000000000233,
+          "duration": 154.90000000002328,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/anime-portrait-optimized-eKhak6Wp.png",
+          "initiatorType": "img",
+          "startTime": 531.4000000000233,
+          "responseEnd": 693.1000000000349,
+          "duration": 161.70000000001164,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/inter-latin-wght-normal-Dx4kXJAl.woff2",
+          "initiatorType": "css",
+          "startTime": 572.4000000000233,
+          "responseEnd": 731.3000000000466,
+          "duration": 158.90000000002328,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/portrait-backdrop-DMgJuG56.svg",
+          "initiatorType": "css",
+          "startTime": 580.9000000000233,
+          "responseEnd": 737.7000000000116,
+          "duration": 156.79999999998836,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/sections/about/iconpattern.svg",
+          "initiatorType": "css",
+          "startTime": 583.2000000000116,
+          "responseEnd": 745.5,
+          "duration": 162.29999999998836,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/space-grotesk-latin-wght-normal-BhU9QXUp.woff2",
+          "initiatorType": "css",
+          "startTime": 631.2000000000116,
+          "responseEnd": 820.5,
+          "duration": 189.29999999998836,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/jetbrains-mono-latin-wght-normal-B9CIFXIH.woff2",
+          "initiatorType": "css",
+          "startTime": 639.3000000000466,
+          "responseEnd": 842.9000000000233,
+          "duration": 203.59999999997672,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/icons/favicon.svg",
+          "initiatorType": "other",
+          "startTime": 1725.7000000000116,
+          "responseEnd": 1886.100000000035,
+          "duration": 160.40000000002328,
+          "transferSize": 300,
+          "encodedBodySize": 24399
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/RotatingText-iPiWcolD.js",
+          "initiatorType": "script",
+          "startTime": 1735.100000000035,
+          "responseEnd": 1893.2000000000116,
+          "duration": 158.09999999997672,
+          "transferSize": 300,
+          "encodedBodySize": 55087
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/RotatingText-B7BL-bgu.css",
+          "initiatorType": "link",
+          "startTime": 1736.2000000000116,
+          "responseEnd": 1904.9000000000233,
+          "duration": 168.70000000001164,
+          "transferSize": 300,
+          "encodedBodySize": 624
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/images/lanyard/card-front.webp",
+          "initiatorType": "link",
+          "startTime": 1739.600000000035,
+          "responseEnd": 1907.4000000000233,
+          "duration": 167.79999999998836,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/images/lanyard/card-back.webp",
+          "initiatorType": "link",
+          "startTime": 1740.600000000035,
+          "responseEnd": 1915.100000000035,
+          "duration": 174.5,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/Lanyard-CQ5eOE8H.js",
+          "initiatorType": "script",
+          "startTime": 1742,
+          "responseEnd": 1933.7000000000116,
+          "duration": 191.70000000001164,
+          "transferSize": 300,
+          "encodedBodySize": 151588
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/Lanyard-BUJBlfLP.css",
+          "initiatorType": "link",
+          "startTime": 1743.100000000035,
+          "responseEnd": 2042.600000000035,
+          "duration": 299.5,
+          "transferSize": 300,
+          "encodedBodySize": 595
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/icons/favicon.ico",
+          "initiatorType": "other",
+          "startTime": 2079.3000000000466,
+          "responseEnd": 2237.9000000000233,
+          "duration": 158.59999999997672,
+          "transferSize": 300,
+          "encodedBodySize": 15086
+        }
+      ],
+      "paints": [
+        {
+          "name": "first-paint",
+          "startTime": 480
+        },
+        {
+          "name": "first-contentful-paint",
+          "startTime": 1304
+        }
+      ],
+      "elapsed": 9526.5,
+      "memory": 15055897,
+      "heroMode": "webgl"
+    }
+  },
+  {
+    "label": "phase2-optimized",
+    "profile": "low-end",
+    "repetition": 2,
+    "cache": "cold",
+    "browser": "156.0.8078.79",
+    "conditions": "4x CPU, 1.6 Mbps down, 750 kbps up, 150 ms latency",
+    "fcp": 2592,
+    "lcp": {
+      "startTime": 2592,
+      "size": 33480,
+      "element": "hero-introduction"
+    },
+    "cls": 0.003619148491183071,
+    "blockingTime": 4250,
+    "blockingWindowEnd": 25389.900000000023,
+    "heroReady": 21907.29999999999,
+    "heroTimedOut": false,
+    "aboutMount": 2061.2999999999884,
+    "aboutRevealAfterScroll": 659.7000000000116,
+    "aboutPortraitAfterScroll": 815.4000000000233,
+    "aboutCompleteAfterScroll": 3670.2000000000116,
+    "jsTransfer": 369284,
+    "jsBody": 368384,
+    "cssTransfer": 25850,
+    "heapBytes": 12650333,
+    "overflow": false,
+    "errors": [],
+    "consoleErrors": [],
+    "failures": [],
+    "initial": {
+      "lcp": {
+        "startTime": 2592,
+        "size": 33480,
+        "element": "hero-introduction"
+      },
+      "cls": 0.003619148491183071,
+      "longTasks": [
+        {
+          "startTime": 1364.9000000000233,
+          "duration": 176
+        },
+        {
+          "startTime": 1546.2999999999884,
+          "duration": 519
+        },
+        {
+          "startTime": 2093.2000000000116,
+          "duration": 425
+        },
+        {
+          "startTime": 2617,
+          "duration": 178
+        },
+        {
+          "startTime": 3591.7999999999884,
+          "duration": 78
+        },
+        {
+          "startTime": 7805.600000000035,
+          "duration": 695
+        },
+        {
+          "startTime": 9112.299999999988,
+          "duration": 84
+        },
+        {
+          "startTime": 9198.5,
+          "duration": 71
+        },
+        {
+          "startTime": 9349.400000000023,
+          "duration": 107
+        },
+        {
+          "startTime": 9502.299999999988,
+          "duration": 60
+        },
+        {
+          "startTime": 17805.5,
+          "duration": 114
+        },
+        {
+          "startTime": 20819.20000000001,
+          "duration": 85
+        },
+        {
+          "startTime": 21384.400000000023,
+          "duration": 513
+        },
+        {
+          "startTime": 21923.600000000035,
+          "duration": 650
+        },
+        {
+          "startTime": 22587.29999999999,
+          "duration": 184
+        },
+        {
+          "startTime": 22786.29999999999,
+          "duration": 204
+        },
+        {
+          "startTime": 23005.29999999999,
+          "duration": 291
+        },
+        {
+          "startTime": 23304.900000000023,
+          "duration": 307
+        },
+        {
+          "startTime": 23690.400000000023,
+          "duration": 277
+        },
+        {
+          "startTime": 23977.400000000023,
+          "duration": 322
+        },
+        {
+          "startTime": 24306.400000000023,
+          "duration": 342
+        },
+        {
+          "startTime": 24648.900000000023,
+          "duration": 241
+        },
+        {
+          "startTime": 24890.5,
+          "duration": 259
+        },
+        {
+          "startTime": 25150.29999999999,
+          "duration": 238
+        }
+      ],
+      "heroReady": 21907.29999999999,
+      "aboutMounted": 2061.2999999999884,
+      "aboutRevealed": null,
+      "resources": [
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/index-H7JYJiGQ.js",
+          "initiatorType": "script",
+          "startTime": 222,
+          "responseEnd": 1348.9000000000233,
+          "duration": 1126.9000000000233,
+          "transferSize": 162009,
+          "encodedBodySize": 161709
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/index-D2gQNqDz.css",
+          "initiatorType": "link",
+          "startTime": 245.70000000001164,
+          "responseEnd": 651.6000000000349,
+          "duration": 405.9000000000233,
+          "transferSize": 24031,
+          "encodedBodySize": 23731
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/inter-latin-wght-normal-Dx4kXJAl.woff2",
+          "initiatorType": "css",
+          "startTime": 1719.2000000000116,
+          "responseEnd": 3569.2000000000116,
+          "duration": 1850,
+          "transferSize": 48556,
+          "encodedBodySize": 48256
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/portrait-backdrop-DMgJuG56.svg",
+          "initiatorType": "css",
+          "startTime": 1736.600000000035,
+          "responseEnd": 1895.7999999999884,
+          "duration": 159.19999999995343,
+          "transferSize": 1869,
+          "encodedBodySize": 1569
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/sections/about/iconpattern.svg",
+          "initiatorType": "css",
+          "startTime": 1739.100000000035,
+          "responseEnd": 1904.2999999999884,
+          "duration": 165.19999999995343,
+          "transferSize": 610,
+          "encodedBodySize": 310
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/space-grotesk-latin-wght-normal-BhU9QXUp.woff2",
+          "initiatorType": "css",
+          "startTime": 1806.9000000000233,
+          "responseEnd": 2931.5,
+          "duration": 1124.5999999999767,
+          "transferSize": 22588,
+          "encodedBodySize": 22288
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/jetbrains-mono-latin-wght-normal-B9CIFXIH.woff2",
+          "initiatorType": "css",
+          "startTime": 1812.100000000035,
+          "responseEnd": 3404,
+          "duration": 1591.899999999965,
+          "transferSize": 40704,
+          "encodedBodySize": 40404
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/icons/web-app-manifest-192x192.png",
+          "initiatorType": "img",
+          "startTime": 2062.100000000035,
+          "responseEnd": 4505.700000000012,
+          "duration": 2443.5999999999767,
+          "transferSize": 83075,
+          "encodedBodySize": 82775
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/sections/about/profile-optimized.png",
+          "initiatorType": "img",
+          "startTime": 2062.2999999999884,
+          "responseEnd": 13048.400000000023,
+          "duration": 10986.100000000035,
+          "transferSize": 475857,
+          "encodedBodySize": 475557
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/anime-portrait-optimized-eKhak6Wp.png",
+          "initiatorType": "img",
+          "startTime": 2062.2999999999884,
+          "responseEnd": 17781.70000000001,
+          "duration": 15719.400000000023,
+          "transferSize": 789699,
+          "encodedBodySize": 789399
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/icons/favicon.svg",
+          "initiatorType": "other",
+          "startTime": 2798,
+          "responseEnd": 4184,
+          "duration": 1386,
+          "transferSize": 24699,
+          "encodedBodySize": 24399
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/RotatingText-iPiWcolD.js",
+          "initiatorType": "script",
+          "startTime": 2816.9000000000233,
+          "responseEnd": 5128.299999999988,
+          "duration": 2311.399999999965,
+          "transferSize": 55387,
+          "encodedBodySize": 55087
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/RotatingText-B7BL-bgu.css",
+          "initiatorType": "link",
+          "startTime": 2818.9000000000233,
+          "responseEnd": 3126.7999999999884,
+          "duration": 307.8999999999651,
+          "transferSize": 924,
+          "encodedBodySize": 624
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/images/lanyard/card-front.webp",
+          "initiatorType": "link",
+          "startTime": 2826.2000000000116,
+          "responseEnd": 20773.20000000001,
+          "duration": 17947,
+          "transferSize": 1157308,
+          "encodedBodySize": 1157008
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/images/lanyard/card-back.webp",
+          "initiatorType": "link",
+          "startTime": 2827.2999999999884,
+          "responseEnd": 19318.70000000001,
+          "duration": 16491.400000000023,
+          "transferSize": 832076,
+          "encodedBodySize": 831776
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/Lanyard-CQ5eOE8H.js",
+          "initiatorType": "script",
+          "startTime": 2828.600000000035,
+          "responseEnd": 7701.299999999988,
+          "duration": 4872.699999999953,
+          "transferSize": 151888,
+          "encodedBodySize": 151588
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/Lanyard-BUJBlfLP.css",
+          "initiatorType": "link",
+          "startTime": 2828.7999999999884,
+          "responseEnd": 3321.600000000035,
+          "duration": 492.80000000004657,
+          "transferSize": 895,
+          "encodedBodySize": 595
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/icons/favicon.ico",
+          "initiatorType": "other",
+          "startTime": 4239.700000000012,
+          "responseEnd": 5144.200000000012,
+          "duration": 904.5,
+          "transferSize": 15386,
+          "encodedBodySize": 15086
+        }
+      ],
+      "paints": [
+        {
+          "name": "first-paint",
+          "startTime": 672
+        },
+        {
+          "name": "first-contentful-paint",
+          "startTime": 2592
+        }
+      ],
+      "elapsed": 25389.900000000023,
+      "memory": 12650333,
+      "heroMode": "webgl"
+    }
+  },
+  {
+    "label": "phase2-optimized",
+    "profile": "low-end",
+    "repetition": 2,
+    "cache": "warm",
+    "browser": "156.0.8078.79",
+    "conditions": "4x CPU, 1.6 Mbps down, 750 kbps up, 150 ms latency",
+    "fcp": 1320,
+    "lcp": {
+      "startTime": 1320,
+      "size": 33390,
+      "element": "hero-introduction"
+    },
+    "cls": 0.00025089040737905885,
+    "blockingTime": 6780,
+    "blockingWindowEnd": 9818.100000000035,
+    "heroReady": 3446.600000000035,
+    "heroTimedOut": false,
+    "aboutMount": 835.8000000000466,
+    "aboutRevealAfterScroll": 744.3999999999651,
+    "aboutPortraitAfterScroll": 837.7999999999884,
+    "aboutCompleteAfterScroll": 3659,
+    "jsTransfer": 900,
+    "jsBody": 368384,
+    "cssTransfer": 900,
+    "heapBytes": 20902397,
+    "overflow": false,
+    "errors": [],
+    "consoleErrors": [],
+    "failures": [],
+    "initial": {
+      "lcp": {
+        "startTime": 1320,
+        "size": 33390,
+        "element": "hero-introduction"
+      },
+      "cls": 0.00025089040737905885,
+      "longTasks": [
+        {
+          "startTime": 512.1000000000349,
+          "duration": 324
+        },
+        {
+          "startTime": 849.7000000000116,
+          "duration": 454
+        },
+        {
+          "startTime": 1372.2000000000116,
+          "duration": 55
+        },
+        {
+          "startTime": 1427.4000000000233,
+          "duration": 302
+        },
+        {
+          "startTime": 1757.600000000035,
+          "duration": 262
+        },
+        {
+          "startTime": 2261,
+          "duration": 274
+        },
+        {
+          "startTime": 2852,
+          "duration": 52
+        },
+        {
+          "startTime": 2904.100000000035,
+          "duration": 535
+        },
+        {
+          "startTime": 3447.100000000035,
+          "duration": 3119
+        },
+        {
+          "startTime": 6598.400000000023,
+          "duration": 218
+        },
+        {
+          "startTime": 6820.100000000035,
+          "duration": 224
+        },
+        {
+          "startTime": 7063.200000000012,
+          "duration": 261
+        },
+        {
+          "startTime": 7325.300000000047,
+          "duration": 288
+        },
+        {
+          "startTime": 7615.800000000047,
+          "duration": 312
+        },
+        {
+          "startTime": 7970.100000000035,
+          "duration": 278
+        },
+        {
+          "startTime": 8256.700000000012,
+          "duration": 246
+        },
+        {
+          "startTime": 8508.200000000012,
+          "duration": 231
+        },
+        {
+          "startTime": 8740.300000000047,
+          "duration": 274
+        },
+        {
+          "startTime": 9014.700000000012,
+          "duration": 282
+        },
+        {
+          "startTime": 9296.800000000047,
+          "duration": 258
+        },
+        {
+          "startTime": 9555.300000000047,
+          "duration": 259
+        }
+      ],
+      "heroReady": 3446.600000000035,
+      "aboutMounted": 835.8000000000466,
+      "aboutRevealed": null,
+      "resources": [
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/index-H7JYJiGQ.js",
+          "initiatorType": "script",
+          "startTime": 274.4000000000233,
+          "responseEnd": 453.4000000000233,
+          "duration": 179,
+          "transferSize": 300,
+          "encodedBodySize": 161709
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/index-D2gQNqDz.css",
+          "initiatorType": "link",
+          "startTime": 296.9000000000233,
+          "responseEnd": 460.9000000000233,
+          "duration": 164,
+          "transferSize": 300,
+          "encodedBodySize": 23731
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/icons/web-app-manifest-192x192.png",
+          "initiatorType": "img",
+          "startTime": 524.2000000000116,
+          "responseEnd": 683.6000000000349,
+          "duration": 159.40000000002328,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/sections/about/profile-optimized.png",
+          "initiatorType": "img",
+          "startTime": 543.6000000000349,
+          "responseEnd": 699.6000000000349,
+          "duration": 156,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/anime-portrait-optimized-eKhak6Wp.png",
+          "initiatorType": "img",
+          "startTime": 545.9000000000233,
+          "responseEnd": 706.5,
+          "duration": 160.59999999997672,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/inter-latin-wght-normal-Dx4kXJAl.woff2",
+          "initiatorType": "css",
+          "startTime": 606.7000000000116,
+          "responseEnd": 766.5,
+          "duration": 159.79999999998836,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/portrait-backdrop-DMgJuG56.svg",
+          "initiatorType": "css",
+          "startTime": 618.7000000000116,
+          "responseEnd": 774.3000000000466,
+          "duration": 155.60000000003492,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/sections/about/iconpattern.svg",
+          "initiatorType": "css",
+          "startTime": 621.1000000000349,
+          "responseEnd": 782.1000000000349,
+          "duration": 161,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/space-grotesk-latin-wght-normal-BhU9QXUp.woff2",
+          "initiatorType": "css",
+          "startTime": 667.1000000000349,
+          "responseEnd": 841.8000000000466,
+          "duration": 174.70000000001164,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/jetbrains-mono-latin-wght-normal-B9CIFXIH.woff2",
+          "initiatorType": "css",
+          "startTime": 672.9000000000233,
+          "responseEnd": 856.8000000000466,
+          "duration": 183.90000000002328,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/icons/favicon.svg",
+          "initiatorType": "other",
+          "startTime": 1741,
+          "responseEnd": 1899.4000000000233,
+          "duration": 158.40000000002328,
+          "transferSize": 300,
+          "encodedBodySize": 24399
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/RotatingText-iPiWcolD.js",
+          "initiatorType": "script",
+          "startTime": 1746.9000000000233,
+          "responseEnd": 1907.3000000000466,
+          "duration": 160.40000000002328,
+          "transferSize": 300,
+          "encodedBodySize": 55087
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/RotatingText-B7BL-bgu.css",
+          "initiatorType": "link",
+          "startTime": 1748.5,
+          "responseEnd": 1914,
+          "duration": 165.5,
+          "transferSize": 300,
+          "encodedBodySize": 624
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/images/lanyard/card-front.webp",
+          "initiatorType": "link",
+          "startTime": 1751.100000000035,
+          "responseEnd": 1921.600000000035,
+          "duration": 170.5,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/images/lanyard/card-back.webp",
+          "initiatorType": "link",
+          "startTime": 1752.3000000000466,
+          "responseEnd": 1929.3000000000466,
+          "duration": 177,
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/Lanyard-CQ5eOE8H.js",
+          "initiatorType": "script",
+          "startTime": 1753.600000000035,
+          "responseEnd": 1941.5,
+          "duration": 187.89999999996508,
+          "transferSize": 300,
+          "encodedBodySize": 151588
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/assets/Lanyard-BUJBlfLP.css",
+          "initiatorType": "link",
+          "startTime": 1754.600000000035,
+          "responseEnd": 2056.2000000000116,
+          "duration": 301.5999999999767,
+          "transferSize": 300,
+          "encodedBodySize": 595
+        },
+        {
+          "name": "http://127.0.0.1:4180/Shehroz.my.id/icons/favicon.ico",
+          "initiatorType": "other",
+          "startTime": 2097.5,
+          "responseEnd": 2251.9000000000233,
+          "duration": 154.40000000002328,
+          "transferSize": 300,
+          "encodedBodySize": 15086
+        }
+      ],
+      "paints": [
+        {
+          "name": "first-paint",
+          "startTime": 536
+        },
+        {
+          "name": "first-contentful-paint",
+          "startTime": 1320
+        }
+      ],
+      "elapsed": 9818.100000000035,
+      "memory": 20902397,
+      "heroMode": "webgl"
+    }
+  }
+]

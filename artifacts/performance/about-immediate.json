@@ -1,0 +1,82 @@
+[
+  {
+    "label": "baseline",
+    "profile": "desktop",
+    "repetition": 1,
+    "scroll": 1449.2000000001863,
+    "revealAfterScroll": 3449,
+    "portraitAfterScroll": 3488.100000000093,
+    "completeAfterScroll": 6796.100000000093,
+    "completeFromNavigation": 8245.30000000028
+  },
+  {
+    "label": "optimized",
+    "profile": "desktop",
+    "repetition": 1,
+    "scroll": 4537.5,
+    "revealAfterScroll": 238.59999999962747,
+    "portraitAfterScroll": 269.89999999990687,
+    "completeAfterScroll": 3448.399999999907,
+    "completeFromNavigation": 7985.899999999907
+  },
+  {
+    "label": "baseline",
+    "profile": "desktop",
+    "repetition": 2,
+    "scroll": 1212.7999999998137,
+    "revealAfterScroll": 5371.800000000279,
+    "portraitAfterScroll": 5427.600000000093,
+    "completeAfterScroll": 8515.80000000028,
+    "completeFromNavigation": 9728.600000000093
+  },
+  {
+    "label": "optimized",
+    "profile": "desktop",
+    "repetition": 2,
+    "scroll": 1396,
+    "revealAfterScroll": 5195,
+    "portraitAfterScroll": 5225.4000000003725,
+    "completeAfterScroll": 8429.400000000373,
+    "completeFromNavigation": 9825.400000000373
+  },
+  {
+    "label": "baseline",
+    "profile": "low-end",
+    "repetition": 1,
+    "scroll": 3631.600000000093,
+    "revealAfterScroll": 150.09999999962747,
+    "portraitAfterScroll": 15637.299999999814,
+    "completeAfterScroll": 15648,
+    "completeFromNavigation": 19279.600000000093
+  },
+  {
+    "label": "optimized",
+    "profile": "low-end",
+    "repetition": 1,
+    "scroll": 3498.9000000003725,
+    "revealAfterScroll": 168.79999999981374,
+    "portraitAfterScroll": 9856.5,
+    "completeAfterScroll": 9867.5,
+    "completeFromNavigation": 13366.400000000373
+  },
+  {
+    "label": "baseline",
+    "profile": "low-end",
+    "repetition": 2,
+    "scroll": 3221.899999999907,
+    "revealAfterScroll": 140.3000000002794,
+    "portraitAfterScroll": 15676.5,
+    "completeAfterScroll": 15739.5,
+    "completeFromNavigation": 18961.399999999907
+  },
+  {
+    "label": "optimized",
+    "profile": "low-end",
+    "repetition": 2,
+    "scroll": 3493.8000000002794,
+    "revealAfterScroll": 143.29999999981374,
+    "portraitAfterScroll": 9713.19999999972,
+    "completeAfterScroll": 9770.600000000093,
+    "completeFromNavigation": 13264.400000000373
+  }
+]

@@ -1,0 +1,37 @@
+[
+  {
+    "file": "Lanyard-BUJBlfLP.css",
+    "bytes": 595,
+    "gzip": 324
+  },
+  {
+    "file": "Lanyard-CQ5eOE8H.js",
+    "bytes": 594444,
+    "gzip": 151588
+  },
+  {
+    "file": "RotatingText-B7BL-bgu.css",
+    "bytes": 624,
+    "gzip": 309
+  },
+  {
+    "file": "RotatingText-iPiWcolD.js",
+    "bytes": 164358,
+    "gzip": 55087
+  },
+  {
+    "file": "index-D2gQNqDz.css",
+    "bytes": 110268,
+    "gzip": 23731
+  },
+  {
+    "file": "index-H7JYJiGQ.js",
+    "bytes": 500904,
+    "gzip": 161709
+  },
+  {
+    "file": "supabaseBackend-BY_qz0Lv.js",
+    "bytes": 5351,
+    "gzip": 2118
+  }
+]

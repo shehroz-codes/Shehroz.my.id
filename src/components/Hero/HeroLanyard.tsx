@@ -1,4 +1,5 @@
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
+import { preload } from "react-dom";
 import { portfolio } from "../../content/portfolio";
 
 const Lanyard = lazy(() => import("../Lanyard/Lanyard"));
@@ -40,10 +41,16 @@ export function HeroLanyard() {
   const frontAlt = `${portfolio.name} — original developer badge front`;
   const backAlt =
     "Original developer badge back, Scan to Connect, with blank QR area";
+  // Start the original artwork while the lazy Three.js chunk is loading,
+  // rather than waiting for synchronous WebGL/environment initialization.
+  if (near && !reduce) {
+    preload(`${base}card-front.webp`, { as: "image", crossOrigin: "anonymous" });
+    preload(`${base}card-back.webp`, { as: "image", crossOrigin: "anonymous" });
+  }
   const fallback = (
     <div className="hero-lanyard-static">
       <img
-        src={`${base}card-front.png`}
+        src={`${base}card-front.webp`}
         alt={frontAlt}
         width={1086}
         height={1448}
@@ -58,8 +65,8 @@ export function HeroLanyard() {
         <div className="hero-lanyard-renderer">
           <Suspense fallback={null}>
             <Lanyard
-              frontImage={`${base}card-front.png`}
-              backImage={`${base}card-back.png`}
+              frontImage={`${base}card-front.webp`}
+              backImage={`${base}card-back.webp`}
               frontAlt={frontAlt}
               backAlt={backAlt}
               imageFit="contain"

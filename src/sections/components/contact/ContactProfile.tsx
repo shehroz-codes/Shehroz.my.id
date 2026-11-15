@@ -1,7 +1,7 @@
 import { Mail, MapPin, Phone } from 'lucide-react';
 import { FaGithub, FaLinkedinIn, FaTiktok, FaWhatsapp } from 'react-icons/fa';
 import { contactProfile as profile } from './config';
-import portrait from './assets/profile.png';
+import portrait from './assets/profile.webp';
 
 export default function ContactProfile() {
   const socials = [

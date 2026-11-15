@@ -1,0 +1,42 @@
+[
+  {
+    "label": "optimized",
+    "profile": "desktop",
+    "repetition": 1,
+    "scroll": 1470.2999999999884,
+    "revealAfterScroll": 4898.200000000012,
+    "portraitAfterScroll": 4912.5,
+    "completeAfterScroll": 8222.5,
+    "completeFromNavigation": 9692.799999999988
+  },
+  {
+    "label": "optimized",
+    "profile": "desktop",
+    "repetition": 2,
+    "scroll": 1387.8000000000466,
+    "revealAfterScroll": 4661.199999999953,
+    "portraitAfterScroll": 5120.199999999953,
+    "completeAfterScroll": 7941.399999999965,
+    "completeFromNavigation": 9329.200000000012
+  },
+  {
+    "label": "optimized",
+    "profile": "low-end",
+    "repetition": 1,
+    "scroll": 3543.5999999999767,
+    "revealAfterScroll": 223.40000000002328,
+    "portraitAfterScroll": 9802.100000000035,
+    "completeAfterScroll": 9862.100000000035,
+    "completeFromNavigation": 13405.700000000012
+  },
+  {
+    "label": "optimized",
+    "profile": "low-end",
+    "repetition": 2,
+    "scroll": 3562.0999999999767,
+    "revealAfterScroll": 126.70000000001164,
+    "portraitAfterScroll": 9652.099999999977,
+    "completeAfterScroll": 9833.099999999977,
+    "completeFromNavigation": 13395.199999999953
+  }
+]
