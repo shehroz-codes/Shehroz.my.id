@@ -1,0 +1,37 @@
+{
+  "status": "COMPLETE",
+  "date": "2026-11-15",
+  "branch": "perf/portfolio-speed-optimization",
+  "head": "a30bf38d1a2377fb4c04c9ab47a45f34cd0635ad",
+  "buildAndTypecheck": "PASS",
+  "optimizedHomepageSamples": 12,
+  "optimizedImmediateAboutSamples": 4,
+  "baselineRunsRepeated": 0,
+  "preservedFilesVerified": 238,
+  "originalBaselineSamplesPreserved": 24,
+  "selectedImagePairsExact": 5,
+  "isolatedDecodeAndPixelSamples": 60,
+  "productionBrowserTests": {
+    "startTime": "2026-11-15T20:34:42.649Z",
+    "duration": 140175.65099999998,
+    "expected": 8,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "productionCSS": "byte-identical to baseline",
+  "appSourceChangesDuringResume": 0,
+  "newPageErrors": 0,
+  "heroTimeouts": 0,
+  "horizontalOverflows": 0,
+  "existingWarnings": [
+    "Vite large chunk warning",
+    "Spotify artwork blocked by environment proxy, inherited"
+  ],
+  "historicalTestsNotRepeated": {
+    "unit": 77,
+    "existingPreviewAndMockedLiveBrowser": 8,
+    "localDatabase": "PASS"
+  },
+  "commitMergePushDeploy": "NONE"
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "profile": "desktop",
+    "dimensions": [
+      "1408",
+      "624"
+    ],
+    "differentPixels": 68,
+    "totalPixels": 878592,
+    "differentPercent": 0.007739656177156177
+  },
+  {
+    "profile": "mobile",
+    "dimensions": [
+      "716",
+      "2560"
+    ],
+    "differentPixels": 0,
+    "totalPixels": 1832960,
+    "differentPercent": 0.0
+  },
+  {
+    "profile": "low-end",
+    "dimensions": [
+      "716",
+      "2560"
+    ],
+    "differentPixels": 0,
+    "totalPixels": 1832960,
+    "differentPercent": 0.0
+  }
+]

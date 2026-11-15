@@ -1,0 +1,187 @@
+{
+  "comparison": "Saved final baseline versus resumed optimized-only runs; different sessions; medians of two repetitions",
+  "homepage": [
+    {
+      "profile": "desktop",
+      "cache": "cold",
+      "fcp": {
+        "before": 674.0,
+        "after": 566.0,
+        "percentReduction": 16.023738872403563
+      },
+      "heroReady": {
+        "before": 5579.79999999993,
+        "after": 5622.0,
+        "percentReduction": -0.7562995089442341
+      },
+      "aboutCompleteAfterScroll": {
+        "before": 3953.6500000000233,
+        "after": 4209.899999999994,
+        "percentReduction": -6.481352674110489
+      },
+      "cls": {
+        "before": 0.00030947878488297325,
+        "after": 0.00027369093404385283,
+        "percentReduction": 11.563910867962496
+      }
+    },
+    {
+      "profile": "desktop",
+      "cache": "warm",
+      "fcp": {
+        "before": 732.0,
+        "after": 392.0,
+        "percentReduction": 46.44808743169399
+      },
+      "heroReady": {
+        "before": 5117.699999999953,
+        "after": 5197.149999999994,
+        "percentReduction": -1.5524552044872006
+      },
+      "aboutCompleteAfterScroll": {
+        "before": 3917.4499999999534,
+        "after": 4169.499999999971,
+        "percentReduction": -6.434032342468199
+      },
+      "cls": {
+        "before": 6.987135145399306e-05,
+        "after": 6.945461697048611e-05,
+        "percentReduction": 0.5964311192425557
+      }
+    },
+    {
+      "profile": "mobile",
+      "cache": "cold",
+      "fcp": {
+        "before": 824.0,
+        "after": 740.0,
+        "percentReduction": 10.194174757281553
+      },
+      "heroReady": {
+        "before": 2070.9000000000233,
+        "after": 1963.8500000000058,
+        "percentReduction": 5.169250084505107
+      },
+      "aboutCompleteAfterScroll": {
+        "before": 3358.8000000000466,
+        "after": 3245.7000000000407,
+        "percentReduction": 3.3672740264381407
+      },
+      "cls": {
+        "before": 0.00023559550135228609,
+        "after": 0.00024570095378498996,
+        "percentReduction": -4.289323172428997
+      }
+    },
+    {
+      "profile": "mobile",
+      "cache": "warm",
+      "fcp": {
+        "before": 566.0,
+        "after": 532.0,
+        "percentReduction": 6.007067137809187
+      },
+      "heroReady": {
+        "before": 1619.2999999999302,
+        "after": 1792.9499999999825,
+        "percentReduction": -10.723769530047544
+      },
+      "aboutCompleteAfterScroll": {
+        "before": 3325.95000000007,
+        "after": 3232.4499999999825,
+        "percentReduction": 2.811226867514104
+      },
+      "cls": {
+        "before": 0.00023906256119267258,
+        "after": 0.00024478593210334624,
+        "percentReduction": -2.394089179886644
+      }
+    },
+    {
+      "profile": "low-end",
+      "cache": "cold",
+      "fcp": {
+        "before": 2702.0,
+        "after": 2656.0,
+        "percentReduction": 1.7024426350851223
+      },
+      "heroReady": {
+        "before": 38117.10000000009,
+        "after": 22069.75,
+        "percentReduction": 42.10013353586724
+      },
+      "aboutCompleteAfterScroll": {
+        "before": 3672.5500000000466,
+        "after": 3680.75,
+        "percentReduction": -0.2232781037685894
+      },
+      "cls": {
+        "before": 0.004540929347831173,
+        "after": 0.003697562907777171,
+        "percentReduction": 18.572551463651564
+      }
+    },
+    {
+      "profile": "low-end",
+      "cache": "warm",
+      "fcp": {
+        "before": 1406.0,
+        "after": 1312.0,
+        "percentReduction": 6.685633001422476
+      },
+      "heroReady": {
+        "before": 4258.449999999953,
+        "after": 3421.2000000000407,
+        "percentReduction": 19.660909485843952
+      },
+      "aboutCompleteAfterScroll": {
+        "before": 3661.0500000000466,
+        "after": 3641.0,
+        "percentReduction": 0.5476570929117688
+      },
+      "cls": {
+        "before": 0.00024981638598667647,
+        "after": 0.00025144474100093365,
+        "percentReduction": -0.6518207393905829
+      }
+    }
+  ],
+  "aboutImmediate": [
+    {
+      "profile": "desktop",
+      "completeFromNavigation": {
+        "before": 8986.950000000186,
+        "after": 9511.0,
+        "percentReduction": -5.831233065720882
+      },
+      "portraitAfterScroll": {
+        "before": 4457.850000000093,
+        "after": 5016.349999999977,
+        "percentReduction": -12.52846102941714
+      },
+      "completeAfterScroll": {
+        "before": 7655.950000000186,
+        "after": 8081.9499999999825,
+        "percentReduction": -5.564299662351321
+      }
+    },
+    {
+      "profile": "low-end",
+      "completeFromNavigation": {
+        "before": 19120.5,
+        "after": 13400.449999999983,
+        "percentReduction": 29.91579718103615
+      },
+      "portraitAfterScroll": {
+        "before": 15656.899999999907,
+        "after": 9727.100000000006,
+        "percentReduction": 37.87339767131384
+      },
+      "completeAfterScroll": {
+        "before": 15693.75,
+        "after": 9847.600000000006,
+        "percentReduction": 37.25145360414174
+      }
+    }
+  ]
+}

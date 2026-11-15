@@ -1,0 +1,349 @@
+{
+  "config": {
+    "argv": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "/workspace/Shehroz.my.id/node_modules/.bin/playwright",
+      "test",
+      "--config",
+      "playwright.performance.config.ts",
+      "tests/browser/performance.spec.ts",
+      "--reporter=list,json"
+    ],
+    "configFile": "/workspace/Shehroz.my.id/playwright.performance.config.ts",
+    "rootDir": "/workspace/Shehroz.my.id/tests/browser",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/workspace/Shehroz.my.id/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "/workspace/Shehroz.my.id/tests/browser",
+        "testIgnore": [],
+        "testMatch": [
+          "/(?:contact|performance)\\.spec\\.ts/"
+        ],
+        "timeout": 90000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/workspace/Shehroz.my.id/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "",
+        "testDir": "/workspace/Shehroz.my.id/tests/browser",
+        "snapshotDir": "/workspace/Shehroz.my.id/tests/browser",
+        "testIgnore": [],
+        "testMatch": {},
+        "timeout": 90000,
+        "use": {
+          "baseURL": "http://127.0.0.1:4181/Shehroz.my.id/",
+          "launchOptions": {
+            "executablePath": "/usr/bin/chromium",
+            "args": [
+              "--no-sandbox"
+            ]
+          }
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": ""
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list"
+      ],
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.65.0",
+    "workers": 1,
+    "webServer": {
+      "command": "npm run preview -- --host 127.0.0.1 --port 4180",
+      "url": "http://127.0.0.1:4181/Shehroz.my.id/",
+      "reuseExistingServer": true
+    }
+  },
+  "suites": [
+    {
+      "title": "performance.spec.ts",
+      "file": "performance.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "production Hero drag and flip at 1440px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 23606,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-14T14:44:35.000Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b15d6361b2fc38288977-bfcc45969c310d3f04bf",
+          "file": "performance.spec.ts",
+          "line": 4,
+          "column": 3
+        },
+        {
+          "title": "production About, navigation and section interactions at 1440px",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 20143,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveClass\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('.about-card')\nExpected pattern: \u001b[32m/is-visible/\u001b[39m\nReceived string:  \u001b[31m\"about-card\"\u001b[39m\nTimeout: 15000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveClass\" locator('.about-card') with timeout 15000ms\u001b[22m\n\u001b[2m  - waiting for locator('.about-card')\u001b[22m\n\u001b[2m    24 × locator resolved to <section class=\"about-card\" aria-labelledby=\"_r_2_\">…</section>\u001b[22m\n\u001b[2m       - unexpected value \"about-card\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveClass\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('.about-card')\nExpected pattern: \u001b[32m/is-visible/\u001b[39m\nReceived string:  \u001b[31m\"about-card\"\u001b[39m\nTimeout: 15000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveClass\" locator('.about-card') with timeout 15000ms\u001b[22m\n\u001b[2m  - waiting for locator('.about-card')\u001b[22m\n\u001b[2m    24 × locator resolved to <section class=\"about-card\" aria-labelledby=\"_r_2_\">…</section>\u001b[22m\n\u001b[2m       - unexpected value \"about-card\"\u001b[22m\n\n    at /workspace/Shehroz.my.id/tests/browser/performance.spec.ts:72:47",
+                    "location": {
+                      "file": "/workspace/Shehroz.my.id/tests/browser/performance.spec.ts",
+                      "column": 47,
+                      "line": 72
+                    },
+                    "snippet": " \u001b[90m 70 |\u001b[39m     \u001b[36mif\u001b[39m (mobile) \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m'button'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'Open menu'\u001b[39m })\u001b[33m.\u001b[39mclick({ force\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 71 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m'link'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'About'\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m.\u001b[39mfilter({ visible\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m.\u001b[39mclick({ force\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 72 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'.about-card'\u001b[39m))\u001b[33m.\u001b[39mtoHaveClass(\u001b[35m/is-visible/\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                               \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 73 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'.about-card__actions'\u001b[39m))\u001b[33m.\u001b[39mtoHaveCSS(\u001b[32m'opacity'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'1'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 74 |\u001b[39m     \u001b[36mconst\u001b[39m portrait \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'.profile-card__photo'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 75 |\u001b[39m     \u001b[36mawait\u001b[39m portrait\u001b[33m.\u001b[39mevaluate(image \u001b[33m=>\u001b[39m (image \u001b[36mas\u001b[39m \u001b[33mHTMLImageElement\u001b[39m)\u001b[33m.\u001b[39mdecode())\u001b[33m;\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/workspace/Shehroz.my.id/tests/browser/performance.spec.ts",
+                        "column": 47,
+                        "line": 72
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveClass\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('.about-card')\nExpected pattern: \u001b[32m/is-visible/\u001b[39m\nReceived string:  \u001b[31m\"about-card\"\u001b[39m\nTimeout: 15000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveClass\" locator('.about-card') with timeout 15000ms\u001b[22m\n\u001b[2m  - waiting for locator('.about-card')\u001b[22m\n\u001b[2m    24 × locator resolved to <section class=\"about-card\" aria-labelledby=\"_r_2_\">…</section>\u001b[22m\n\u001b[2m       - unexpected value \"about-card\"\u001b[22m\n\n\n  70 |     if (mobile) await page.getByRole('button', { name: 'Open menu' }).click({ force: true });\n  71 |     await page.getByRole('link', { name: 'About', exact: true }).filter({ visible: true }).click({ force: true });\n> 72 |     await expect(page.locator('.about-card')).toHaveClass(/is-visible/);\n     |                                               ^\n  73 |     await expect(page.locator('.about-card__actions')).toHaveCSS('opacity', '1');\n  74 |     const portrait = page.locator('.profile-card__photo');\n  75 |     await portrait.evaluate(image => (image as HTMLImageElement).decode());\n    at /workspace/Shehroz.my.id/tests/browser/performance.spec.ts:72:47"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-14T14:44:58.941Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/workspace/Shehroz.my.id/test-results/performance-production-Abo-95b03-tion-interactions-at-1440px/error-context.md"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/workspace/Shehroz.my.id/tests/browser/performance.spec.ts",
+                    "column": 47,
+                    "line": 72
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "b15d6361b2fc38288977-7d871ccb826082bbd004",
+          "file": "performance.spec.ts",
+          "line": 61,
+          "column": 3
+        },
+        {
+          "title": "production Hero drag and flip at 390px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 23884,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-14T14:45:19.703Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b15d6361b2fc38288977-e1cbb0401e2b9878961c",
+          "file": "performance.spec.ts",
+          "line": 4,
+          "column": 3
+        },
+        {
+          "title": "production About, navigation and section interactions at 390px",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 12349,
+                  "error": {
+                    "message": "Error: locator.scrollIntoViewIfNeeded: Error: strict mode violation: locator('.hp') resolved to 3 elements:\n    1) <div role=\"img\" tabindex=\"0\" class=\"hp mi-portrait\" aria-label=\"Shehroz — hover to reveal the anime ninja version of my portrait\">…</div> aka getByRole('img', { name: 'Shehroz — hover to reveal the' })\n    2) <div class=\"hp\" aria-hidden=\"true\">…</div> aka getByRole('form', { name: 'Send a private message' }).locator('div').filter({ hasText: /^Website$/ })\n    3) <div class=\"hp\" aria-hidden=\"true\">…</div> aka getByRole('form', { name: 'Write a public message' }).locator('div').filter({ hasText: /^Website$/ })\n\nCall log:\n\u001b[2m  - waiting for locator('.hp')\u001b[22m\n",
+                    "stack": "Error: locator.scrollIntoViewIfNeeded: Error: strict mode violation: locator('.hp') resolved to 3 elements:\n    1) <div role=\"img\" tabindex=\"0\" class=\"hp mi-portrait\" aria-label=\"Shehroz — hover to reveal the anime ninja version of my portrait\">…</div> aka getByRole('img', { name: 'Shehroz — hover to reveal the' })\n    2) <div class=\"hp\" aria-hidden=\"true\">…</div> aka getByRole('form', { name: 'Send a private message' }).locator('div').filter({ hasText: /^Website$/ })\n    3) <div class=\"hp\" aria-hidden=\"true\">…</div> aka getByRole('form', { name: 'Write a public message' }).locator('div').filter({ hasText: /^Website$/ })\n\nCall log:\n\u001b[2m  - waiting for locator('.hp')\u001b[22m\n\n    at /workspace/Shehroz.my.id/tests/browser/performance.spec.ts:91:31",
+                    "location": {
+                      "file": "/workspace/Shehroz.my.id/tests/browser/performance.spec.ts",
+                      "column": 31,
+                      "line": 91
+                    },
+                    "snippet": " \u001b[90m 89 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoBack()\u001b[33m;\u001b[39m\n \u001b[90m 90 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 91 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'.hp'\u001b[39m)\u001b[33m.\u001b[39mscrollIntoViewIfNeeded()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                               \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 92 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForFunction(() \u001b[33m=>\u001b[39m (document\u001b[33m.\u001b[39mquerySelector(\u001b[32m'.hp-canvas'\u001b[39m) \u001b[36mas\u001b[39m \u001b[33mHTMLCanvasElement\u001b[39m)\u001b[33m?.\u001b[39mwidth \u001b[33m>\u001b[39m \u001b[35m300\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 93 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'.hp'\u001b[39m)\u001b[33m.\u001b[39mfocus()\u001b[33m;\u001b[39m\n \u001b[90m 94 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mkeyboard\u001b[33m.\u001b[39mpress(\u001b[32m'Enter'\u001b[39m)\u001b[33m;\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/workspace/Shehroz.my.id/tests/browser/performance.spec.ts",
+                        "column": 31,
+                        "line": 91
+                      },
+                      "message": "Error: locator.scrollIntoViewIfNeeded: Error: strict mode violation: locator('.hp') resolved to 3 elements:\n    1) <div role=\"img\" tabindex=\"0\" class=\"hp mi-portrait\" aria-label=\"Shehroz — hover to reveal the anime ninja version of my portrait\">…</div> aka getByRole('img', { name: 'Shehroz — hover to reveal the' })\n    2) <div class=\"hp\" aria-hidden=\"true\">…</div> aka getByRole('form', { name: 'Send a private message' }).locator('div').filter({ hasText: /^Website$/ })\n    3) <div class=\"hp\" aria-hidden=\"true\">…</div> aka getByRole('form', { name: 'Write a public message' }).locator('div').filter({ hasText: /^Website$/ })\n\nCall log:\n\u001b[2m  - waiting for locator('.hp')\u001b[22m\n\n\n  89 |     await page.goBack();\n  90 |\n> 91 |     await page.locator('.hp').scrollIntoViewIfNeeded();\n     |                               ^\n  92 |     await page.waitForFunction(() => (document.querySelector('.hp-canvas') as HTMLCanvasElement)?.width > 300);\n  93 |     await page.locator('.hp').focus();\n  94 |     await page.keyboard.press('Enter');\n    at /workspace/Shehroz.my.id/tests/browser/performance.spec.ts:91:31"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-14T14:45:43.825Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/workspace/Shehroz.my.id/test-results/performance-production-Abo-c8ac8-ction-interactions-at-390px/error-context.md"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/workspace/Shehroz.my.id/tests/browser/performance.spec.ts",
+                    "column": 31,
+                    "line": 91
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "b15d6361b2fc38288977-452e87036c8e3eb00787",
+          "file": "performance.spec.ts",
+          "line": 61,
+          "column": 3
+        },
+        {
+          "title": "reduced motion keeps the existing static badge and skips Three.js",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1023,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-14T14:45:56.933Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b15d6361b2fc38288977-3052b2213b52a9576ac9",
+          "file": "performance.spec.ts",
+          "line": 119,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-14T14:44:34.274Z",
+    "duration": 83981.27900000001,
+    "expected": 3,
+    "skipped": 0,
+    "unexpected": 2,
+    "flaky": 0
+  }
+}

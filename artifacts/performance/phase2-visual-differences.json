@@ -1,0 +1,17 @@
+[
+  {
+    "profile": "desktop",
+    "differentPixels": "66",
+    "exit": 1
+  },
+  {
+    "profile": "mobile",
+    "differentPixels": "0",
+    "exit": 0
+  },
+  {
+    "profile": "low-end",
+    "differentPixels": "0",
+    "exit": 0
+  }
+]

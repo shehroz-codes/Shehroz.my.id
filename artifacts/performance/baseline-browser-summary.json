@@ -1,0 +1,54 @@
+{
+  "note": "Latest results per test, combining separate production Contact, Hero, and About runs. Early harness failures were corrected in the test code and the affected tests re-run.",
+  "tests": [
+    {
+      "title": "preview Contact remains usable at 390px",
+      "source": "before-browser-tests.json",
+      "result": "passed",
+      "startTime": "2026-11-14T14:32:21.726Z"
+    },
+    {
+      "title": "preview Contact remains usable at 1440px",
+      "source": "before-browser-tests.json",
+      "result": "passed",
+      "startTime": "2026-11-14T14:32:21.726Z"
+    },
+    {
+      "title": "photo selection uses the real browser decoder and WebP encoder, rejects invalid files, and preserves a draft",
+      "source": "before-browser-tests.json",
+      "result": "passed",
+      "startTime": "2026-11-14T14:32:21.726Z"
+    },
+    {
+      "title": "production Hero drag and flip at 1440px",
+      "source": "baseline-functional.json",
+      "result": "passed",
+      "startTime": "2026-11-14T14:44:34.274Z"
+    },
+    {
+      "title": "production About, navigation and section interactions at 1440px",
+      "source": "baseline-sections.json",
+      "result": "passed",
+      "startTime": "2026-11-14T14:47:19.429Z"
+    },
+    {
+      "title": "production Hero drag and flip at 390px",
+      "source": "baseline-touch.json",
+      "result": "passed",
+      "startTime": "2026-11-14T15:05:39.587Z"
+    },
+    {
+      "title": "production About, navigation and section interactions at 390px",
+      "source": "baseline-sections.json",
+      "result": "passed",
+      "startTime": "2026-11-14T14:47:19.429Z"
+    },
+    {
+      "title": "reduced motion keeps the existing static badge and skips Three.js",
+      "source": "baseline-functional.json",
+      "result": "passed",
+      "startTime": "2026-11-14T14:44:34.274Z"
+    }
+  ],
+  "passed": 8
+}

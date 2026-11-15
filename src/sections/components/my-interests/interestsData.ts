@@ -1,8 +1,8 @@
 import type { LucideIcon } from 'lucide-react';
 import { Bot, Code2, Gamepad2, Layers, Sparkles, Terminal } from 'lucide-react';
 
-import realPortrait from '../../assets/portraits/real-portrait.png';
-import animePortrait from '../../assets/portraits/anime-portrait.png';
+import { profile } from '../../config/profile';
+import animePortrait from '../../assets/portraits/anime-portrait-optimized.png';
 
 /* ------------------------------------------------------------------ */
 /* Section header copy                                                 */
@@ -84,7 +84,8 @@ export const interestsRight: Interest[] = [
 import type { HalftonePortraitProps } from './HalftonePortrait';
 
 export const portrait: HalftonePortraitProps = {
-  realSrc: realPortrait,
+  // Share the About portrait URL: these originals are byte-for-byte identical.
+  realSrc: profile.portrait.src,
   animeSrc: animePortrait,
   alt: 'Shehroz — hover to reveal the anime ninja version of my portrait',
   mode: 'duotone',

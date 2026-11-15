@@ -432,7 +432,11 @@ const loadImage = (
     const image = new Image();
     image.crossOrigin = "anonymous";
     image.decoding = "async";
-    image.onload = () => resolve(image);
+    // A loaded file need not be decoded yet. Avoid making the first canvas
+    // draw pay that cost synchronously on the main thread.
+    image.onload = () => {
+      void image.decode().then(() => resolve(image), () => resolve(image));
+    };
     image.onerror = () => resolve(null);
     image.src = url;
   });
@@ -1145,6 +1149,11 @@ const Lanyard = ({
     setReady(false);
     setSide("front");
 
+    // Let transfer/decode overlap WebGL setup, including PMREM shader startup.
+    const imageCache = new Map<string, Promise<HTMLImageElement | null>>();
+    loadImage(imageCache, frontImage);
+    loadImage(imageCache, backImage);
+
     let renderer: THREE.WebGLRenderer;
     try {
       const surface = document.createElement("canvas");
@@ -1188,7 +1197,6 @@ const Lanyard = ({
     fillLight.position.set(3, -1, 4);
     scene.add(keyLight, fillLight);
 
-    const imageCache = new Map<string, Promise<HTMLImageElement | null>>();
     const images: Images = { front: null, back: null, strap: null };
     const frontCanvas = document.createElement("canvas");
     const backCanvas = document.createElement("canvas");
@@ -1449,7 +1457,9 @@ const Lanyard = ({
         });
       }
       const faceKey = `${layoutKey}|${s.cardColor}|${s.imageFit}`;
-      if (faceKey !== applied.faceKey) paintFaces();
+      // No blank face is ever presented: wait for the real artwork before
+      // allocating and painting the full-resolution face canvases.
+      if (artworkReady && faceKey !== applied.faceKey) paintFaces();
       if (s.strapColor !== applied.strapColor) repaintStrap();
 
       const finish = FINISHES[s.finish] || FINISHES.glossy;

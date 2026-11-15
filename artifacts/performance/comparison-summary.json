@@ -1,0 +1,380 @@
+[
+  {
+    "profile": "desktop",
+    "cache": "cold",
+    "fcp": {
+      "before": 674.0,
+      "after": 638.0,
+      "percentReduction": 5.341246290801187
+    },
+    "heroReady": {
+      "before": 5579.79999999993,
+      "after": 5967.800000000047,
+      "percentReduction": -6.953654252842776
+    },
+    "aboutMount": {
+      "before": 454.9000000000233,
+      "after": 484.30000000004657,
+      "percentReduction": -6.462958892068977
+    },
+    "aboutRevealAfterScroll": {
+      "before": 505.54999999993015,
+      "after": 411.60000000009313,
+      "percentReduction": 18.5837207001978
+    },
+    "aboutPortraitAfterScroll": {
+      "before": 829.7000000000698,
+      "after": 764.7000000001863,
+      "percentReduction": 7.834156924174776
+    },
+    "aboutCompleteAfterScroll": {
+      "before": 3953.6500000000233,
+      "after": 4106.75,
+      "percentReduction": -3.87237110012206
+    },
+    "cls": {
+      "before": 0.00030947878488297325,
+      "after": 0.00036837380491657016,
+      "percentReduction": -19.030390097940817
+    },
+    "jsTransfer": {
+      "before": 369119.0,
+      "after": 369284.0,
+      "percentReduction": -0.04470103137470571
+    },
+    "cssTransfer": {
+      "before": 25850.0,
+      "after": 25850.0,
+      "percentReduction": 0.0
+    },
+    "heapBytes": {
+      "before": 14272865.5,
+      "after": 12975540.5,
+      "percentReduction": 9.089450187840695
+    },
+    "blockingTime": {
+      "before": 5895.0,
+      "after": 6960.5,
+      "percentReduction": -18.074639525021205
+    },
+    "lcp": {
+      "before": 674.0,
+      "after": 638.0
+    }
+  },
+  {
+    "profile": "desktop",
+    "cache": "warm",
+    "fcp": {
+      "before": 732.0,
+      "after": 556.0,
+      "percentReduction": 24.043715846994534
+    },
+    "heroReady": {
+      "before": 5117.699999999953,
+      "after": 5550.100000000093,
+      "percentReduction": -8.449107997736164
+    },
+    "aboutMount": {
+      "before": 260.0,
+      "after": 174.19999999995343,
+      "percentReduction": 33.00000000001791
+    },
+    "aboutRevealAfterScroll": {
+      "before": 474.79999999993015,
+      "after": 499.35000000009313,
+      "percentReduction": -5.170598146623124
+    },
+    "aboutPortraitAfterScroll": {
+      "before": 757.0,
+      "after": 788.6999999999534,
+      "percentReduction": -4.187582562741537
+    },
+    "aboutCompleteAfterScroll": {
+      "before": 3917.4499999999534,
+      "after": 3985.0,
+      "percentReduction": -1.7243359838682655
+    },
+    "cls": {
+      "before": 6.987135145399306e-05,
+      "after": 7.042846679687501e-05,
+      "percentReduction": -0.7973444498905712
+    },
+    "jsTransfer": {
+      "before": 900.0,
+      "after": 900.0,
+      "percentReduction": 0.0
+    },
+    "cssTransfer": {
+      "before": 900.0,
+      "after": 900.0,
+      "percentReduction": 0.0
+    },
+    "heapBytes": {
+      "before": 21463677.0,
+      "after": 20530263.5,
+      "percentReduction": 4.348805193071066
+    },
+    "blockingTime": {
+      "before": 5943.5,
+      "after": 6457.5,
+      "percentReduction": -8.648102969630688
+    },
+    "lcp": {
+      "before": 732.0,
+      "after": 556.0
+    }
+  },
+  {
+    "profile": "mobile",
+    "cache": "cold",
+    "fcp": {
+      "before": 824.0,
+      "after": 758.0,
+      "percentReduction": 8.009708737864079
+    },
+    "heroReady": {
+      "before": 2070.9000000000233,
+      "after": 1931.3000000000466,
+      "percentReduction": 6.741030469842829
+    },
+    "aboutMount": {
+      "before": 470.0999999999767,
+      "after": 400.89999999990687,
+      "percentReduction": 14.720272282508674
+    },
+    "aboutRevealAfterScroll": {
+      "before": 475.5,
+      "after": 546.6499999999069,
+      "percentReduction": -14.963196635101339
+    },
+    "aboutPortraitAfterScroll": {
+      "before": 565.1500000000233,
+      "after": 640.5999999998603,
+      "percentReduction": -13.35043793680154
+    },
+    "aboutCompleteAfterScroll": {
+      "before": 3358.8000000000466,
+      "after": 3446.8499999998603,
+      "percentReduction": -2.6214719542638
+    },
+    "cls": {
+      "before": 0.00023559550135228609,
+      "after": 0.00024768319142392614,
+      "percentReduction": -5.13069647011864
+    },
+    "jsTransfer": {
+      "before": 369119.0,
+      "after": 369284.0,
+      "percentReduction": -0.04470103137470571
+    },
+    "cssTransfer": {
+      "before": 25850.0,
+      "after": 25850.0,
+      "percentReduction": 0.0
+    },
+    "heapBytes": {
+      "before": 15142884.5,
+      "after": 14864755.0,
+      "percentReduction": 1.836700927092193
+    },
+    "blockingTime": {
+      "before": 5192.0,
+      "after": 5597.5,
+      "percentReduction": -7.810092449922959
+    },
+    "lcp": {
+      "before": 824.0,
+      "after": 758.0
+    }
+  },
+  {
+    "profile": "mobile",
+    "cache": "warm",
+    "fcp": {
+      "before": 566.0,
+      "after": 524.0,
+      "percentReduction": 7.420494699646643
+    },
+    "heroReady": {
+      "before": 1619.2999999999302,
+      "after": 1566.0499999998137,
+      "percentReduction": 3.28845797567583
+    },
+    "aboutMount": {
+      "before": 214.75,
+      "after": 170.30000000004657,
+      "percentReduction": 20.698486612318245
+    },
+    "aboutRevealAfterScroll": {
+      "before": 473.5,
+      "after": 515.9000000001397,
+      "percentReduction": -8.954593453039008
+    },
+    "aboutPortraitAfterScroll": {
+      "before": 525.8999999999069,
+      "after": 585.5500000002794,
+      "percentReduction": -11.34246054390247
+    },
+    "aboutCompleteAfterScroll": {
+      "before": 3325.95000000007,
+      "after": 3384.5500000000466,
+      "percentReduction": -1.7619026142899168
+    },
+    "cls": {
+      "before": 0.00023906256119267258,
+      "after": 0.00023882560831635778,
+      "percentReduction": 0.09911751766259601
+    },
+    "jsTransfer": {
+      "before": 900.0,
+      "after": 900.0,
+      "percentReduction": 0.0
+    },
+    "cssTransfer": {
+      "before": 900.0,
+      "after": 900.0,
+      "percentReduction": 0.0
+    },
+    "heapBytes": {
+      "before": 19061079.5,
+      "after": 15538496.0,
+      "percentReduction": 18.4805036881568
+    },
+    "blockingTime": {
+      "before": 5571.0,
+      "after": 5604.0,
+      "percentReduction": -0.5923532579429186
+    },
+    "lcp": {
+      "before": 566.0,
+      "after": 524.0
+    }
+  },
+  {
+    "profile": "low-end",
+    "cache": "cold",
+    "fcp": {
+      "before": 2702.0,
+      "after": 2836.0,
+      "percentReduction": -4.959289415247965
+    },
+    "heroReady": {
+      "before": 38117.10000000009,
+      "after": 22162.90000000014,
+      "percentReduction": 41.85575502858275
+    },
+    "aboutMount": {
+      "before": 2210.9000000000233,
+      "after": 2251.649999999907,
+      "percentReduction": -1.8431408023828828
+    },
+    "aboutRevealAfterScroll": {
+      "before": 673.6999999999534,
+      "after": 667.5500000000466,
+      "percentReduction": 0.9128692296136698
+    },
+    "aboutPortraitAfterScroll": {
+      "before": 804.8499999999767,
+      "after": 777.75,
+      "percentReduction": 3.367087034848419
+    },
+    "aboutCompleteAfterScroll": {
+      "before": 3672.5500000000466,
+      "after": 3592.9499999999534,
+      "percentReduction": 2.1674313487928583
+    },
+    "cls": {
+      "before": 0.004540929347831173,
+      "after": 0.0036246793976402094,
+      "percentReduction": 20.177586568894323
+    },
+    "jsTransfer": {
+      "before": 369119.0,
+      "after": 369284.0,
+      "percentReduction": -0.04470103137470571
+    },
+    "cssTransfer": {
+      "before": 25850.0,
+      "after": 25850.0,
+      "percentReduction": 0.0
+    },
+    "heapBytes": {
+      "before": 12083111.5,
+      "after": 11250742.0,
+      "percentReduction": 6.8887016394742355
+    },
+    "blockingTime": {
+      "before": 4752.0,
+      "after": 5151.0,
+      "percentReduction": -8.396464646464647
+    },
+    "lcp": {
+      "before": 2702.0,
+      "after": 2836.0
+    }
+  },
+  {
+    "profile": "low-end",
+    "cache": "warm",
+    "fcp": {
+      "before": 1406.0,
+      "after": 1486.0,
+      "percentReduction": -5.689900426742532
+    },
+    "heroReady": {
+      "before": 4258.449999999953,
+      "after": 4018.749999999767,
+      "percentReduction": 5.628808604073991
+    },
+    "aboutMount": {
+      "before": 927.0499999999302,
+      "after": 875.2999999998137,
+      "percentReduction": 5.582223181071173
+    },
+    "aboutRevealAfterScroll": {
+      "before": 697.8000000000466,
+      "after": 724.7499999997672,
+      "percentReduction": -3.862138148426312
+    },
+    "aboutPortraitAfterScroll": {
+      "before": 804.4000000000233,
+      "after": 821.3000000000466,
+      "percentReduction": -2.100944803583142
+    },
+    "aboutCompleteAfterScroll": {
+      "before": 3661.0500000000466,
+      "after": 3703.4499999997206,
+      "percentReduction": -1.158137692729504
+    },
+    "cls": {
+      "before": 0.00024981638598667647,
+      "after": 0.00024895518910983524,
+      "percentReduction": 0.3447319411974654
+    },
+    "jsTransfer": {
+      "before": 900.0,
+      "after": 900.0,
+      "percentReduction": 0.0
+    },
+    "cssTransfer": {
+      "before": 900.0,
+      "after": 900.0,
+      "percentReduction": 0.0
+    },
+    "heapBytes": {
+      "before": 16131048.5,
+      "after": 17029596.5,
+      "percentReduction": -5.570301273348723
+    },
+    "blockingTime": {
+      "before": 6686.5,
+      "after": 6389.5,
+      "percentReduction": 4.4417856875794515
+    },
+    "lcp": {
+      "before": 1406.0,
+      "after": 1486.0
+    }
+  }
+]

@@ -88,7 +88,7 @@ export const profile: Profile = {
   eyebrow: { index: '01', label: 'About Me' },
   techStackLabel: 'Tech Stack',
   portrait: {
-    src: `${import.meta.env.BASE_URL}sections/about/profile.png`,
+    src: `${import.meta.env.BASE_URL}sections/about/profile-optimized.png`,
     alt: 'Portrait of Muhammad Shehroz, Full Stack Web Developer',
   },
 };

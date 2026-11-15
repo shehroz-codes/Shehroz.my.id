@@ -1,0 +1,21 @@
+shehroz-my-id@0.0.0 /workspace/Shehroz.my.id
+├─┬ @marsidev/react-turnstile@1.6.3
+│ ├── react-dom@19.3.1 deduped
+│ └── react@19.3.1 deduped
+├─┬ @testing-library/react@16.3.3
+│ ├── react-dom@19.3.1 deduped
+│ └── react@19.3.1 deduped
+├─┬ lucide-react@1.72.0
+│ └── react@19.3.1 deduped
+├─┬ motion@14.12.0
+│ ├─┬ framer-motion@14.12.0
+│ │ ├── react-dom@19.3.1 deduped
+│ │ └── react@19.3.1 deduped
+│ ├── react-dom@19.3.1 deduped
+│ └── react@19.3.1 deduped
+├─┬ react-dom@19.3.1
+│ └── react@19.3.1 deduped
+├─┬ react-icons@5.7.0
+│ └── react@19.3.1 deduped
+├── react@19.3.1
+└── three@0.187.0
