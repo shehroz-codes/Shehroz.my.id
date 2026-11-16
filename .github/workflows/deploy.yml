@@ -35,10 +35,10 @@ jobs:
           VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
           VITE_SUPABASE_PUBLISHABLE_KEY: ${{ vars.VITE_SUPABASE_PUBLISHABLE_KEY }}
           VITE_TURNSTILE_SITE_KEY: ${{ vars.VITE_TURNSTILE_SITE_KEY }}
-          # Public reads are live; keep writes disabled until security review passes.
+          # Server-side JWT, CAPTCHA, rate limits and the write gate remain authoritative.
           VITE_CONTACT_MODE: live
           VITE_CONTACT_BACKEND: supabase
-          VITE_VISITOR_SUBMISSIONS_ENABLED: 'false'
+          VITE_VISITOR_SUBMISSIONS_ENABLED: 'true'
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
