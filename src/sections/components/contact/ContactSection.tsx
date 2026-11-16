@@ -37,12 +37,14 @@ export default function ContactSection() {
         <h2 id="contact-title"><Mail className="icon" aria-hidden="true" />Contact Me</h2>
         <p>Get in touch directly or leave a note on the visitor wall.</p>
       </header>
-      <div className="contact__grid-row contact__grid-row--top">
-        <ContactProfile /><ContactForm backend={backend} />
-      </div>
-      <div className="contact__grid-row contact__grid-row--bottom">
-        <VisitorComposer backend={backend} remaining={remaining} cooldownLabel={label} />
-        <VisitorWall backend={backend} cooling={remaining > 0} unavailable={failed} />
+      <div className="contact__columns">
+        <div className="contact__grid-row contact__grid-row--top">
+          <ContactProfile /><ContactForm backend={backend} />
+        </div>
+        <div className="contact__grid-row contact__grid-row--bottom">
+          <VisitorComposer backend={backend} remaining={remaining} cooldownLabel={label} />
+          <VisitorWall backend={backend} cooling={remaining > 0} unavailable={failed} />
+        </div>
       </div>
     </div>
   </section>;

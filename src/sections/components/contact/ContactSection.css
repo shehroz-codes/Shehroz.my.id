@@ -104,42 +104,27 @@
   font-size: 1.02rem;
 }
 
-/* ==========================================================================
-   2-Row Desktop Layout (Four Cards)
-   ROW 1: Profile (Left) + Private Message Form (Right) (50% / 50%)
-   ROW 2: Compact Composer (Left 40%) + Visitor Messages Feed (Right 60%)
-   ========================================================================== */
-.contact-section .contact__grid-row {
+/* ---------- Two independent, equal-width card columns ---------- */
+.contact-section .contact__columns {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
   gap: 24px;
 }
-.contact-section .contact__grid-row--top {
-  margin-bottom: 24px;
+.contact-section .contact__grid-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  gap: 24px;
 }
-
-@media (min-width: 1024px) {
-  .contact-section .contact__grid-row--top {
-    grid-template-columns: 1fr 1fr;
-    align-items: start;
-  }
-  .contact-section .contact__grid-row--bottom {
-    grid-template-columns: 4fr 6fr; /* ~40% / 60% ratio */
-    align-items: start;
-  }
-}
-@media (min-width: 768px) and (max-width: 1023px) {
-  .contact-section .contact__grid-row--top {
-    grid-template-columns: 1fr 1fr;
-    align-items: start;
-  }
-  .contact-section .contact__grid-row--bottom {
-    grid-template-columns: 1fr;
+@media (min-width: 768px) {
+  .contact-section .contact__columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 @media (max-width: 767px) {
-  .contact-section .contact__grid-row--top,
-  .contact-section .contact__grid-row--bottom {
-    grid-template-columns: 1fr;
+  .contact-section .contact__columns,
+  .contact-section .contact__grid-row {
     gap: 18px;
   }
 }
