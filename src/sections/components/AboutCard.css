@@ -38,12 +38,11 @@
   color: var(--ac-ink);
   transition: transform 0.45s var(--ac-ease);
   /* Entrance uses transform only, so backdrop-filter keeps working while it plays */
-  animation: ac-enter 0.9s var(--ac-ease) backwards;
-  animation-play-state: paused;
+  /* Visible baseline if observation or scripting is unavailable. */
 }
 
 .about-card.is-visible {
-  animation-play-state: running;
+  animation: ac-enter 450ms var(--ac-ease) backwards;
 }
 
 .about-card:hover {
@@ -267,15 +266,14 @@
    Staggered reveal (starts when the card scrolls into view)
    -------------------------------------------------------------------------- */
 
-.about-card .ac-reveal {
-  animation: ac-reveal 0.7s var(--ac-ease) backwards;
-  animation-delay: calc(var(--i, 0) * 90ms + 250ms);
-  animation-play-state: paused;
+.about-card.is-visible .ac-reveal {
+  animation: ac-reveal 400ms var(--ac-ease) backwards;
+  animation-delay: min(calc(var(--i, 0) * 35ms), 245ms);
 }
 
-.about-card.is-visible .ac-reveal {
-  animation-play-state: running;
-}
+.about-card.is-visible .about-card__actions { animation-delay: 0ms; }
+.about-card[data-reveal-settled],
+.about-card[data-reveal-settled] .ac-reveal { animation: none; }
 
 /* --------------------------------------------------------------------------
    Portrait
@@ -807,7 +805,7 @@ a.about-card__tech:focus-visible {
 
 @keyframes ac-enter {
   from {
-    transform: translateY(32px) scale(0.97);
+    transform: translateY(18px);
   }
   to {
     transform: none;

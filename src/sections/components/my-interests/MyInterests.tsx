@@ -1,3 +1,4 @@
+import { useScrollReveal } from '../../../hooks/useScrollReveal';
 import { Sparkles } from 'lucide-react';
 import HalftonePortrait from './HalftonePortrait';
 import InterestCard from './InterestCard';
@@ -13,8 +14,9 @@ import './MyInterests.css';
  * halo and the music panel carry translucent surfaces and glows.
  */
 export default function MyInterests() {
+  const revealRef = useScrollReveal<HTMLElement>('.mi-header, .mi-card, .mi-portrait-wrap, .mi-player');
   return (
-    <section className="mi-section" aria-labelledby="my-interests-title">
+    <section ref={revealRef} className="mi-section" aria-labelledby="my-interests-title">
       <header className="mi-header">
         <span className="mi-badge">
           <Sparkles size={13} strokeWidth={2.2} aria-hidden="true" />
@@ -29,7 +31,7 @@ export default function MyInterests() {
       <div className="mi-grid">
         <div className="mi-column mi-column--left">
           {interestsLeft.map((interest) => (
-            <InterestCard key={interest.id} interest={interest} />
+            <InterestCard key={interest.id} interest={interest} direction="left" />
           ))}
         </div>
 
@@ -39,7 +41,7 @@ export default function MyInterests() {
 
         <div className="mi-column mi-column--right">
           {interestsRight.map((interest) => (
-            <InterestCard key={interest.id} interest={interest} />
+            <InterestCard key={interest.id} interest={interest} direction="right" />
           ))}
         </div>
       </div>

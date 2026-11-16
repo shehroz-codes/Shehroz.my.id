@@ -19,6 +19,16 @@ export function App() {
   const [activeHref, setActiveHref] = useState("#home");
 
   useEffect(() => {
+    // The fragment can arrive before React has mounted its destination.
+    const id = window.location.hash.slice(1);
+    if (!["home", "about", "projects", "interests", "skills", "contact"].includes(id)) return;
+    const frame = requestAnimationFrame(() => {
+      document.getElementById(id)?.scrollIntoView({ behavior: "instant", block: "start" });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, []);
+
+  useEffect(() => {
     const sections = ["about", "projects", "interests", "contact"]
       .map((id) => document.getElementById(id))
       .filter((section): section is HTMLElement => section !== null);

@@ -555,7 +555,7 @@
   color: #a98bdf;
 }
 .ps-tab-content {
-  animation: ps-enter 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+  /* Individual content items reveal on entry; modal animation stays separate. */
 }
 @keyframes ps-enter {
   from {

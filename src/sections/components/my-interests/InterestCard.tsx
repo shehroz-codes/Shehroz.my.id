@@ -1,21 +1,16 @@
-import { ArrowRight, Star } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import type { Interest } from './interestsData';
 
 interface InterestCardProps {
   interest: Interest;
+  direction?: 'left' | 'right';
 }
 
-export default function InterestCard({ interest }: InterestCardProps) {
+export default function InterestCard({ interest, direction }: InterestCardProps) {
   const { title, description, icon: Icon, featured = false, href } = interest;
 
   return (
-    <article className={`mi-card${featured ? ' mi-card--featured' : ''}`}>
-      {featured && (
-        <span className="mi-card-badge">
-          <Star size={11} strokeWidth={2.5} aria-hidden="true" />
-          Featured
-        </span>
-      )}
+    <article data-reveal-direction={direction} className={`mi-card${featured ? ' mi-card--featured' : ''}`}>
       <span className="mi-card-icon" aria-hidden="true">
         <Icon size={22} strokeWidth={1.9} />
       </span>

@@ -105,16 +105,19 @@ function useInView<T extends HTMLElement>() {
     const el = ref.current;
     if (!el || typeof IntersectionObserver === 'undefined') return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.15 },
-    );
-    observer.observe(el);
+    let observer: IntersectionObserver;
+    try {
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setVisible(true);
+            observer.disconnect();
+          }
+        },
+        { threshold: 0.15 },
+      );
+      observer.observe(el);
+    } catch { setVisible(true); return; }
     return () => observer.disconnect();
   }, []);
 
@@ -193,6 +196,7 @@ export default function AboutCard({
       aria-labelledby={headingId}
       className={`about-card ${visible ? 'is-visible' : ''} ${className}`.trim()}
       onPointerMove={handlePointerMove}
+      onFocusCapture={event => { event.currentTarget.dataset.revealSettled = 'true'; }}
     >
       <div className="about-card__surface">
         {/* Decorative layers: glow, light sweep, pointer light, coding symbols */}

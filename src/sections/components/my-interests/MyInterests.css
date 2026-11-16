@@ -839,3 +839,44 @@
     transform: none;
   }
 }
+
+/* Library + listening panel: one visual language, no player loaded until chosen. */
+.mi-player {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: stretch;
+  gap: clamp(20px, 3vw, 36px);
+}
+.mi-player-library { align-content: start; gap: 16px; }
+.mi-player-genres { flex-direction: row; flex-wrap: wrap; gap: 6px; }
+.mi-genre { min-height: 44px; padding: 8px 12px; }
+.mi-genre:hover { transform: none; }
+.mi-player-songs { max-height: 224px; scrollbar-width: thin; scrollbar-color: var(--mi-border) transparent; }
+.mi-song { min-height: 58px; padding: 10px; }
+.mi-song-label { min-width: 0; overflow-wrap: anywhere; }
+.mi-song-label > span { font-size: 14px; }
+.mi-song-label small { font-size: 12px; }
+.mi-player-center {
+  align-self: stretch;
+  justify-content: center;
+  gap: 16px;
+  padding: clamp(16px, 2vw, 24px);
+  border: 1px solid var(--mi-border);
+  border-radius: 18px;
+  background: linear-gradient(145deg, rgba(139, 92, 246, .10), rgba(10, 8, 24, .35));
+}
+.mi-listening-heading { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; color: var(--mi-violet-soft); }
+.mi-listening-dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.mi-now-playing { display: flex; align-items: center; gap: 14px; min-width: 0; }
+.mi-now-playing > div { min-width: 0; }
+.mi-now-playing h4 { margin: 0 0 4px; font-size: 16px; line-height: 1.4; color: var(--mi-text); overflow-wrap: anywhere; }
+.mi-now-playing p { margin: 0; font-size: 13px; color: var(--mi-text-dim); }
+.mi-now-art { position: relative; display: grid; place-items: center; flex: 0 0 64px; height: 64px; border-radius: 12px; overflow: hidden; color: var(--mi-violet-soft); background: rgba(139,92,246,.16); }
+.mi-now-art img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.mi-player-embed-slot { min-height: 80px; }
+.mi-player-embed { min-width: 0; }
+.mi-player-placeholder { min-height: 80px; padding: 12px; }
+.mi-player-note { margin: 0; min-height: 54px; font-size: 12px; line-height: 1.6; }
+@media (max-width: 850px) {
+  .mi-player { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .mi-player-center { gap: 14px; }
+}

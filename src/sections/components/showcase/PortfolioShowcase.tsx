@@ -1,3 +1,4 @@
+import { useScrollReveal } from '../../../hooks/useScrollReveal';
 import { useEffect, useId, useRef, useState } from "react";
 import type { CSSProperties, KeyboardEvent } from "react";
 import type { PreviewDocument, Project, TabId } from "./types";
@@ -74,6 +75,7 @@ export default function PortfolioShowcase({
     window.addEventListener("hashchange", navigate);
     return () => window.removeEventListener("hashchange", navigate);
   }, []);
+  const revealRef = useScrollReveal<HTMLElement>(".ps-intro, .ps-project-card, .ps-document-card, .ps-timeline-item, .ps-stack-intro, .ps-stack-group", active);
   const [project, setProject] = useState<Project | null>(null);
   const [doc, setDoc] = useState<{
     title: string;
@@ -101,6 +103,7 @@ export default function PortfolioShowcase({
   }
   return (
     <section
+      ref={revealRef}
       className={`portfolio-showcase ${className}`}
       aria-labelledby={`${instance}-title`}
     >

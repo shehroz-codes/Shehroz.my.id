@@ -1,3 +1,4 @@
+import { useScrollReveal } from '../../../hooks/useScrollReveal';
 import { useEffect, useState } from 'react';
 import { Mail } from 'lucide-react';
 import type { Backend } from './types';
@@ -12,6 +13,7 @@ import VisitorWall from './VisitorWall';
 import './ContactSection.css';
 
 export default function ContactSection() {
+  const revealRef = useScrollReveal<HTMLElement>('.contact__head, .contact__grid-row > *');
   const [backend, setBackend] = useState<Backend | null>(null);
   const [failed, setFailed] = useState(false);
   const [loadAttempt, setLoadAttempt] = useState(0);
@@ -22,7 +24,7 @@ export default function ContactSection() {
       .catch(() => { if (!cancelled) setFailed(true); });
     return () => { cancelled = true; };
   }, [loadAttempt]);
-  return <section className="contact-section" aria-labelledby="contact-title">
+  return <section ref={revealRef} className="contact-section" aria-labelledby="contact-title">
     {contactMode === 'preview' && <div className="mode-banner-wrap">
       <p className="mode-banner" role="note">Local preview — wall messages stay in this browser. Nothing is published or delivered.</p>
     </div>}
