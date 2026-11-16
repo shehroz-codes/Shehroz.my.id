@@ -23,9 +23,9 @@
   --pf-active-bg: #2a1a78;
   --pf-ok: #22c55e;
 
-  --pf-font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --pf-font-head: "Space Grotesk", "Inter", system-ui, sans-serif;
-  --pf-font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --pf-font-body: var(--font-sans);
+  --pf-font-head: var(--font-heading);
+  --pf-font-mono: var(--font-mono);
 
   position: relative;
   overflow: hidden;
@@ -434,3 +434,4 @@ a.pf-social:focus-visible,
     transform: none;
   }
 }
+.pf-nav__link, .pf-totop { min-height: 44px; }

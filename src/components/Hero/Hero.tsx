@@ -174,6 +174,7 @@ export function Hero() {
         <p className="hero-action-status" role="status" hidden={!notice}>
           {notice}
         </p>
+        <a className="hero-project-link" href="#projects">View Projects <span aria-hidden="true">→</span></a>
         <div className="hero-social-row">
           <SocialSpotlight links={portfolio.socials} />
         </div>

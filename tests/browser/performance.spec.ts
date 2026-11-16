@@ -85,7 +85,7 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 
       await page.getByRole('button', { name: 'Open menu' }).focus();
       await page.keyboard.press('Enter');
     }
-    await page.getByRole('link', { name: 'About', exact: true }).filter({ visible: true }).focus();
+    await page.locator('.site-header').getByRole('link', { name: 'About', exact: true }).filter({ visible: true }).focus();
     await page.keyboard.press('Enter');
     await expect(page).toHaveURL(/#about$/);
     await expect(page.locator('.about-card')).toHaveClass(/is-visible/);
@@ -100,13 +100,11 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 
       await page.mouse.move(aboutBox.x + aboutBox.width * 0.8, aboutBox.y + aboutBox.height * 0.3);
       await expect.poll(() => page.locator('.profile-card').evaluate(el => Number(el.style.getPropertyValue('--pc-active')))).toBeGreaterThan(0.1);
     }
-    // Check both published About destinations without navigating externally.
-    expect(await page.locator('.about-card__btn--primary').getAttribute('href')).toBe('https://github.com/shehroz-codes');
-    await page.route('https://github.com/shehroz-codes', route => route.fulfill({ contentType: 'text/plain', body: 'Local navigation verification' }));
+    expect(await page.locator('.about-card__btn--primary').getAttribute('href')).toBe('#contact');
+    expect(await page.locator('.about-card__actions a[href="https://github.com/shehroz-codes"]').count()).toBe(1);
     await contact.focus();
     await page.keyboard.press('Enter');
-    await expect(page).toHaveURL('https://github.com/shehroz-codes');
-    await page.goBack();
+    await expect(page).toHaveURL(/#contact$/);
 
     const interestPortrait = page.getByRole('img', { name: 'Shehroz — hover to reveal the anime ninja version of my portrait' });
     await interestPortrait.evaluate(el => el.scrollIntoView({ behavior: 'instant', block: 'center' }));

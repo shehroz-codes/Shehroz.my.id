@@ -131,10 +131,10 @@ export const activeSocialLinks: SocialLink[] = socialLinks.filter(
 );
 
 /**
- * Where "Let's Connect" goes: the private email if it has been published,
- * otherwise the public GitHub profile. Never an empty anchor.
+ * The contact action navigates to the existing Contact section.
+ * GitHub remains a separately labeled destination.
  */
-export const contactHref: string = links.email ? `mailto:${links.email}` : links.github;
+export const contactHref: string = "#contact";
 
 /* -------------------------------------------------------------------------- */
 /*  Compact card skills — exactly 11                                          */

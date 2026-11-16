@@ -283,3 +283,6 @@
     height: 100%;
   }
 }
+
+.hero-project-link { display: inline-flex; align-items: center; gap: .5rem; min-height: 44px; margin-top: .5rem; color: var(--color-accent); font-size: .875rem; font-weight: 600; text-underline-offset: .25em; }
+.hero-project-link:hover { text-decoration: underline; }

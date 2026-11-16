@@ -199,7 +199,9 @@ export default function PortfolioShowcase({
           <span>
             {active === "projects"
               ? "Concept previews · verified links only"
-              : "Sample content · replace with your actual records"}
+              : active === "tech"
+                ? "Technologies used in this portfolio"
+                : "Sample content · replace with your actual records"}
           </span>
         </footer>
       </div>

@@ -50,8 +50,8 @@ export interface PortfolioFooterProps {
 export const DEFAULT_NAV: readonly FooterNavItem[] = [
   { id: "home", label: "Home" },
   { id: "about", label: "About" },
-  { id: "interests", label: "My Interests" },
   { id: "projects", label: "Projects" },
+  { id: "interests", label: "My Interests" },
   { id: "contact", label: "Contact" },
 ];
 
@@ -173,6 +173,9 @@ export default function PortfolioFooter({
   const handleBackToTop = (event: MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const target = document.querySelector<HTMLElement>(topHref);
+    target?.focus({ preventScroll: true });
+    window.history.replaceState(null, "", topHref);
     window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
   };
 

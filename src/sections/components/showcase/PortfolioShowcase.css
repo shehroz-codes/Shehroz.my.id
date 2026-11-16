@@ -9,7 +9,7 @@
   color: var(--ps-text);
   background: transparent;
   isolation: isolate;
-  font-family: Inter, "Segoe UI", Arial, sans-serif;
+  font-family: var(--font-sans);
   font-size: 14px;
   line-height: 1.5;
   width: min(1440px, calc(100% - 72px));
@@ -902,7 +902,7 @@
   border-radius: 20px;
   background: linear-gradient(135deg, #1c132e, #100b1d);
   color: #f4f0ff;
-  font-family: Inter, "Segoe UI", Arial, sans-serif;
+  font-family: var(--font-sans);
   font-size: 14px;
   line-height: 1.6;
   box-shadow:
@@ -1401,4 +1401,18 @@
   .ps-tech-tile:hover {
     transform: none !important;
   }
+}
+
+/* Approved readability refinements; optional grid alternatives remain previews. */
+.ps-card-description { font-size: 14px; line-height: 1.6; min-height: 0; }
+.ps-details-link { min-height: 44px; font-size: 12px !important; }
+.ps-expand { width: 44px; height: 44px; }
+.ps-panel-footer { font-size: 12px; line-height: 1.5; flex-wrap: wrap; }
+.ps-image-label { font-size: 12px; }
+@media (max-width: 700px) {
+  .portfolio-showcase { width: 100%; }
+  .ps-card-description { font-size: 15px; }
+  .ps-tab { font-size: 12px; overflow-wrap: anywhere; }
+  .ps-intro > p { font-size: 14px; }
+  .ps-panel-title p { font-size: 12px; }
 }

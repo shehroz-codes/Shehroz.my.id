@@ -28,5 +28,5 @@ export const portfolio: PortfolioContent = {
   ],
   socials: { github: "https://github.com/shehroz-codes" },
   cvPath: null,
-  contactHref: null,
+  contactHref: "#contact",
 };

@@ -10,8 +10,8 @@ import PortfolioFooter from "../components/PortfolioFooter";
 const navigation: PillNavItem[] = [
   { label: "Home", href: "#home", ariaLabel: "Home" },
   { label: "About", href: "#about", ariaLabel: "About" },
-  { label: "My Interests", href: "#interests", ariaLabel: "My Interests" },
   { label: "Projects", href: "#projects", ariaLabel: "Projects" },
+  { label: "My Interests", href: "#interests", ariaLabel: "My Interests" },
   { label: "Contact", href: "#contact", ariaLabel: "Contact" },
 ];
 
@@ -19,7 +19,7 @@ export function App() {
   const [activeHref, setActiveHref] = useState("#home");
 
   useEffect(() => {
-    const sections = ["about", "interests", "projects", "contact"]
+    const sections = ["about", "projects", "interests", "contact"]
       .map((id) => document.getElementById(id))
       .filter((section): section is HTMLElement => section !== null);
     let frame = 0;

@@ -12,8 +12,8 @@ import './PortfolioSections.css';
  *
  * Page order:
  *   1. About Card
- *   2. My Interests Section
- *   3. Portfolio Showcase Section
+ *   2. Portfolio Showcase Section
+ *   3. My Interests Section
  *   4. Contact and Visitor Message Wall
  */
 export function PortfolioSections() {
@@ -49,11 +49,11 @@ export function PortfolioSections() {
           }
         />
       </div>
-      <div id="interests" className="portfolio-section-anchor"><MyInterests /></div>
       <div id="projects" className="portfolio-section-anchor">
         <span id="skills" className="portfolio-skills-anchor" aria-hidden="true" />
         <PortfolioShowcase />
       </div>
+      <div id="interests" className="portfolio-section-anchor"><MyInterests /></div>
       <div id="contact" className="portfolio-section-anchor">
         <ContactSection />
       </div>
