@@ -1,7 +1,6 @@
 import { withSupabase } from 'npm:@supabase/server@1.9.2';
-import { authOptions, bucket, json, origin } from '../_shared/contact.ts';
-export default { fetch: withSupabase(authOptions, async (req, ctx) => {
-  if (req.headers.get('origin') && req.headers.get('origin') !== origin) return json({ error: 'Forbidden' }, 403);
+import { authOptions, bucket, json, withProductionCors } from '../_shared/contact.ts';
+export default { fetch: withProductionCors(withSupabase(authOptions, async (req, ctx) => {
   const id = ctx.userClaims?.id;
   if (!id || ctx.jwtClaims?.is_anonymous === true) return json({ error: 'Forbidden' }, 403);
   const admin = ctx.supabaseAdmin;
@@ -41,4 +40,4 @@ export default { fetch: withSupabase(authOptions, async (req, ctx) => {
     await admin.from('visitor_photo_cleanup').delete().eq('path', item.path);
   }
   return json({ success: true, cleanup_pending: pending, cleanup_error: Boolean(queued.error) });
-}) };
+}), { allowMissingOrigin: true }) };

@@ -93,3 +93,14 @@ it('blocks cross-origin owner requests', async () => {
   expect((await manage.fetch(new Request('https://example.test', { headers: { Origin: 'https://attacker.test' } }))).status).toBe(403);
   expect(state.ctx.supabaseAdmin.from).not.toHaveBeenCalled();
 });
+it.each(['https://shehroz-codes.github.io','https://shehroz.my.id'])('preserves private RPC behavior for %s (Auth and external services mocked)',async allowed=>{
+ vi.stubGlobal('fetch',vi.fn(async()=>Response.json({success:true,hostname:new URL(allowed).hostname,action:'private-message'})));
+ const req=request('POST','',{name:'Audit Visitor',email:'audit@example.test',subject:'Audit test',message:'Isolated test correspondence',honeypot:'',turnstileToken:'fresh-token'});
+ const headers=new Headers(req.headers);headers.set('Origin',allowed);
+ const response=await privateContact.fetch(new Request(req,{headers}));expect(response.status).toBe(201);expect(response.headers.get('access-control-allow-origin')).toBe(allowed);expect(state.ctx.supabaseAdmin.rpc).toHaveBeenCalledTimes(1);
+});
+it('allows custom-domain photo delivery but retains publication checks',async()=>{
+ const response=await photo.fetch(new Request('https://example.test?id='+id,{headers:{Origin:'https://shehroz.my.id'}}));
+ expect(response.status).toBe(200);expect(response.headers.get('access-control-allow-origin')).toBe('https://shehroz.my.id');
+ tables.visitor_messages.data=[];expect((await photo.fetch(new Request('https://example.test?id='+id,{headers:{Origin:'https://shehroz.my.id'}}))).status).toBe(404);
+});

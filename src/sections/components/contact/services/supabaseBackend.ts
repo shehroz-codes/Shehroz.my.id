@@ -104,10 +104,23 @@ export function createSupabaseBackend(client: SupabaseClient, enabled = false): 
       if (!input.turnstileToken) throw new ContactError('Please complete the security check.');
       const auth = await session(input.turnstileToken);
       if (auth.captchaConsumed) throw new ContactError('Your visitor session is ready. Please verify again to send your private message.');
-      const { data, error } = await client.functions.invoke('submit-private-message', {
-        body: input, headers: { Authorization: `Bearer ${auth.accessToken}` }, timeout: 15_000,
-      });
-      if (error || data?.success !== true) throw new ContactError('Private delivery is unconfirmed. Please try later.');
+      let result;
+      try {
+        // Never retry a write: a lost response may follow a committed message.
+        result = await client.functions.invoke('submit-private-message', {
+          body: input, headers: { Authorization: `Bearer ${auth.accessToken}` }, timeout: 15_000,
+        });
+      } catch { throw new ContactError('Private delivery is unconfirmed. Please try later.'); }
+      const { data, error } = result;
+      if (error) {
+        const response = error.context instanceof Response ? error.context : null;
+        if (response?.status === 401) throw new ContactError('Your session was rejected. Please reload and try again.');
+        if (response?.status === 403) throw new ContactError('Security verification failed or expired. Please complete it again.');
+        if (response?.status === 429) throw new ContactError('Please wait 10 minutes before sending another private message.');
+        if (response?.status === 503) throw new ContactError('Private contact is not available yet. Please try later.');
+        throw new ContactError('Private delivery is unconfirmed. Please try later.');
+      }
+      if (data?.success !== true) throw new ContactError('Private delivery is unconfirmed. Please try later.');
     },
     async detectCountry() { return { code: null, name: null }; },
   };

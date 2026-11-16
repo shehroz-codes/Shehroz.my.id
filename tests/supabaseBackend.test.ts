@@ -133,3 +133,34 @@ describe('Supabase adapter (mocked)', () => {
     await vi.waitFor(() => expect(fail).toHaveBeenCalled()); expect(update).not.toHaveBeenCalled(); stop();
   });
 });
+
+describe('Private delivery responses (mocked)', () => {
+  const correspondence = { name: 'Audit Visitor', email: 'audit@example.test', subject: 'Test subject',
+    message: 'Isolated test correspondence', honeypot: '', turnstileToken: 'fresh-token' };
+  it.each([
+    [401, 'session was rejected'], [403, 'Security verification failed'],
+    [429, 'wait 10 minutes'], [503, 'Private contact is not available'],
+  ] as const)('reports private HTTP %i without exposing server details or retrying', async (status, message) => {
+    const f = fixture(); f.invoke.mockResolvedValue({ data: null, error: { context: new Response('private server detail', {status}) } });
+    await expect(createSupabaseBackend(f.client).submitPrivate(correspondence)).rejects.toThrow(message);
+    expect(f.invoke).toHaveBeenCalledTimes(1);
+  });
+  it('uses the visitor JWT and acknowledges only explicit backend success', async () => {
+    const f = fixture(); await createSupabaseBackend(f.client).submitPrivate(correspondence);
+    expect(f.invoke).toHaveBeenCalledWith('submit-private-message', { body: correspondence,
+      headers: { Authorization: 'Bearer visitor-jwt' }, timeout: 15_000 });
+    expect(f.from).not.toHaveBeenCalled();
+  });
+  it('treats transport errors and missing acknowledgements as unconfirmed without retry', async () => {
+    const f = fixture(); f.invoke.mockRejectedValueOnce(new Error('sensitive transport detail'));
+    await expect(createSupabaseBackend(f.client).submitPrivate(correspondence)).rejects.toThrow('Private delivery is unconfirmed');
+    f.invoke.mockResolvedValueOnce({data: {}, error: null});
+    await expect(createSupabaseBackend(f.client).submitPrivate(correspondence)).rejects.toThrow('Private delivery is unconfirmed');
+    expect(f.invoke).toHaveBeenCalledTimes(2);
+  });
+  it('does not reuse a CAPTCHA consumed by a new visitor session', async () => {
+    const f = fixture(); f.auth.getSession.mockResolvedValue({ data: { session: null }, error: null });
+    await expect(createSupabaseBackend(f.client).submitPrivate(correspondence)).rejects.toThrow('verify again');
+    expect(f.invoke).not.toHaveBeenCalled();
+  });
+});

@@ -1,5 +1,5 @@
 
-import { notifyTelegram, origin } from '../_shared/contact.ts';
+import { notifyTelegram, verifyCaptcha, withProductionCors } from '../_shared/contact.ts';
 import { withSupabase } from "npm:@supabase/server@1.9.2";
 
 const BUCKET = "visitor-photos-private";
@@ -135,49 +135,15 @@ function validWebP(bytes: Uint8Array): boolean {
   );
 }
 
-async function verifyCaptcha(
-  token: string,
-  secret: string,
-): Promise<boolean> {
-  try {
-    const response = await fetch(
-      "https://challenges.cloudflare.com/turnstile/v0/siteverify",
-      {
-        method: "POST",
-        body: new URLSearchParams({
-          secret,
-          response: token,
-        }),
-        signal: AbortSignal.timeout(6000),
-      },
-    );
-
-    if (!response.ok) return false;
-
-    const result = await response.json();
-    return result.success === true &&
-      result.hostname === 'shehroz-codes.github.io' &&
-      result.action === 'visitor-message';
-  } catch {
-    return false;
-  }
-}
-
 export default {
-  fetch: withSupabase(
+  fetch: withProductionCors(withSupabase(
     { auth: "user", errors: { detailed: false }, audience: "authenticated",
-      issuer: "https://lctzkigzaudjiotopzye.supabase.co/auth/v1", cors: { headers: {
-      "Access-Control-Allow-Origin": "https://shehroz-codes.github.io",
-      "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-retry-count, traceparent, tracestate, baggage",
-      "Access-Control-Allow-Methods": "POST, OPTIONS",
-      "Vary": "Origin",
-    } } },
+      issuer: "https://lctzkigzaudjiotopzye.supabase.co/auth/v1", cors: 'disabled' },
     async (req, ctx) => {
       if (req.method !== "POST") {
         return json({ error: "Method not allowed" }, 405);
       }
 
-      if (req.headers.get('origin') !== origin) return json({ error: 'Origin not allowed' }, 403);
       // Deployment safety switch.
       // Submissions stay disabled until testing is complete.
       if (
@@ -327,7 +293,7 @@ export default {
         if (
           captcha.length < 1 ||
           captcha.length > 4096 ||
-          !(await verifyCaptcha(captcha, captchaSecret))
+          !(await verifyCaptcha(captcha, 'visitor-message', req.headers.get('origin')!))
         ) {
           return json(
             { error: "Security check failed" },
@@ -441,6 +407,5 @@ export default {
         }
       }
     },
-  ),
+  )),
 };
-

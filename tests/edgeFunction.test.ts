@@ -185,3 +185,18 @@ it('rejects a forged Origin before external calls', async () => {
   expect((await edge.fetch(new Request(req, { headers }))).status).toBe(403);
   expect(remote).not.toHaveBeenCalled();
 });
+it.each(['https://shehroz-codes.github.io','https://shehroz.my.id'])('publishes with real SDK JWT verification and correct CAPTCHA hostname for %s (remote services mocked)',async allowed=>{
+ env.VISITOR_SUBMISSIONS_ENABLED='true';
+ remote.mockImplementation(async url=>String(url).includes('siteverify')
+  ?Response.json({success:true,hostname:new URL(allowed).hostname,action:'visitor-message'}):Response.json(userId));
+ const req=request();const headers=new Headers(req.headers);headers.set('Origin',allowed);
+ const response=await edge.fetch(new Request(req,{headers}));expect(response.status).toBe(201);expect(response.headers.get('access-control-allow-origin')).toBe(allowed);
+});
+it('rejects a CAPTCHA issued for the other allowed hostname',async()=>{
+ env.VISITOR_SUBMISSIONS_ENABLED='true';remote.mockResolvedValue(Response.json({success:true,hostname:'shehroz.my.id',action:'visitor-message'}));
+ expect((await edge.fetch(request())).status).toBe(403);expect(remote).toHaveBeenCalledTimes(1);
+});
+it('returns exact custom-domain CORS on invalid JWTs without admitting the request',async()=>{
+ const req=request('invalid-token');const headers=new Headers(req.headers);headers.set('Origin','https://shehroz.my.id');
+ const response=await edge.fetch(new Request(req,{headers}));expect(response.status).toBe(401);expect(response.headers.get('access-control-allow-origin')).toBe('https://shehroz.my.id');expect(remote).not.toHaveBeenCalled();
+});
