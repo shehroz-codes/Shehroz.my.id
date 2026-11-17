@@ -1,0 +1,47 @@
+
+> shehroz-my-id@0.0.0 test:browser
+> playwright test
+
+[WebServer] (node:16559) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:16593) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 8 tests using 1 worker
+
+(node:16614) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] Files in the public directory are served at the root path.
+[WebServer] Instead of /public/sections/about/portrait-backdrop.svg, use /sections/about/portrait-backdrop.svg.
+[WebServer] Files in the public directory are served at the root path.
+[WebServer] Instead of /public/sections/about/portrait-backdrop.svg, use /sections/about/portrait-backdrop.svg.
+  ✓  1 [preview] › tests/browser/contact.spec.ts:3:3 › preview Contact remains usable at 390px (20.5s)
+[WebServer] Files in the public directory are served at the root path.
+[WebServer] Instead of /public/sections/about/portrait-backdrop.svg, use /sections/about/portrait-backdrop.svg.
+[WebServer] Files in the public directory are served at the root path.
+[WebServer] Instead of /public/sections/about/portrait-backdrop.svg, use /sections/about/portrait-backdrop.svg.
+  ✓  2 [preview] › tests/browser/contact.spec.ts:3:3 › preview Contact remains usable at 1440px (20.7s)
+[WebServer] Files in the public directory are served at the root path.
+[WebServer] Instead of /public/sections/about/portrait-backdrop.svg, use /sections/about/portrait-backdrop.svg.
+[WebServer] Files in the public directory are served at the root path.
+[WebServer] Instead of /public/sections/about/portrait-backdrop.svg, use /sections/about/portrait-backdrop.svg.
+  ✓  3 [preview] › tests/browser/contact.spec.ts:38:1 › photo selection uses the real browser decoder and WebP encoder, rejects invalid files, and preserves a draft (13.9s)
+(node:16953) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] Files in the public directory are served at the root path.
+[WebServer] Instead of /public/sections/about/portrait-backdrop.svg, use /sections/about/portrait-backdrop.svg.
+  ✓  4 [live-disabled] › tests/browser/live-readonly.spec.ts:4:3 › live reads with disabled writes and Contact accessibility at 320px (API mocked) (10.9s)
+[WebServer] Files in the public directory are served at the root path.
+[WebServer] Instead of /public/sections/about/portrait-backdrop.svg, use /sections/about/portrait-backdrop.svg.
+  ✓  5 [live-disabled] › tests/browser/live-readonly.spec.ts:4:3 › live reads with disabled writes and Contact accessibility at 390px (API mocked) (10.6s)
+[WebServer] Files in the public directory are served at the root path.
+[WebServer] Instead of /public/sections/about/portrait-backdrop.svg, use /sections/about/portrait-backdrop.svg.
+  ✓  6 [live-disabled] › tests/browser/live-readonly.spec.ts:4:3 › live reads with disabled writes and Contact accessibility at 768px (API mocked) (11.6s)
+[WebServer] Files in the public directory are served at the root path.
+[WebServer] Instead of /public/sections/about/portrait-backdrop.svg, use /sections/about/portrait-backdrop.svg.
+  ✓  7 [live-disabled] › tests/browser/live-readonly.spec.ts:4:3 › live reads with disabled writes and Contact accessibility at 1440px (API mocked) (13.4s)
+[WebServer] Files in the public directory are served at the root path.
+[WebServer] Instead of /public/sections/about/portrait-backdrop.svg, use /sections/about/portrait-backdrop.svg.
+  ✓  8 [live-disabled] › tests/browser/live-readonly.spec.ts:55:1 › live API failure stays an error without switching to local preview (17.7s)
+
+  8 passed (2.1m)

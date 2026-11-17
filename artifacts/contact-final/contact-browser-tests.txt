@@ -1,0 +1,29 @@
+[WebServer] (node:15433) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 6 tests using 1 worker
+
+(node:15603) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] Files in the public directory are served at the root path.
+[WebServer] Instead of /public/sections/about/portrait-backdrop.svg, use /sections/about/portrait-backdrop.svg.
+  ✓  1 tests/browser/contact-final.spec.ts:34:3 › two columns, compact public form and bounded message list at 320px (services mocked) (6.8s)
+[WebServer] Files in the public directory are served at the root path.
+[WebServer] Instead of /public/sections/about/portrait-backdrop.svg, use /sections/about/portrait-backdrop.svg.
+  ✓  2 tests/browser/contact-final.spec.ts:34:3 › two columns, compact public form and bounded message list at 390px (services mocked) (4.6s)
+[WebServer] Files in the public directory are served at the root path.
+[WebServer] Instead of /public/sections/about/portrait-backdrop.svg, use /sections/about/portrait-backdrop.svg.
+  ✓  3 tests/browser/contact-final.spec.ts:34:3 › two columns, compact public form and bounded message list at 768px (services mocked) (4.6s)
+[WebServer] Files in the public directory are served at the root path.
+[WebServer] Instead of /public/sections/about/portrait-backdrop.svg, use /sections/about/portrait-backdrop.svg.
+  ✓  4 tests/browser/contact-final.spec.ts:34:3 › two columns, compact public form and bounded message list at 1440px (services mocked) (4.7s)
+[WebServer] Files in the public directory are served at the root path.
+[WebServer] Instead of /public/sections/about/portrait-backdrop.svg, use /sections/about/portrait-backdrop.svg.
+[WebServer] Files in the public directory are served at the root path.
+[WebServer] Instead of /public/sections/about/portrait-backdrop.svg, use /sections/about/portrait-backdrop.svg.
+  ✓  5 tests/browser/contact-final.spec.ts:80:1 › public post and refresh work without Auth or verification; private CAPTCHA remains mandatory (mocked) (3.6s)
+[WebServer] Files in the public directory are served at the root path.
+[WebServer] Instead of /public/sections/about/portrait-backdrop.svg, use /sections/about/portrait-backdrop.svg.
+  ✓  6 tests/browser/contact-final.spec.ts:106:1 › country failure never prevents a public post (mocked) (2.1s)
+
+  6 passed (31.8s)

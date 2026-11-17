@@ -4,7 +4,7 @@ import { createSupabaseBackend, publicColumns } from '../src/sections/components
 import { createVisitorSession } from '../src/lib/supabase';
 
 const input = { name: 'Visitor', text: 'Hello!', photo: null, photoDataUrl: null,
-  country: { code: null, name: null }, honeypot: '', turnstileToken: 'fresh-token' };
+  country: { code: null, name: null }, honeypot: '' };
 const session = { access_token: 'visitor-jwt', expires_at: Date.now() / 1000 + 3600 };
 function fixture() {
   const query = { select: vi.fn(), eq: vi.fn(), order: vi.fn(), limit: vi.fn(), abortSignal: vi.fn() };
@@ -51,7 +51,7 @@ describe('Supabase adapter (mocked)', () => {
     const f = fixture(); await expect(createSupabaseBackend(f.client).submitPublic(input)).rejects.toThrow('not enabled');
     expect(f.invoke).not.toHaveBeenCalled();
   });
-  it.each([{ name: '' }, { name: 'x'.repeat(81) }, { text: 'x'.repeat(301) }, { text: '' }, { honeypot: 'spam' }, { name: 'a\u0000b' }, { turnstileToken: '' }])('rejects invalid input %j', async (patch) => {
+  it.each([{ name: '' }, { name: 'x'.repeat(81) }, { text: 'x'.repeat(301) }, { text: '' }, { honeypot: 'spam' }, { name: 'a\u0000b' }])('rejects invalid input %j', async (patch) => {
     const f = fixture(); await expect(createSupabaseBackend(f.client, true).submitPublic({ ...input, ...patch })).rejects.toThrow();
     expect(f.invoke).not.toHaveBeenCalled(); expect(f.auth.getSession).not.toHaveBeenCalled();
   });
@@ -59,17 +59,19 @@ describe('Supabase adapter (mocked)', () => {
     const f = fixture(); await expect(createSupabaseBackend(f.client, true).submitPublic({ ...input, photo: new File(['x'], 'a.png', { type: 'image/png' }) })).rejects.toThrow('compressed WebP');
     expect(f.invoke).not.toHaveBeenCalled();
   });
-  it('sends only the verified multipart contract with the session JWT', async () => {
+  it('sends the public multipart contract without Auth, CAPTCHA or client country', async () => {
     const f = fixture(); await createSupabaseBackend(f.client, true).submitPublic({ ...input, name: '  Visitor  ' });
     const [slug, options] = f.invoke.mock.calls[0];
-    expect(slug).toBe('submit-visitor-message'); expect(options.headers.Authorization).toBe('Bearer visitor-jwt');
-    expect([...options.body.entries()]).toEqual([['website', ''], ['name', 'Visitor'], ['text', 'Hello!'], ['turnstile_token', 'fresh-token']]);
+    expect(slug).toBe('submit-visitor-message'); expect(options.headers).toBeUndefined();
+    expect(options.body.get('visitor_id')).toMatch(/^[0-9a-f-]{36}$/);
+    expect(options.body.get('turnstile_token')).toBeNull(); expect(options.body.get('country_code')).toBeNull();
+    expect(options.body.get('name')).toBe('Visitor'); expect(f.auth.getSession).not.toHaveBeenCalled();
     expect(f.from).not.toHaveBeenCalled();
   });
-  it('never sends a token consumed by anonymous Auth to the Edge Function', async () => {
+  it('posts even when anonymous Auth is unavailable, without invoking it', async () => {
     const f = fixture(); f.auth.getSession.mockResolvedValue({ data: { session: null }, error: null });
-    await expect(createSupabaseBackend(f.client, true).submitPublic(input)).rejects.toThrow('session is ready');
-    expect(f.invoke).not.toHaveBeenCalled();
+    await expect(createSupabaseBackend(f.client, true).submitPublic(input)).resolves.toHaveProperty('status', 'published');
+    expect(f.invoke).toHaveBeenCalledTimes(1); expect(f.auth.signInAnonymously).not.toHaveBeenCalled();
   });
   it('prevents concurrent duplicate writes', async () => {
     const f = fixture(); const backend = createSupabaseBackend(f.client, true);

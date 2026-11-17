@@ -23,7 +23,6 @@ function VisitorMessage({ message: m }: { message: WallMessage }) {
       <div className="msg__top">
         <div className="msg__who">
           <span className="msg__name" dir="auto">{m.name}</span>
-          <span className="msg__country">{m.countryName && <>{countryFlag(m.countryCode) || <Globe className="icon" aria-hidden="true" />}{m.countryName}</>}</span>
           {m.isDemo && <span className="tag">Local preview</span>}
         </div>
         <div className="msg__when">
@@ -32,6 +31,7 @@ function VisitorMessage({ message: m }: { message: WallMessage }) {
         </div>
       </div>
       <p className="msg__text" dir="auto">{m.text}</p>
+      {m.countryName && <span className="msg__country"><span aria-hidden="true">{countryFlag(m.countryCode) || <Globe className="icon" />}</span>{m.countryName}</span>}
     </div>
   </li>;
 }
