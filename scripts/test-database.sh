@@ -42,6 +42,8 @@ echo 'PASS: execute revocation preserves automatic RLS on new tables'
 psql_local < tests/sql/assertions.sql
 psql_local < supabase/migrations/20261113154901_complete_contact_delivery.sql
 psql_local < tests/sql/contact_delivery.sql
+psql_local < supabase/migrations/20261117044813_public_message_no_captcha_country.sql
+psql_local < tests/sql/public_contact.sql
 psql_local -c "insert into auth.users values ('00000000-0000-0000-0000-000000000003');" >/dev/null
 publish() {
   if psql_local -c "set role service_role; select public.publish_visitor_message('00000000-0000-0000-0000-000000000003','Concurrent','Concurrent',null);" >"$logs_dir/$1" 2>&1; then
@@ -58,3 +60,21 @@ wait "$second_pid"
 results="$(<"$logs_dir/first.result") $(<"$logs_dir/second.result")"
 [[ "$results" == 'success cooldown' || "$results" == 'cooldown success' ]]
 echo 'PASS: two concurrent publishing requests produced one commit and one cooldown'
+publish_public() {
+  if psql_local -c "set role service_role; select public.publish_public_visitor_message(repeat('1',64),repeat('2',64),'Concurrent public','One published message');" >"$logs_dir/$1" 2>&1; then
+    echo success >"$logs_dir/$1.result"
+  else
+    [[ $(<"$logs_dir/$1") == *'COOLDOWN'* ]] || return 1
+    echo cooldown >"$logs_dir/$1.result"
+  fi
+}
+publish_public public-first & public_first_pid=$!
+publish_public public-second & public_second_pid=$!
+wait "$public_first_pid"
+wait "$public_second_pid"
+public_results="$(<"$logs_dir/public-first.result") $(<"$logs_dir/public-second.result")"
+[[ "$public_results" == 'success cooldown' || "$public_results" == 'cooldown success' ]]
+echo 'PASS: concurrent CAPTCHA-free public requests produced one commit and one cooldown'
+psql_local -c "set role service_role; select country_code,country_name from public.visitor_messages where name='New visitor';" >"$logs_dir/persisted"
+[[ $(<"$logs_dir/persisted") == *'Netherlands'* ]]
+echo 'PASS: public message and country persist across independent database connections'

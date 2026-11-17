@@ -1,5 +1,6 @@
 
-import { notifyTelegram, verifyCaptcha, withProductionCors } from '../_shared/contact.ts';
+import { notifyTelegram, withProductionCors } from '../_shared/contact.ts';
+import { observedIp, visitorHash, lookupCountry } from '../_shared/public-visitor.ts';
 import { withSupabase } from "npm:@supabase/server@1.9.2";
 
 const BUCKET = "visitor-photos-private";
@@ -137,8 +138,7 @@ function validWebP(bytes: Uint8Array): boolean {
 
 export default {
   fetch: withProductionCors(withSupabase(
-    { auth: "user", errors: { detailed: false }, audience: "authenticated",
-      issuer: "https://lctzkigzaudjiotopzye.supabase.co/auth/v1", cors: 'disabled' },
+    { auth: "publishable", errors: { detailed: false }, cors: 'disabled' },
     async (req, ctx) => {
       if (req.method !== "POST") {
         return json({ error: "Method not allowed" }, 405);
@@ -156,24 +156,8 @@ export default {
         );
       }
 
-      const captchaSecret =
-        Deno.env.get("TURNSTILE_SECRET_KEY");
-
-      if (!captchaSecret) {
-        return json(
-          { error: "Security configuration incomplete" },
-          503,
-        );
-      }
-
-      const userId = ctx.userClaims?.id;
-
-      if (
-        ctx.userClaims?.role !== 'authenticated' || typeof userId !== "string" ||
-        !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(userId)
-      ) {
-        return json({ error: "Invalid user" }, 401);
-      }
+      const ip = observedIp(req);
+      if (!ip) return json({ error: 'Network metadata unavailable' }, 503);
 
       const contentType =
         req.headers.get("content-type") ?? "";
@@ -203,6 +187,10 @@ export default {
       let committed = false;
 
       try {
+        const networkHash = await visitorHash('network', ip);
+        const permit = await ctx.supabaseAdmin.rpc('consume_public_visitor_request', { p_network_hash: networkHash, p_purpose: 'submit' });
+        if (permit.error) return json({ error: 'Public posting unavailable' }, 503);
+        if (permit.data !== true) return json({ error: 'Please try again later', code: 'RATE_LIMIT' }, 429);
         const bytes = await readLimited(req);
 
         const form = await new Request(
@@ -218,7 +206,7 @@ export default {
           "name",
           "text",
           "photo",
-          "turnstile_token",
+          "visitor_id",
           "website",
         ]);
 
@@ -235,18 +223,20 @@ export default {
         const rawName = form.get("name");
         const rawText = form.get("text");
         const rawPhoto = form.get("photo");
-        const captcha = form.get("turnstile_token");
+        const visitorId = form.get('visitor_id');
 
         if (
           typeof rawName !== "string" ||
           typeof rawText !== "string" ||
-          typeof captcha !== "string"
+          typeof visitorId !== 'string' ||
+          !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(visitorId)
         ) {
           return json({ error: "Missing fields" }, 400);
         }
 
         const name = rawName.trim().normalize("NFC");
         const text = rawText.trim().normalize("NFC");
+        const identity = await visitorHash('visitor', visitorId.toLowerCase());
 
         if (
           name.length < 1 ||
@@ -290,17 +280,6 @@ export default {
           }
         }
 
-        if (
-          captcha.length < 1 ||
-          captcha.length > 4096 ||
-          !(await verifyCaptcha(captcha, 'visitor-message', req.headers.get('origin')!))
-        ) {
-          return json(
-            { error: "Security check failed" },
-            403,
-          );
-        }
-
         if (photoBytes) {
           // Header bounds first, then a real WASM decoder rejects malformed image content.
           try {
@@ -308,7 +287,7 @@ export default {
             photoBytes = decodeThumbnail(photoBytes);
           } catch { return json({ error: 'Invalid image content' }, 400); }
           uploadedPath =
-            `${userId}/${crypto.randomUUID()}.webp`;
+            `${identity}/${crypto.randomUUID()}.webp`;
 
           // Durable cleanup intent exists before upload, including interrupted requests.
           const queued = await ctx.supabaseAdmin.from('visitor_photo_cleanup').insert({ path: uploadedPath });
@@ -331,15 +310,20 @@ export default {
           }
         }
 
-        // Atomic cooldown + message publishing.
+        // Country is recomputed from this request, never accepted from the form.
+        const location = await lookupCountry(ip, networkHash);
+        // Atomic device cooldown + publication. Private Auth/RPCs remain separate.
         const { data: messageId, error: rpcError } =
           await ctx.supabaseAdmin.rpc(
-            "publish_visitor_message",
+            "publish_public_visitor_message",
             {
-              p_user_id: userId,
+              p_visitor_hash: identity,
+              p_network_hash: networkHash,
               p_name: name,
               p_text: text,
               p_photo_path: uploadedPath,
+              p_country_code: location.code,
+              p_country_name: location.name,
             },
           );
 

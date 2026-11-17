@@ -4,6 +4,18 @@ import { visitorSubmissionsEnabled, wallSettings } from '../config';
 import { ContactError } from '../types';
 import type { Backend } from '../types';
 
+let transientVisitorId: string | undefined;
+function publicVisitorId(): string {
+  const key = 'shehroz.visitor.public.id';
+  try {
+    const stored = localStorage.getItem(key);
+    if (stored && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(stored)) return stored;
+    const id = transientVisitorId ??= crypto.randomUUID();
+    localStorage.setItem(key, id);
+    return id;
+  } catch { return transientVisitorId ??= crypto.randomUUID(); }
+}
+
 // Explicit columns match live column grants. Never select photo_path or visitor_id.
 export const publicColumns = 'id,name,text,country_code,country_name,created_at,has_photo';
 export function createSupabaseBackend(client: SupabaseClient, enabled = false): Backend {
@@ -12,8 +24,7 @@ export function createSupabaseBackend(client: SupabaseClient, enabled = false): 
   let submitting = false;
   return {
     mode: 'live', requiresCaptcha: true, submissionsEnabled: enabled,
-    photosEnabled: true, countryAvailable: false,
-    async prepareSession(token) { return (await session(token)).captchaConsumed; },
+    photosEnabled: true, countryAvailable: true,
     subscribe(limit, update, error) {
       let active = true;
       let loading = false;
@@ -61,21 +72,15 @@ export function createSupabaseBackend(client: SupabaseClient, enabled = false): 
         throw new ContactError('Enter a name of 1–80 characters and a message of 1–300 characters.');
       }
       if (input.photo && (input.photo.type !== 'image/webp' || input.photo.size > 60 * 1024)) throw new ContactError('Choose a compressed WebP thumbnail up to 60 KB.');
-      const token = input.turnstileToken;
-      if (!token || token.length > 4096) throw new ContactError('Please complete the security check again.');
       submitting = true;
       try {
-        const auth = await session(token);
-        if (auth.captchaConsumed) {
-          throw new ContactError('Your visitor session is ready. Please complete the security check again, then post your message.');
-        }
         const form = new FormData();
         if (input.photo) form.append('photo', input.photo);
         form.append('website', input.honeypot);
-        form.append('name', name); form.append('text', text); form.append('turnstile_token', token);
+        form.append('name', name); form.append('text', text); form.append('visitor_id', publicVisitorId());
         // Never retry a write automatically: a lost response can follow a committed post.
         const { data, error } = await client.functions.invoke('submit-visitor-message', {
-          body: form, headers: { Authorization: `Bearer ${auth.accessToken}` }, timeout: 15_000,
+          body: form, timeout: 15_000,
         });
         if (error) {
           const response = error.context instanceof Response ? error.context : null;
@@ -83,9 +88,9 @@ export function createSupabaseBackend(client: SupabaseClient, enabled = false): 
             let detail: { code?: string } = {};
             try { detail = await response.clone().json(); } catch { /* Unknown 429 stays generic. */ }
             if (detail.code === 'COOLDOWN') throw new ContactError('Please wait 10 minutes before posting again.', Date.now() + wallSettings.cooldownMs);
+            throw new ContactError('Too many requests from this network. Please try again later.');
           }
-          if (response?.status === 403) throw new ContactError('Security verification failed or expired. Please complete it again.');
-          if (response?.status === 401) throw new ContactError('Your session was rejected. Please reload and try again.');
+          if (response?.status === 403 || response?.status === 401) throw new ContactError('Public posting is unavailable. Please try again later.');
           if (response?.status === 503) throw new ContactError('Public submissions are not available yet. Please try later.');
           throw new ContactError('Submission is unconfirmed. Check the wall before trying again.');
         }
@@ -122,7 +127,13 @@ export function createSupabaseBackend(client: SupabaseClient, enabled = false): 
       }
       if (data?.success !== true) throw new ContactError('Private delivery is unconfirmed. Please try later.');
     },
-    async detectCountry() { return { code: null, name: null }; },
+    async detectCountry() {
+      try {
+        const { data, error } = await client.functions.invoke('visitor-country', { method: 'GET', timeout: 5000 });
+        if (error || !/^[A-Z]{2}$/.test(data?.code) || typeof data?.name !== 'string') return { code: null, name: null };
+        return { code: data.code, name: data.name };
+      } catch { return { code: null, name: null }; }
+    },
   };
 }
 
@@ -131,13 +142,12 @@ let adapter: Backend | undefined;
 function live() { return adapter ??= createSupabaseBackend(getSupabase(), visitorSubmissionsEnabled); }
 export const supabaseBackend: Backend = {
   mode: 'live', requiresCaptcha: true, submissionsEnabled: visitorSubmissionsEnabled,
-  photosEnabled: true, countryAvailable: false,
-  async prepareSession(token) { return live().prepareSession!(token); },
+  photosEnabled: true, countryAvailable: true,
   subscribe(limit, update, error) {
     try { return live().subscribe(limit, update, error); }
     catch { error('The visitor wall is not configured.'); return () => {}; }
   },
   async submitPublic(input) { return live().submitPublic(input); },
   async submitPrivate(input) { return live().submitPrivate(input); },
-  async detectCountry() { return { code: null, name: null }; },
+  async detectCountry() { try { return await live().detectCountry(); } catch { return { code: null, name: null }; } },
 };

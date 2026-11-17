@@ -1,202 +1,87 @@
 // @vitest-environment node
-import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
-import { exportJWK, generateKeyPair, SignJWT } from 'jose';
+import { afterEach, beforeAll, beforeEach, expect, it, vi } from 'vitest';
 import { readFile } from 'node:fs/promises';
 import { ImageMagick, initializeImageMagick, MagickFormat } from '@imagemagick/magick-wasm';
 vi.mock('../supabase/functions/_shared/photo.ts', async () => import('../supabase/functions/_shared/decode-photo'));
 import edge from '../supabase/functions/submit-visitor-message/index';
-
-// Real @supabase/server + real asymmetric JWT verification; only remote services
-// are replaced. This is NOT a deployed gateway, Auth, Cloudflare or database test.
-const userId = '00000000-0000-0000-0000-000000000001';
-const projectUrl = 'https://lctzkigzaudjiotopzye.supabase.co';
-const origin = 'https://shehroz-codes.github.io';
-let photoBytes: Uint8Array;
-let token: string;
-let expired: string;
-let tampered: string;
-const env: Record<string, string> = {};
-let remote: ReturnType<typeof vi.fn>;
-beforeAll(async () => {
-  await initializeImageMagick(await readFile(new URL('../node_modules/@imagemagick/magick-wasm/dist/magick.wasm', import.meta.url)));
-  photoBytes = ImageMagick.read(await readFile(new URL('../src/sections/components/showcase/assets/project-1.webp', import.meta.url)), image => { image.resize(160,160); image.extent(160,160); return image.write(MagickFormat.WebP, bytes => new Uint8Array(bytes)); });
-  const pair = await generateKeyPair('ES256');
-  const jwk = { ...await exportJWK(pair.publicKey), kid: 'audit-test-key', alg: 'ES256' };
-  env.SUPABASE_JWKS = JSON.stringify({ keys: [jwk] });
-  const sign = (expiration: number) => new SignJWT({ sub: userId, role: 'authenticated', is_anonymous: true })
-    .setProtectedHeader({ alg: 'ES256', kid: jwk.kid }).setAudience('authenticated')
-    .setIssuer(`${projectUrl}/auth/v1`).setExpirationTime(expiration).sign(pair.privateKey);
-  token = await sign(Math.floor(Date.now() / 1000) + 3600);
-  expired = await sign(1);
-  const other = await generateKeyPair('ES256');
-  tampered = await new SignJWT({ sub: userId }).setProtectedHeader({ alg: 'ES256', kid: jwk.kid }).sign(other.privateKey);
+import location from '../supabase/functions/visitor-country/index';
+// Actual SDK publishable-key gate, HMAC and image decoder; remote services mocked.
+const id='00000000-0000-4000-8000-000000000001', origin='https://shehroz-codes.github.io', ip='203.0.113.5';
+let env:Record<string,string>,remote:ReturnType<typeof vi.fn>,photo:Uint8Array,salt=0;
+let quota:boolean,geoFails:boolean,publishFails:boolean;
+beforeAll(async()=>{
+ await initializeImageMagick(await readFile(new URL('../node_modules/@imagemagick/magick-wasm/dist/magick.wasm',import.meta.url)));
+ photo=ImageMagick.read(await readFile(new URL('../src/sections/components/showcase/assets/project-1.webp',import.meta.url)),image=>{image.resize(160,160);image.extent(160,160);return image.write(MagickFormat.WebP,bytes=>new Uint8Array(bytes));});
 });
-beforeEach(() => {
-  Object.assign(env, { SUPABASE_URL: projectUrl,
-    SUPABASE_PUBLISHABLE_KEYS: JSON.stringify({ default: 'sb_publishable_audit_only' }),
-    SUPABASE_SECRET_KEYS: JSON.stringify({ default: 'sb_secret_audit_only' }),
-    TURNSTILE_SECRET_KEY: 'audit-only-captcha', VISITOR_SUBMISSIONS_ENABLED: 'false' });
-  vi.stubGlobal('Deno', { env: { get: (name: string) => env[name] } });
-  remote = vi.fn(async (url: string | URL | Request) => {
-    const path = String(url);
-    if (path === 'https://challenges.cloudflare.com/turnstile/v0/siteverify') return Response.json({ success: true, hostname: 'shehroz-codes.github.io', action: 'visitor-message' });
-    if (path.endsWith('/rest/v1/rpc/publish_visitor_message')) return Response.json(userId, { status: 200 });
-    throw new Error('Unexpected external request in isolated test');
-  });
-  vi.stubGlobal('fetch', remote);
+beforeEach(()=>{
+ env={SUPABASE_URL:'https://lctzkigzaudjiotopzye.supabase.co',SUPABASE_PUBLISHABLE_KEYS:'{"default":"sb_publishable_test"}',SUPABASE_SECRET_KEYS:JSON.stringify({default:`sb_secret_test_only_long_hash_key_${++salt}`}),VISITOR_SUBMISSIONS_ENABLED:'true'};
+ vi.stubGlobal('Deno',{env:{get:(name:string)=>env[name]}});quota=true;geoFails=false;publishFails=false;
+ remote=vi.fn(async(url:string|URL|Request)=>{
+  const path=String(url);
+  if(path.includes('consume_public_visitor_request'))return Response.json(quota);
+  if(path.includes('publish_public_visitor_message'))return publishFails?Response.json({message:'COOLDOWN',code:'P0001'},{status:400}):Response.json(id);
+  if(path.startsWith('https://ipapi.co/'))return geoFails?new Response('',{status:503}):Response.json({ip,country_code:'PK',country_name:'Ignored provider name'});
+  if(path.includes('visitor_photo_cleanup'))return new Response(null,{status:204});
+  if(path.includes('/storage/v1/object/'))return Response.json({Key:'test'});
+  if(path.includes('api.telegram.org'))throw new Error('offline');
+  throw new Error('Unexpected external request');
+ });vi.stubGlobal('fetch',remote);
 });
-afterEach(() => { vi.unstubAllGlobals(); });
-function request(bearer: string | null = token, fields: Record<string, string> = {}) {
-  const body = new FormData();
-  for (const [key, value] of Object.entries({ name: 'Visitor', text: 'Hello', turnstile_token: 'fresh-token', ...fields })) body.append(key, value);
-  return new Request(`${projectUrl}/functions/v1/submit-visitor-message`, { method: 'POST',
-    headers: { Origin: origin, apikey: 'sb_publishable_audit_only', ...(bearer ? { Authorization: `Bearer ${bearer}` } : {}) }, body });
+afterEach(()=>vi.unstubAllGlobals());
+function request(fields:Record<string,string>={},headers:Record<string,string>={}){
+ const body=new FormData();for(const [key,value]of Object.entries({name:'Visitor',text:'Hello',visitor_id:id,website:'',...fields}))body.append(key,value);
+ return new Request('https://example.test/functions/v1/submit-visitor-message',{method:'POST',headers:{Origin:origin,apikey:'sb_publishable_test','cf-connecting-ip':ip,...headers},body});
 }
-describe('Edge handler and actual SDK authentication (isolated)', () => {
-  it('answers Pages preflight without authentication and with an exact origin', async () => {
-    const response = await edge.fetch(new Request(`${projectUrl}/functions/v1/submit-visitor-message`, { method: 'OPTIONS', headers: { Origin: origin } }));
-    expect(response.status).toBe(204); expect(response.headers.get('access-control-allow-origin')).toBe(origin);
-    expect(remote).not.toHaveBeenCalled();
-  });
-  it.each([null, 'sb_publishable_audit_only', 'invalid-token'])('rejects missing/API-key/malformed bearer %s', async (bearer) => {
-    const response = await edge.fetch(request(bearer)); expect(response.status).toBe(401);
-    expect(remote).not.toHaveBeenCalled();
-  });
-  it('rejects expired or incorrectly signed JWTs before the business handler', async () => {
-    for (const bad of [expired, tampered]) expect((await edge.fetch(request(bad))).status).toBe(401);
-    expect(remote).not.toHaveBeenCalled();
-  });
-  it('accepts a valid anonymous user JWT but enforces the independent server switch', async () => {
-    const response = await edge.fetch(request()); expect(response.status).toBe(503);
-    expect(await response.json()).toEqual({ error: 'Submissions not enabled yet' }); expect(remote).not.toHaveBeenCalled();
-  });
-  it('fails closed without the CAPTCHA secret', async () => {
-    env.VISITOR_SUBMISSIONS_ENABLED = 'true'; delete env.TURNSTILE_SECRET_KEY;
-    expect((await edge.fetch(request())).status).toBe(503); expect(remote).not.toHaveBeenCalled();
-  });
-  it.each([{ name: '' }, { name: 'x'.repeat(81) }, { text: 'x'.repeat(301) }, { name: 'a\u0000b' }, { extra: 'unknown' }])('rejects invalid multipart %j before remote requests', async (fields) => {
-    env.VISITOR_SUBMISSIONS_ENABLED = 'true';
-    expect((await edge.fetch(request(token, fields))).status).toBe(400); expect(remote).not.toHaveBeenCalled();
-  });
-  it('rejects missing/invalid CAPTCHA without calling the publishing RPC', async () => {
-    env.VISITOR_SUBMISSIONS_ENABLED = 'true';
-    expect((await edge.fetch(request(token, { turnstile_token: '' }))).status).toBe(403);
-    remote.mockResolvedValue(Response.json({ success: false, 'error-codes': ['timeout-or-duplicate'] }));
-    expect((await edge.fetch(request())).status).toBe(403); expect(remote).toHaveBeenCalledTimes(1);
-  });
-  it('bounds streamed request bodies', async () => {
-    env.VISITOR_SUBMISSIONS_ENABLED = 'true';
-    expect((await edge.fetch(request(token, { text: 'x'.repeat(110_000) }))).status).toBe(413);
-    expect(remote).not.toHaveBeenCalled();
-  });
-  it('verifies CAPTCHA before invoking exactly one atomic publishing RPC', async () => {
-    env.VISITOR_SUBMISSIONS_ENABLED = 'true';
-    const response = await edge.fetch(request()); expect(response.status).toBe(201);
-    expect(await response.json()).toEqual({ success: true, message_id: userId });
-    expect(remote).toHaveBeenCalledTimes(2);
-    expect(String(remote.mock.calls[0][0])).toContain('siteverify');
-    expect(String(remote.mock.calls[1][0])).toContain('publish_visitor_message');
-  });
-  it('maps RPC cooldown without leaking database details', async () => {
-    env.VISITOR_SUBMISSIONS_ENABLED = 'true';
-    remote.mockImplementation(async (url) => String(url).includes('siteverify') ? Response.json({ success: true, hostname: 'shehroz-codes.github.io', action: 'visitor-message' })
-      : Response.json({ message: 'COOLDOWN private database detail', code: 'P0001' }, { status: 400 }));
-    const response = await edge.fetch(request()); expect(response.status).toBe(429);
-    expect(await response.json()).toEqual({ error: 'Please wait 10 minutes', code: 'COOLDOWN' });
-  });
-  it.each([
-    { success: true, hostname: 'unrelated.example', action: 'visitor-message' },
-    { success: true, hostname: 'shehroz-codes.github.io', action: 'unrelated' },
-  ])('rejects CAPTCHA with mismatched hostname/action', async (result) => {
-    env.VISITOR_SUBMISSIONS_ENABLED = 'true'; remote.mockResolvedValue(Response.json(result));
-    expect((await edge.fetch(request())).status).toBe(403); expect(remote).toHaveBeenCalledTimes(1);
-  });
-  it('rejects legacy JWTs without a signing-key ID using the actual SDK', async () => {
-    const legacy = await new SignJWT({ sub: userId, role: 'authenticated' })
-      .setProtectedHeader({ alg: 'HS256' }).setExpirationTime('1h').sign(new Uint8Array(32).fill(1));
-    expect((await edge.fetch(request(legacy))).status).toBe(401); expect(remote).not.toHaveBeenCalled();
-  });
-  it('enforces the server photo gate even if browser controls are bypassed', async () => {
-    env.VISITOR_SUBMISSIONS_ENABLED = 'true';
-    const req = request(); const form = await req.formData();
-    form.append('photo', new File(['invalid'], 'test.webp', { type: 'image/webp' }));
-    const headers = new Headers(req.headers); headers.delete('content-type');
-    expect((await edge.fetch(new Request(req.url, { method: 'POST', headers, body: form }))).status).toBe(400);
-    expect(remote).not.toHaveBeenCalled();
-  });
-  it('rejects duplicate multipart fields', async () => {
-    env.VISITOR_SUBMISSIONS_ENABLED = 'true';
-    const req = request(); const form = await req.formData(); form.append('name', 'duplicate');
-    const headers = new Headers(req.headers); headers.delete('content-type');
-    expect((await edge.fetch(new Request(req.url, { method: 'POST', headers, body: form }))).status).toBe(400);
-    expect(remote).not.toHaveBeenCalled();
-  });
+it('publishes without JWT, CAPTCHA secret/token or anonymous Auth',async()=>{
+ const response=await edge.fetch(request());expect(response.status).toBe(201);expect((await response.json()).message_id).toBe(id);
+ expect(remote.mock.calls.some(([url])=>/turnstile|siteverify|\/auth\//.test(String(url)))).toBe(false);
+ const body=JSON.parse(remote.mock.calls.find(([url])=>String(url).includes('publish_public_visitor_message'))![1].body);
+ expect(body).toMatchObject({p_name:'Visitor',p_text:'Hello',p_country_code:'PK',p_country_name:'Pakistan'});
+ expect(body.p_visitor_hash).toMatch(/^[a-f0-9]{64}$/);expect(JSON.stringify(body)).not.toContain(ip);
 });
-
-function photoRequest() {
-  const req = request();
-  return req.formData().then(form => {
-    form.append('photo', new File([photoBytes], 'visitor.webp', { type: 'image/webp' }));
-    const headers = new Headers(req.headers); headers.delete('content-type');
-    return new Request(req.url, { method: 'POST', headers, body: form });
-  });
-}
-it('uploads only a decoded thumbnail, queues recovery before upload and publishes immediately', async () => {
-  env.VISITOR_SUBMISSIONS_ENABLED = 'true';
-  remote.mockImplementation(async (url) => {
-    const path = String(url);
-    if (path.includes('siteverify')) return Response.json({ success: true, hostname: 'shehroz-codes.github.io', action: 'visitor-message' });
-    if (path.includes('publish_visitor_message')) return Response.json(userId);
-    if (path.includes('/storage/v1/object/')) return Response.json({ Key: 'test' });
-    if (path.includes('visitor_photo_cleanup')) return new Response(null, { status: 204 });
-    throw new Error('Unexpected request');
-  });
-  expect((await edge.fetch(await photoRequest())).status).toBe(201);
-  const paths = remote.mock.calls.map(call => String(call[0]));
-  expect(paths.findIndex(p => p.includes('visitor_photo_cleanup'))).toBeLessThan(paths.findIndex(p => p.includes('/storage/')));
-  expect(paths.some(p => p.includes('publish_visitor_message'))).toBe(true);
+it('rejects invalid keys and forbidden origins before remote calls',async()=>{
+ expect((await edge.fetch(request({},{apikey:'wrong'}))).status).toBe(401);
+ expect((await edge.fetch(request({},{Origin:'https://attacker.test'}))).status).toBe(403);expect(remote).not.toHaveBeenCalled();
 });
-it('removes an uploaded thumbnail when atomic publication fails', async () => {
-  env.VISITOR_SUBMISSIONS_ENABLED = 'true';
-  remote.mockImplementation(async (url) => {
-    const path = String(url);
-    if (path.includes('siteverify')) return Response.json({ success: true, hostname: 'shehroz-codes.github.io', action: 'visitor-message' });
-    if (path.includes('publish_visitor_message')) return Response.json({ message: 'COOLDOWN', code: 'P0001' }, { status: 400 });
-    if (path.includes('/storage/v1/object/')) return Response.json({ Key: 'test' });
-    if (path.includes('visitor_photo_cleanup')) return new Response(null, { status: 204 });
-    throw new Error('Unexpected request');
-  });
-  expect((await edge.fetch(await photoRequest())).status).toBe(429);
-  expect(remote.mock.calls.filter(call => String(call[0]).includes('/storage/v1/object/')).length).toBe(2);
+it('requires platform IP metadata and ignores forwarded IP fallback',async()=>{
+ expect((await edge.fetch(request({},{'cf-connecting-ip':'','x-forwarded-for':ip,'cf-ipcountry':'PK'}))).status).toBe(503);expect(remote).not.toHaveBeenCalled();
 });
-it('keeps a successful public publication successful when Telegram transport fails', async () => {
-  env.VISITOR_SUBMISSIONS_ENABLED = 'true'; env.TELEGRAM_BOT_TOKEN = 'fake-token'; env.TELEGRAM_CHAT_ID = 'fake-chat';
-  const implementation = remote.getMockImplementation()!;
-  remote.mockImplementation(async (url) => {
-    if (String(url).includes('api.telegram.org')) throw new Error('offline');
-    return implementation(url);
-  });
-  expect((await edge.fetch(request())).status).toBe(201);
-  delete env.TELEGRAM_BOT_TOKEN; delete env.TELEGRAM_CHAT_ID;
+it.each([{name:''},{name:'x'.repeat(81)},{text:'x'.repeat(301)},{text:'a\u0000b'},{website:'spam'},{visitor_id:'fake'},{country_code:'US'},{turnstile_token:'obsolete'}])('rejects invalid/client-controlled fields %j',async fields=>{
+ expect((await edge.fetch(request(fields))).status).toBe(400);expect(remote.mock.calls.some(([url])=>String(url).includes('publish_public_visitor_message'))).toBe(false);
 });
-it('rejects a forged Origin before external calls', async () => {
-  env.VISITOR_SUBMISSIONS_ENABLED = 'true';
-  const req = request(); const headers = new Headers(req.headers); headers.set('origin', 'https://attacker.test');
-  expect((await edge.fetch(new Request(req, { headers }))).status).toBe(403);
-  expect(remote).not.toHaveBeenCalled();
+it('preserves write gate and applies quota before expensive work',async()=>{
+ env.VISITOR_SUBMISSIONS_ENABLED='false';expect((await edge.fetch(request())).status).toBe(503);expect(remote).not.toHaveBeenCalled();
+ env.VISITOR_SUBMISSIONS_ENABLED='true';quota=false;const response=await edge.fetch(request());expect(response.status).toBe(429);expect((await response.json()).code).toBe('RATE_LIMIT');expect(remote).toHaveBeenCalledTimes(1);
 });
-it.each(['https://shehroz-codes.github.io','https://shehroz.my.id'])('publishes with real SDK JWT verification and correct CAPTCHA hostname for %s (remote services mocked)',async allowed=>{
- env.VISITOR_SUBMISSIONS_ENABLED='true';
- remote.mockImplementation(async url=>String(url).includes('siteverify')
-  ?Response.json({success:true,hostname:new URL(allowed).hostname,action:'visitor-message'}):Response.json(userId));
- const req=request();const headers=new Headers(req.headers);headers.set('Origin',allowed);
- const response=await edge.fetch(new Request(req,{headers}));expect(response.status).toBe(201);expect(response.headers.get('access-control-allow-origin')).toBe(allowed);
+it('publishes when lookup fails and preserves atomic cooldown rejection',async()=>{
+ geoFails=true;expect((await edge.fetch(request())).status).toBe(201);
+ const body=JSON.parse(remote.mock.calls.find(([url])=>String(url).includes('publish_public_visitor_message'))![1].body);expect(body.p_country_code).toBeNull();expect(body.p_country_name).toBeNull();
+ publishFails=true;expect((await edge.fetch(request())).status).toBe(429);
 });
-it('rejects a CAPTCHA issued for the other allowed hostname',async()=>{
- env.VISITOR_SUBMISSIONS_ENABLED='true';remote.mockResolvedValue(Response.json({success:true,hostname:'shehroz.my.id',action:'visitor-message'}));
- expect((await edge.fetch(request())).status).toBe(403);expect(remote).toHaveBeenCalledTimes(1);
+it('ignores forged country and forwarding headers without leaking server keys to lookup',async()=>{
+ expect((await edge.fetch(request({},{'cf-ipcountry':'US','x-country-code':'US','x-forwarded-for':'8.8.8.8'}))).status).toBe(201);
+ const geo=remote.mock.calls.find(([url])=>String(url).includes('ipapi.co'))!;expect(geo[0]).toBe(`https://ipapi.co/${ip}/json/`);expect(geo[1].headers).toEqual({Accept:'application/json'});
 });
-it('returns exact custom-domain CORS on invalid JWTs without admitting the request',async()=>{
- const req=request('invalid-token');const headers=new Headers(req.headers);headers.set('Origin','https://shehroz.my.id');
- const response=await edge.fetch(new Request(req,{headers}));expect(response.status).toBe(401);expect(response.headers.get('access-control-allow-origin')).toBe('https://shehroz.my.id');expect(remote).not.toHaveBeenCalled();
+it('country endpoint returns canonical country without a raw IP',async()=>{
+ const response=await location.fetch(new Request('https://example.test/functions/v1/visitor-country',{headers:{Origin:origin,apikey:'sb_publishable_test','cf-connecting-ip':ip,'cf-ipcountry':'US'}}));expect(await response.json()).toEqual({code:'PK',name:'Pakistan'});
+});
+it('uses a changed observed VPN exit IP country at submission, not a prior client country',async()=>{
+ const original=remote.getMockImplementation()!;
+ remote.mockImplementation(async(url,options)=>String(url).startsWith('https://ipapi.co/')?Response.json({ip:'203.0.113.6',country_code:'NL'}):original(url,options));
+ expect((await edge.fetch(request({},{'cf-connecting-ip':'203.0.113.6','cf-ipcountry':'US'}))).status).toBe(201);
+ const body=JSON.parse(remote.mock.calls.find(([url])=>String(url).includes('publish_public_visitor_message'))![1].body);expect(body.p_country_code).toBe('NL');expect(body.p_country_name).toBe('Netherlands');
+});
+it('enforces streamed body bounds',async()=>{
+ const req=request();const headers=new Headers(req.headers);headers.set('content-type','multipart/form-data; boundary=x');expect((await edge.fetch(new Request(req.url,{method:'POST',headers,body:new Uint8Array(110*1024)}))).status).toBe(413);
+});
+it('decodes photos, queues cleanup before upload and cleans up failed publication',async()=>{
+ async function withPhoto(){const req=request(),body=await req.formData();body.append('photo',new File([photo],'photo.webp',{type:'image/webp'}));const headers=new Headers(req.headers);headers.delete('content-type');return new Request(req.url,{method:'POST',headers,body});}
+ expect((await edge.fetch(await withPhoto())).status).toBe(201);const paths=remote.mock.calls.map(([url])=>String(url));expect(paths.findIndex(p=>p.includes('visitor_photo_cleanup'))).toBeLessThan(paths.findIndex(p=>p.includes('/storage/')));
+ publishFails=true;expect((await edge.fetch(await withPhoto())).status).toBe(429);expect(remote.mock.calls.some(([url,options])=>String(url).includes('/storage/')&&options.method==='DELETE')).toBe(true);
+});
+it('rejects malformed photo content',async()=>{
+ const req=request(),body=await req.formData();body.append('photo',new File(['invalid'],'photo.webp',{type:'image/webp'}));const headers=new Headers(req.headers);headers.delete('content-type');expect((await edge.fetch(new Request(req.url,{method:'POST',headers,body}))).status).toBe(400);
+});
+it('notification transport cannot reverse committed publication',async()=>{
+ env.TELEGRAM_BOT_TOKEN='test-only';env.TELEGRAM_CHAT_ID='test-only';expect((await edge.fetch(request())).status).toBe(201);
 });

@@ -1,0 +1,45 @@
+
+> shehroz-my-id@0.0.0 build
+> npm run typecheck && vite build
+
+
+> shehroz-my-id@0.0.0 typecheck
+> tsc -p tsconfig.app.json && tsc -p tsconfig.node.json
+
+vite v8.3.8 building client environment for production...
+transforming...
+✓ 2715 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                                0.91 kB │ gzip:   0.40 kB
+dist/assets/portrait-backdrop-DMgJuG56.svg                     5.79 kB │ gzip:   1.56 kB
+dist/assets/antigravity-BprmMNl6.svg                           7.94 kB │ gzip:   2.08 kB
+dist/assets/project-4-BaWxgIPA.webp                           16.77 kB
+dist/assets/project-1-PnDUDOU4.webp                           21.25 kB
+dist/assets/space-grotesk-latin-wght-normal-BhU9QXUp.woff2    22.28 kB
+dist/assets/letter-1-D9y932RL.webp                            22.64 kB
+dist/assets/certificate-1-BbmErhr2.webp                       30.21 kB
+dist/assets/project-2-BfQntg9g.webp                           31.86 kB
+dist/assets/letter-2-CrfYAPpF.webp                            34.57 kB
+dist/assets/project-3-Bl5rVB-l.webp                           37.68 kB
+dist/assets/certificate-2-Qp3orBNN.webp                       39.31 kB
+dist/assets/jetbrains-mono-latin-wght-normal-B9CIFXIH.woff2   40.40 kB
+dist/assets/inter-latin-wght-normal-Dx4kXJAl.woff2            48.25 kB
+dist/assets/experience-sample-CFiedodQ.pdf                    51.06 kB
+dist/assets/certificate-sample-BsKjAIOd.pdf                   59.77 kB
+dist/assets/anime-portrait-optimized-eKhak6Wp.png            789.39 kB
+dist/assets/profile-C2v95vqH.webp                            918.91 kB
+dist/assets/Lanyard-BUJBlfLP.css                               0.59 kB │ gzip:   0.32 kB
+dist/assets/RotatingText-B7BL-bgu.css                          0.62 kB │ gzip:   0.30 kB
+dist/assets/index-DZJFoyX4.css                               118.78 kB │ gzip:  25.65 kB
+dist/assets/RotatingText-SFu57A93.js                         164.35 kB │ gzip:  55.59 kB
+dist/assets/supabaseBackend-Cw-RykMo.js                      222.30 kB │ gzip:  57.71 kB
+dist/assets/index-CxnZPv_5.js                                505.43 kB │ gzip: 164.45 kB
+dist/assets/Lanyard-B92JP_wu.js                              594.44 kB │ gzip: 152.68 kB
+
+[plugin builtin:vite-reporter]
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 2.12s

@@ -108,19 +108,21 @@
 .contact-section .contact__columns {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  align-items: start;
+  align-items: stretch;
   gap: 24px;
 }
 .contact-section .contact__grid-row {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  align-items: start;
+  align-items: stretch;
   gap: 24px;
 }
 @media (min-width: 768px) {
   .contact-section .contact__columns {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+  .contact-section .contact__grid-row { grid-template-rows: auto minmax(0, 1fr); }
+  .contact-section .feed-scroll-container { flex: 1; min-height: 0; }
 }
 @media (max-width: 767px) {
   .contact-section .contact__columns,
@@ -637,13 +639,13 @@
   font-weight: 600;
 }
 
-/* Country Detection and Override Section */
+/* Automatic country status; no manual override. */
 .contact-section .composer__country-section {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  padding: 10px 12px;
-  margin-bottom: 12px;
+  padding: 6px 10px;
+  margin-bottom: 8px;
   border-radius: var(--r-sm);
   background: rgba(91, 33, 240, 0.06);
   border: 1px solid rgba(167, 139, 250, 0.16);
@@ -844,6 +846,8 @@
 .contact-section .feed-card {
   display: flex;
   flex-direction: column;
+  min-width: 0;
+  min-height: 0;
 }
 .contact-section .feed-card__head {
   display: flex;
@@ -894,8 +898,21 @@
 }
 @media (max-width: 767px) {
   .contact-section .feed-scroll-container {
-    max-height: none;
-    overflow-y: visible;
+    max-height: min(36rem, 75svh);
+    overflow-y: auto;
+  }
+}
+
+.contact-section .msg__body > .msg__country { margin-top: 8px; }
+
+/* Keep the private widget's 300px logical viewport intact on narrow phones.
+   Zoom reflows the host and scales its iframe together; nothing is clipped and
+   the original Turnstile options, callbacks and verification remain unchanged. */
+.contact-section .private-card form { container-type: inline-size; }
+@container (max-width: 299px) {
+  .contact-section .private-card #cf-turnstile {
+    zoom: .78;
+    zoom: calc(100cqw / 300px);
   }
 }
 

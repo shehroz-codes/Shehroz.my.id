@@ -10,7 +10,6 @@ export interface WallMessage {
   isDemo: boolean;
 }
 export interface PublicSubmission {
-  turnstileToken?: string;
   name: string;
   text: string;
   photo: File | null;
@@ -33,7 +32,6 @@ export interface Backend {
   submissionsEnabled?: boolean;
   photosEnabled?: boolean;
   countryAvailable?: boolean;
-  prepareSession?(captchaToken: string): Promise<boolean>;
   subscribe(limit: number, update: (feed: Feed) => void, error: (message: string) => void): () => void;
   submitPublic(input: PublicSubmission): Promise<{ status: 'published' | 'pending'; cooldownUntil: number }>;
   submitPrivate(input: PrivateSubmission): Promise<void>;

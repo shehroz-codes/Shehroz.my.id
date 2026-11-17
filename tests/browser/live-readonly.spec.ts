@@ -7,6 +7,7 @@ for (const width of [320, 390, 768, 1440]) {
     await page.route('https://lctzkigzaudjiotopzye.supabase.co/**', async (route) => {
       requests.push(route.request().url());
       expect(route.request().method()).toBe('GET');
+      if (route.request().url().includes('/functions/v1/visitor-country')) return route.fulfill({ json: { code: 'NL', name: 'Netherlands' } });
       await route.fulfill({ json: [{ id: '00000000-0000-0000-0000-000000000001', name: 'Visible Visitor',
         text: '<img src=x onerror=alert(1)>', country_code: null, country_name: null, created_at: '2026-11-13T00:00:00Z' }] });
     });
@@ -31,7 +32,7 @@ for (const width of [320, 390, 768, 1440]) {
       disabled.forEach((node) => node.setAttribute('disabled', ''));
     });
     await expect(page.getByRole('button', { name: 'Post Message' })).toBeDisabled();
-    expect(requests.every((url) => url.includes('/rest/v1/visitor_messages'))).toBe(true);
+    expect(requests.every((url) => url.includes('/rest/v1/visitor_messages') || url.includes('/functions/v1/visitor-country'))).toBe(true);
     expect(requests[0]).not.toMatch(/photo_path|visitor_id/);
     const audit = await new AxeBuilder({ page }).include('.contact-section').withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
     expect(audit.violations).toEqual([]);

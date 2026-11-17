@@ -1,0 +1,16 @@
+
+> shehroz-my-id@0.0.0 test
+> vitest run
+
+
+ RUN  v5.1.0 /workspace/Shehroz-contact-final
+
+
+ Test Files  13 passed (13)
+      Tests  104 passed (104)
+   Start at  07:27:21
+   Duration  9.95s (environment 64%, tests 19%, import 15%, transform 2%, worker 1%)
+
+Environment  jsdom was created 13 times · 5.52s total, 64% of tracked time
+             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)
+             learn more: https://vitest.dev/guide/improving-performance#test-environments

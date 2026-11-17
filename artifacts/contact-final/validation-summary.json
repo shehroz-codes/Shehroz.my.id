@@ -1,0 +1,146 @@
+{
+  "baseline": "0f85121976961d705774249a0aea1b80a6dba214",
+  "branch": "fix/contact-final-three",
+  "deployed": false,
+  "typecheck": {
+    "frontend": "PASS",
+    "edge": "PASS with temporary Deno env/readFile declarations and installed package types"
+  },
+  "build": "PASS",
+  "unitTests": {
+    "passed": 104,
+    "files": 13
+  },
+  "databaseTests": {
+    "type": "real disposable PostgreSQL, no hosted writes",
+    "result": "PASS",
+    "coverage": [
+      "RLS and restricted RPC/table grants",
+      "network quotas",
+      "ten-minute device and network cooldowns",
+      "concurrent public publication",
+      "photo cleanup/private inbox regressions",
+      "country persistence across connections"
+    ]
+  },
+  "browser": {
+    "contactUniquePassed": 6,
+    "existingUniquePassed": 8,
+    "mode": "all remote API/CAPTCHA services mocked",
+    "finalContactResults": [
+      {
+        "file": "contact-final.spec.ts",
+        "title": "two columns, compact public form and bounded message list at 320px (services mocked)",
+        "status": "passed"
+      },
+      {
+        "file": "contact-final.spec.ts",
+        "title": "two columns, compact public form and bounded message list at 390px (services mocked)",
+        "status": "passed"
+      },
+      {
+        "file": "contact-final.spec.ts",
+        "title": "two columns, compact public form and bounded message list at 768px (services mocked)",
+        "status": "passed"
+      },
+      {
+        "file": "contact-final.spec.ts",
+        "title": "two columns, compact public form and bounded message list at 1440px (services mocked)",
+        "status": "passed"
+      },
+      {
+        "file": "contact-final.spec.ts",
+        "title": "public post and refresh work without Auth or verification; private CAPTCHA remains mandatory (mocked)",
+        "status": "passed"
+      },
+      {
+        "file": "contact-final.spec.ts",
+        "title": "country failure never prevents a public post (mocked)",
+        "status": "passed"
+      }
+    ],
+    "finalExistingResults": [
+      {
+        "file": "contact.spec.ts",
+        "title": "preview Contact remains usable at 390px",
+        "status": "passed"
+      },
+      {
+        "file": "contact.spec.ts",
+        "title": "preview Contact remains usable at 1440px",
+        "status": "passed"
+      },
+      {
+        "file": "contact.spec.ts",
+        "title": "photo selection uses the real browser decoder and WebP encoder, rejects invalid files, and preserves a draft",
+        "status": "passed"
+      },
+      {
+        "file": "live-readonly.spec.ts",
+        "title": "live reads with disabled writes and Contact accessibility at 320px (API mocked)",
+        "status": "passed"
+      },
+      {
+        "file": "live-readonly.spec.ts",
+        "title": "live reads with disabled writes and Contact accessibility at 390px (API mocked)",
+        "status": "passed"
+      },
+      {
+        "file": "live-readonly.spec.ts",
+        "title": "live reads with disabled writes and Contact accessibility at 768px (API mocked)",
+        "status": "passed"
+      },
+      {
+        "file": "live-readonly.spec.ts",
+        "title": "live reads with disabled writes and Contact accessibility at 1440px (API mocked)",
+        "status": "passed"
+      },
+      {
+        "file": "live-readonly.spec.ts",
+        "title": "live API failure stays an error without switching to local preview",
+        "status": "passed"
+      }
+    ],
+    "releaseContactRun": "6/6 PASS, single fresh run",
+    "releaseExistingRun": "8/8 PASS, single fresh run"
+  },
+  "screenshots": {
+    "widths": [
+      320,
+      390,
+      768,
+      1440
+    ],
+    "mode": "reduced motion, synthetic messages/private CAPTCHA placeholder",
+    "accessibilityAndOverflow": "PASS"
+  },
+  "liveVerification": {
+    "performed": "read-only schema/grants/advisor inspection",
+    "publicSubmissions": "not run: deployment approved, but proxy denies production HTTP access",
+    "vpn": "simulated exit metadata only; no live VPN test",
+    "trustedIpOverwrite": "unverified live; release gate",
+    "hmacRuntimeConfig": "unverified live; release gate"
+  },
+  "privateProtectedFiles": [
+    "src/sections/components/contact/ContactForm.tsx",
+    "src/lib/supabase.ts",
+    "supabase/functions/submit-private-message/index.ts",
+    "supabase/functions/_shared/contact.ts"
+  ],
+  "performanceWorktreeUnchangedFilesChecked": 32,
+  "releaseValidationDate": "2026-11-17 Asia/Karachi",
+  "releaseState": "All local release checks passed; production activation blocked by network access and unverified hosted IP/HMAC configuration",
+  "production": {
+    "main": "0f85121976961d705774249a0aea1b80a6dba214",
+    "pagesRun": "https://github.com/shehroz-codes/Shehroz.my.id/actions/runs/43889388155",
+    "pagesConclusion": "success for baseline, no new release",
+    "functions": {
+      "submit-visitor-message": 11,
+      "submit-private-message": 4,
+      "visitor-photo": 4,
+      "manage-visitor-messages": 4,
+      "visitor-country": null
+    },
+    "migrationApplied": false
+  }
+}

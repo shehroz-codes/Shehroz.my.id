@@ -1,0 +1,106 @@
+
+> shehroz-my-id@0.0.0 test:database
+> bash scripts/test-database.sh
+
+PASS: baseline grant regression reproduced
+CREATE EVENT TRIGGER
+CREATE TABLE
+DO
+DROP TABLE
+PASS: execute revocation preserves automatic RLS on new tables
+DO
+SET
+DO
+RESET
+SET
+SET
+DO
+RESET
+SET
+SET
+DO
+RESET
+SET
+       publish_visitor_message
+--------------------------------------
+ 070c8e9f-031d-4fbe-a203-4a954a5ad8c3
+(1 row)
+
+DO
+RESET
+ALTER TABLE
+SET
+DO
+RESET
+DO
+                                           result
+---------------------------------------------------------------------------------------------
+ PASS: grants, RLS, private Storage, anonymous admin isolation, cooldown and atomic rollback
+(1 row)
+
+BEGIN
+CREATE INDEX
+CREATE TABLE
+ALTER TABLE
+REVOKE
+GRANT
+CREATE FUNCTION
+REVOKE
+CREATE TRIGGER
+CREATE TABLE
+CREATE TABLE
+ALTER TABLE
+ALTER TABLE
+REVOKE
+GRANT
+GRANT
+CREATE POLICY
+CREATE FUNCTION
+REVOKE
+GRANT
+COMMIT
+DO
+SET
+       receive_private_message
+--------------------------------------
+ e335e66c-7920-46ab-921b-46d98425cde2
+(1 row)
+
+DO
+RESET
+SET
+SET
+DO
+RESET
+SET
+SET
+DO
+RESET
+SET
+DELETE 1
+DO
+RESET
+PASS: private inbox RLS, service-only writes, atomic cooldown, deletion cleanup queue
+BEGIN
+CREATE TABLE
+ALTER TABLE
+REVOKE
+GRANT
+CREATE INDEX
+CREATE FUNCTION
+CREATE FUNCTION
+REVOKE
+REVOKE
+GRANT
+GRANT
+COMMIT
+DO
+SET
+DO
+RESET
+SET
+DO
+RESET
+PASS: two concurrent publishing requests produced one commit and one cooldown
+PASS: concurrent CAPTCHA-free public requests produced one commit and one cooldown
+PASS: public message and country persist across independent database connections

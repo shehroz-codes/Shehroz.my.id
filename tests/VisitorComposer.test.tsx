@@ -2,20 +2,7 @@ import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/re
 import { afterEach, expect, it, vi } from 'vitest';
 import type { Backend } from '../src/sections/components/contact/types';
 
-const captcha = vi.hoisted(() => ({ reset: vi.fn() }));
-vi.mock('../src/sections/components/contact/config', async (original) => ({
-  ...await original<typeof import('../src/sections/components/contact/config')>(), turnstileSiteKey: 'test-site-key',
-}));
-vi.mock('@marsidev/react-turnstile', async () => {
-  const { useImperativeHandle } = await import('react');
-  return { Turnstile: ({ ref, onSuccess, onExpire, onError }: {
-    ref: import('react').Ref<unknown>; onSuccess: (token: string) => void; onExpire: () => void; onError: () => void;
-  }) => {
-    useImperativeHandle(ref, () => ({ reset: captcha.reset }));
-    return <div><button type="button" onClick={() => onSuccess('fresh-token')}>Verify</button>
-      <button type="button" onClick={onExpire}>Expire</button><button type="button" onClick={onError}>CAPTCHA error</button></div>;
-  } };
-});
+vi.mock('@marsidev/react-turnstile', () => ({ Turnstile: () => { throw new Error('Public form must not mount CAPTCHA'); } }));
 import VisitorComposer from '../src/sections/components/contact/VisitorComposer';
 function backend(): Backend {
   return { mode: 'live', requiresCaptcha: true, submissionsEnabled: true, photosEnabled: false,
@@ -23,22 +10,18 @@ function backend(): Backend {
     submitPrivate: vi.fn(), detectCountry: async () => ({ code: null, name: null }) };
 }
 afterEach(() => { cleanup(); vi.clearAllMocks(); localStorage.clear(); sessionStorage.clear(); });
-it('requires verification, handles expiry/errors, resets after attempts and preserves failed drafts', async () => {
-  const b = backend(); vi.mocked(b.submitPublic).mockRejectedValue(new Error('Security verification failed'));
+it('posts without verification and preserves a draft after a failed submission', async () => {
+  const b = backend(); vi.mocked(b.submitPublic).mockRejectedValue(new Error('Please try later'));
   render(<VisitorComposer backend={b} remaining={0} cooldownLabel="" />);
   const post = screen.getByRole('button', { name: 'Post Message' }) as HTMLButtonElement;
-  expect(post.disabled).toBe(true);
+  expect(post.disabled).toBe(false); expect(screen.queryByText('Verify')).toBeNull();
   fireEvent.change(screen.getByRole('textbox', { name: 'Your name' }), { target: { value: 'Visitor' } });
   fireEvent.change(screen.getByLabelText(/Your message/), { target: { value: 'Hello there' } });
-  fireEvent.click(screen.getByText('Verify')); expect(post.disabled).toBe(false);
-  fireEvent.click(screen.getByText('Expire')); expect(post.disabled).toBe(true);
-  fireEvent.click(screen.getByText('Verify')); fireEvent.click(screen.getByText('CAPTCHA error')); expect(post.disabled).toBe(true);
-  fireEvent.click(screen.getByText('Verify')); fireEvent.click(post);
-  await waitFor(() => expect(screen.getByText('Security verification failed')).toBeTruthy());
-  expect(captcha.reset).toHaveBeenCalledTimes(2);
+  fireEvent.click(post);
+  await waitFor(() => expect(screen.getByText('Please try later')).toBeTruthy());
   expect((screen.getByLabelText(/Your message/) as HTMLTextAreaElement).value).toBe('Hello there');
-  expect(post.disabled).toBe(true);
-  expect(b.submitPublic).toHaveBeenCalledWith(expect.objectContaining({ turnstileToken: 'fresh-token' }));
+  expect(b.submitPublic).toHaveBeenCalledTimes(1);
+  expect(vi.mocked(b.submitPublic).mock.calls[0][0]).not.toHaveProperty('turnstileToken');
 });
 it('leaves submissions and photos disabled at the safety gate', () => {
   render(<VisitorComposer backend={{ ...backend(), submissionsEnabled: false }} remaining={0} cooldownLabel="" />);
@@ -78,17 +61,16 @@ it('keeps drafts editable at the publishing gate and restores them after remount
   expect((screen.getByRole('textbox', { name: /Your message/ }) as HTMLTextAreaElement).value).toBe('My draft');
   expect(b.submitPublic).not.toHaveBeenCalled();
 });
-it('establishes anonymous Auth before enabling Post and requires a fresh CAPTCHA token', async () => {
-  const b = { ...backend(), prepareSession: vi.fn().mockResolvedValueOnce(true).mockResolvedValueOnce(false) };
+it('country failure does not block posting and never offers manual location controls', async () => {
+  const b = { ...backend(), detectCountry: vi.fn().mockRejectedValue(new Error('offline')) };
   render(<VisitorComposer backend={b} remaining={0} cooldownLabel="" />);
-  fireEvent.change(screen.getByRole('textbox', { name: 'Your name' }), { target: { value: 'Visitor' } });
-  fireEvent.change(screen.getByRole('textbox', { name: /Your message/ }), { target: { value: 'One public post' } });
-  fireEvent.click(screen.getByText('Verify'));
-  await waitFor(() => expect(screen.getByText(/Visitor session ready/)).toBeTruthy());
-  expect((screen.getByRole('button', { name: 'Post Message' }) as HTMLButtonElement).disabled).toBe(true);
-  expect(b.submitPublic).not.toHaveBeenCalled();
-  fireEvent.click(screen.getByText('Verify'));
-  await waitFor(() => expect((screen.getByRole('button', { name: 'Post Message' }) as HTMLButtonElement).disabled).toBe(false));
-  fireEvent.click(screen.getByRole('button', { name: 'Post Message' }));
-  await waitFor(() => expect(b.submitPublic).toHaveBeenCalledTimes(1));
+  await waitFor(() => expect(screen.getByText('Country unavailable')).toBeTruthy());
+  expect(screen.queryByRole('combobox')).toBeNull();
+  expect((screen.getByRole('button', { name: 'Post Message' }) as HTMLButtonElement).disabled).toBe(false);
+});
+it('shows the server country without a verification wait', async () => {
+  const b = { ...backend(), detectCountry: async () => ({ code: 'NL', name: 'Netherlands' }) };
+  render(<VisitorComposer backend={b} remaining={0} cooldownLabel="" />);
+  await waitFor(() => expect(screen.getByText('Netherlands · Approximate network location')).toBeTruthy());
+  expect(screen.queryByText('Verify')).toBeNull();
 });
